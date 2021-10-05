@@ -119,3 +119,7 @@ fi
 
 # import colorscheme from wal 
 (cat ~/.cache/wal/sequences &)
+
+# set custom environment variables
+export PF_INFO="ascii title os kernel uptime pkgs shell wm editor memory"
+export EDITOR="nvim"
