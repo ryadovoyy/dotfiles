@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+# start the gnome-keyring-daemon
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK
+
 # add russian keyboard layout and remap caps lock to ctrl
 setxkbmap -layout us,ru -option "grp:win_space_toggle,caps:ctrl_modifier"
 
