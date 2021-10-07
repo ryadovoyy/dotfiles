@@ -10,6 +10,9 @@ setxkbmap -layout us,ru -option "grp:win_space_toggle,caps:ctrl_modifier"
 # disable mouse acceleration
 xinput --set-prop 14 "libinput Accel Profile Enabled" 0, 1 &
 
+# add status monitor
+/home/ryadovoy/.config/suckless/dwm-bar/dwm_bar.sh &
+
 # fix tearing and add transparency support
 picom --experimental-backends &
 
