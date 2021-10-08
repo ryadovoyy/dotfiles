@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+# add scripts folder to PATH
+PATH=$PATH:$HOME/scripts
+export PATH
+
 # start the gnome-keyring-daemon
 eval $(gnome-keyring-daemon --start)
 export SSH_AUTH_SOCK
@@ -11,7 +15,8 @@ setxkbmap -layout us,ru -option "grp:win_space_toggle,caps:ctrl_modifier"
 xinput --set-prop 14 "libinput Accel Profile Enabled" 0, 1 &
 
 # add status monitor
-/home/ryadovoy/.config/suckless/dwm-bar/dwm_bar.sh &
+killbar.sh
+bar.sh &
 
 # fix tearing and add transparency support
 picom --experimental-backends &
