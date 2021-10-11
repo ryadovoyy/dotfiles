@@ -20,3 +20,11 @@ set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
 set undofile
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'dylanaraps/wal.vim'
+
+call plug#end()
+
+colorscheme wal
