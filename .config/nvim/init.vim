@@ -17,6 +17,10 @@ set scrolloff=8
 set incsearch
 set nohlsearch
 set noerrorbells
+set background=dark
+if has('termguicolors')
+  set termguicolors
+endif
 
 set noswapfile
 set nobackup
@@ -35,7 +39,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'machakann/vim-highlightedyank'
-Plug 'dylanaraps/wal.vim'
+" Plug 'dylanaraps/wal.vim'
+Plug 'sainnhe/gruvbox-material'
 
 call plug#end()
 
@@ -50,10 +55,17 @@ nnoremap <leader>gr <Plug>(coc-references)
 " fzf
 nnoremap <C-p> :Files<CR>
 nnoremap <C-g> :GFiles<CR>
-nnoremap <C-f> :Rg!  
+nnoremap <C-f> :Rg! 
 
 " wal
-colorscheme wal
+" colorscheme wal
+
+" gruvbox-material
+let g:gruvbox_material_palette = 'mix'
+let g:gruvbox_material_disable_italic_comment = 1
+colorscheme gruvbox-material
+highlight Normal ctermbg=none guibg=none
+highlight CursorLineNR ctermbg=none guibg=none
 
 " non-plugin remaps
 " toggle between buffers
