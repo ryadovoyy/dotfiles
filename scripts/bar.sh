@@ -19,7 +19,7 @@ dwm_date () {
 }
 
 generate_content () {
-    echo "$(dwm_pulse) 󰧟 $(dwm_date)"
+    echo "$(dwm_pulse)   $(dwm_date)"
 }
 
 while true; do

@@ -123,3 +123,5 @@ fi
 # set custom environment variables
 export PF_INFO="ascii title os kernel uptime pkgs shell wm editor memory"
 export EDITOR="nvim"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
