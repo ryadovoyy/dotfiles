@@ -10,6 +10,7 @@ set exrc
 set hidden
 set updatetime=300
 set shortmess+=c
+set regexpengine=0
 set nowrap
 set guicursor=
 set signcolumn=yes
@@ -44,6 +45,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'machakann/vim-highlightedyank'
 " Plug 'dylanaraps/wal.vim'
 Plug 'sainnhe/gruvbox-material'
+Plug 'HerringtonDarkholme/yats.vim'
 
 call plug#end()
 
@@ -64,6 +66,7 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
+nnoremap <silent> <leader>e :CocList diagnostics<CR>
 
 " fzf
 nnoremap <C-p> :Files<CR>
@@ -81,6 +84,9 @@ let g:gruvbox_material_disable_italic_comment = 1
 colorscheme gruvbox-material
 
 " non-plugin remaps
+" save
+nnoremap <silent> <leader>s :w<CR>
+
 " clipboard
 nnoremap <leader>y "+y
 nnoremap <leader>p "+p
