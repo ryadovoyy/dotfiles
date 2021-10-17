@@ -129,7 +129,6 @@ export FZF_CTRL_T_COMMAND="find . -path '*/.git/*' -prune -o -printf '%P\\n'"
 export FZF_ALT_C_COMMAND="$FZF_CTRL_T_COMMAND"
 export PF_INFO="ascii title os kernel uptime pkgs shell wm editor memory"
 export EDITOR="nvim"
-export BAT_THEME="base16"
 
 # add fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

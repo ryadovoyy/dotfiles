@@ -44,7 +44,8 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'machakann/vim-highlightedyank'
 " Plug 'dylanaraps/wal.vim'
-Plug 'sainnhe/gruvbox-material'
+" Plug 'sainnhe/gruvbox-material'
+Plug 'axvr/photon.vim'
 Plug 'HerringtonDarkholme/yats.vim'
 
 call plug#end()
@@ -78,10 +79,21 @@ nnoremap <C-f> :Rg
 " colorscheme wal
 
 " gruvbox-material
-let g:gruvbox_material_palette = 'mix'
-let g:gruvbox_material_transparent_background = 1
-let g:gruvbox_material_disable_italic_comment = 1
-colorscheme gruvbox-material
+" let g:gruvbox_material_palette = 'mix'
+" let g:gruvbox_material_transparent_background = 1
+" let g:gruvbox_material_disable_italic_comment = 1
+" colorscheme gruvbox-material
+
+" photon
+colorscheme photon
+hi Normal guibg=none
+hi CursorLineNR guibg=none
+hi CocErrorSign guifg=#d75f5f
+hi CocErrorFloat guifg=#d75f5f
+hi CocWarningSign guifg=#d7af5f
+hi CocWarningFloat guifg=#d7af5f
+hi CocInfoSign guifg=#d7af5f
+hi CocInfoFloat guifg=#d7af5f
 
 " non-plugin remaps
 " save
