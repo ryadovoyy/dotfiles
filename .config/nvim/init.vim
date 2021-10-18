@@ -87,13 +87,17 @@ nnoremap <C-f> :Rg
 " photon
 colorscheme photon
 hi Normal guibg=none
+hi Error guifg=#d75f5f
 hi CursorLineNR guibg=none
+hi IncSearch guibg=#767676
+hi MatchParen guifg=#af87d7 gui=none
+hi SpellBad guifg=#d75f5f
 hi CocErrorSign guifg=#d75f5f
 hi CocErrorFloat guifg=#d75f5f
-hi CocWarningSign guifg=#d7af5f
-hi CocWarningFloat guifg=#d7af5f
-hi CocInfoSign guifg=#d7af5f
-hi CocInfoFloat guifg=#d7af5f
+hi CocWarningSign guifg=#af87d7
+hi CocWarningFloat guifg=#af87d7
+hi CocInfoSign guifg=#af87d7
+hi CocInfoFloat guifg=#af87d7
 
 " non-plugin remaps
 " save

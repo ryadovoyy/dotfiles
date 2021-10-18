@@ -127,6 +127,12 @@ fi
 # set custom environment variables
 export FZF_CTRL_T_COMMAND="find . -path '*/.git/*' -prune -o -printf '%P\\n'"
 export FZF_ALT_C_COMMAND="$FZF_CTRL_T_COMMAND"
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
+    --color=fg:#c6c6c6,hl:#af87d7
+    --color=fg+:#c6c6c6,bg+:#303030,hl+:#af87d7
+    --color=info:#767676,prompt:#af87d7,pointer:#af87d7
+    --color=marker:#767676,spinner:#767676,header:#767676
+"
 export PF_INFO="ascii title os kernel uptime pkgs shell wm editor memory"
 export EDITOR="nvim"
 
