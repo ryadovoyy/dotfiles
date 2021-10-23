@@ -41,6 +41,7 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'machakann/vim-highlightedyank'
 " Plug 'dylanaraps/wal.vim'
@@ -75,6 +76,10 @@ nnoremap <C-g> :GFiles<CR>
 nnoremap <C-b> :Buffers<CR>
 nnoremap <C-f> :Rg 
 
+" vim-gitgutter
+let g:gitgutter_map_keys = 0
+nmap <leader>hp <Plug>(GitGutterPreviewHunk)
+
 " wal
 " colorscheme wal
 
@@ -98,6 +103,11 @@ hi CocWarningSign guifg=#af87d7
 hi CocWarningFloat guifg=#af87d7
 hi CocInfoSign guifg=#af87d7
 hi CocInfoFloat guifg=#af87d7
+hi GitGutterAdd guifg=#c6c6c6
+hi GitGutterChange guifg=#af87d7
+hi GitGutterDelete guifg=#d75f5f
+hi diffAdded guifg=#c6c6c6
+hi diffRemoved guifg=#d75f5f
 
 " non-plugin remaps
 " save
