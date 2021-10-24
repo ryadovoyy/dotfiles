@@ -14,6 +14,9 @@ setxkbmap -layout us,ru -option "grp:win_space_toggle,caps:ctrl_modifier"
 # disable mouse acceleration
 xinput --set-prop 14 "libinput Accel Profile Enabled" 0, 1 &
 
+# start automounter for removable media
+udiskie -N &
+
 # add status monitor
 killbar.sh
 bar.sh &
