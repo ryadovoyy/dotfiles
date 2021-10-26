@@ -46,7 +46,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'machakann/vim-highlightedyank'
 " Plug 'dylanaraps/wal.vim'
 " Plug 'sainnhe/gruvbox-material'
-Plug 'axvr/photon.vim'
+" Plug 'axvr/photon.vim'
+Plug 'arzg/vim-substrata'
 Plug 'HerringtonDarkholme/yats.vim'
 
 call plug#end()
@@ -90,24 +91,40 @@ nmap <leader>hp <Plug>(GitGutterPreviewHunk)
 " colorscheme gruvbox-material
 
 " photon
-colorscheme photon
+" colorscheme photon
+" hi Normal guibg=none
+" hi Error guifg=#d75f5f
+" hi CursorLineNR guibg=none
+" hi IncSearch guibg=#767676
+" hi MatchParen guifg=#af87d7 gui=none
+" hi SpellBad guifg=#d75f5f
+" hi CocErrorSign guifg=#d75f5f
+" hi CocErrorFloat guifg=#d75f5f
+" hi CocWarningSign guifg=#af87d7
+" hi CocWarningFloat guifg=#af87d7
+" hi CocInfoSign guifg=#af87d7
+" hi CocInfoFloat guifg=#af87d7
+" hi GitGutterAdd guifg=#c6c6c6
+" hi GitGutterChange guifg=#af87d7
+" hi GitGutterDelete guifg=#d75f5f
+" hi diffAdded guifg=#c6c6c6
+" hi diffRemoved guifg=#d75f5f
+
+" vim-substrata
+let g:substrata_italic_comments = 0
+let g:substrata_italic_functions = 0
+colorscheme substrata
 hi Normal guibg=none
-hi Error guifg=#d75f5f
 hi CursorLineNR guibg=none
-hi IncSearch guibg=#767676
-hi MatchParen guifg=#af87d7 gui=none
-hi SpellBad guifg=#d75f5f
-hi CocErrorSign guifg=#d75f5f
-hi CocErrorFloat guifg=#d75f5f
-hi CocWarningSign guifg=#af87d7
-hi CocWarningFloat guifg=#af87d7
-hi CocInfoSign guifg=#af87d7
-hi CocInfoFloat guifg=#af87d7
-hi GitGutterAdd guifg=#c6c6c6
-hi GitGutterChange guifg=#af87d7
-hi GitGutterDelete guifg=#d75f5f
-hi diffAdded guifg=#c6c6c6
-hi diffRemoved guifg=#d75f5f
+hi MatchParen gui=none
+hi CocErrorSign guifg=#fe9f7c
+hi CocErrorFloat guifg=#fe9f7c
+hi CocWarningSign guifg=#d2b45f
+hi CocWarningFloat guifg=#d2b45f
+hi CocInfoSign guifg=#d2b45f
+hi CocInfoFloat guifg=#d2b45f
+hi diffAdded guifg=#92c47e
+hi diffRemoved guifg=#fe9f7c
 
 " non-plugin remaps
 " save

@@ -127,11 +127,17 @@ fi
 # set custom environment variables
 export FZF_CTRL_T_COMMAND="find . -path '*/.git/*' -prune -o -printf '%P\\n'"
 export FZF_ALT_C_COMMAND="$FZF_CTRL_T_COMMAND"
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
+#     --color=fg:#c6c6c6,hl:#af87d7
+#     --color=fg+:#c6c6c6,bg+:#303030,hl+:#af87d7
+#     --color=info:#767676,prompt:#af87d7,pointer:#af87d7
+#     --color=marker:#767676,spinner:#767676,header:#767676
+# "
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
-    --color=fg:#c6c6c6,hl:#af87d7
-    --color=fg+:#c6c6c6,bg+:#303030,hl+:#af87d7
-    --color=info:#767676,prompt:#af87d7,pointer:#af87d7
-    --color=marker:#767676,spinner:#767676,header:#767676
+    --color=fg:#b5b4c9,hl:#7dc2c7
+    --color=fg+:#b5b4c9,bg+:#272935,hl+:#7dc2c7
+    --color=info:#5b5f71,prompt:#7dc2c7,pointer:#7dc2c7
+    --color=marker:#5b5f71,spinner:#5b5f71,header:#5b5f71
 "
 export PF_INFO="ascii title os kernel uptime pkgs shell wm editor memory"
 export EDITOR="nvim"
