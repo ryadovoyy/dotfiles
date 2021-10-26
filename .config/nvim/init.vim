@@ -42,6 +42,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'vimwiki/vimwiki'
 
 Plug 'machakann/vim-highlightedyank'
 " Plug 'dylanaraps/wal.vim'
@@ -80,6 +81,10 @@ nnoremap <C-f> :Rg
 " vim-gitgutter
 let g:gitgutter_map_keys = 0
 nmap <leader>hp <Plug>(GitGutterPreviewHunk)
+
+" vimwiki
+let g:vimwiki_list = [{'path': '~/cloud/vimwiki/',
+  \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " wal
 " colorscheme wal
