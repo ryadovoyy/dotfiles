@@ -116,6 +116,7 @@ let g:substrata_italic_functions = 0
 colorscheme substrata
 hi Normal guibg=none
 hi CursorLineNR guibg=none
+hi StatusLine guifg=#b5b4c9 guibg=#272935
 hi MatchParen gui=none
 hi CocErrorSign guifg=#fe9f7c
 hi CocErrorFloat guifg=#fe9f7c
