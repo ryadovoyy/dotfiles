@@ -125,8 +125,6 @@ fi
 (cat ~/.cache/wal/sequences &)
 
 # set custom environment variables
-export FZF_CTRL_T_COMMAND="find . -path '*/.git/*' -prune -o -printf '%P\\n'"
-export FZF_ALT_C_COMMAND="$FZF_CTRL_T_COMMAND"
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
 #     --color=fg:#c6c6c6,hl:#af87d7
 #     --color=fg+:#c6c6c6,bg+:#303030,hl+:#af87d7
