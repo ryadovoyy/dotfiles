@@ -1,10 +1,11 @@
 set path+=**
 
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
 set smartindent
+" autocmd! BufRead,BufNewFile *.ts,*.tsx,*.json setlocal ts=2 sts=2 sw=2 et
 
 set exrc
 set hidden
@@ -15,6 +16,8 @@ set nowrap
 set guicursor=
 set signcolumn=yes
 set number relativenumber
+set list
+set listchars=tab:›\ ,space:·
 set colorcolumn=80
 set scrolloff=8
 set incsearch
@@ -49,24 +52,24 @@ Plug 'machakann/vim-highlightedyank'
 " Plug 'sainnhe/gruvbox-material'
 " Plug 'axvr/photon.vim'
 Plug 'arzg/vim-substrata'
-Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'HerringtonDarkholme/yats.vim'
 
 call plug#end()
 
 let mapleader = " "
 
 " vim-commentary
-autocmd FileType typescript setlocal commentstring=//\ %s
-autocmd FileType typescriptreact setlocal commentstring=//\ %s
+" autocmd! FileType typescript setlocal commentstring=//\ %s
+" autocmd! FileType typescriptreact setlocal commentstring=//\ %s
 
 " coc
-let g:coc_global_extensions = [
-  \ 'coc-tsserver',
-  \ 'coc-eslint', 
-  \ 'coc-prettier', 
-  \ ]
+" let g:coc_global_extensions = [
+"   \ 'coc-tsserver',
+"   \ 'coc-eslint', 
+"   \ 'coc-prettier', 
+"   \ ]
 
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gr <Plug>(coc-references)
