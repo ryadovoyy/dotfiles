@@ -8,7 +8,7 @@ set smartindent
 
 set exrc
 set hidden
-set updatetime=300
+set updatetime=100
 set shortmess+=c
 set regexpengine=0
 set nowrap
@@ -132,9 +132,15 @@ hi CocInfoFloat guifg=#d2b45f
 hi diffAdded guifg=#92c47e
 hi diffRemoved guifg=#fe9f7c
 
-" non-plugin remaps
-" save
-nnoremap <silent> <leader>s :w<CR>
+" non-plugin settings and remaps
+" netrw
+let g:netrw_keepdir = 0
+nnoremap <leader>n :Ex<CR>
+
+" save and quit
+nnoremap <leader>s :w<CR><C-l>
+nnoremap <silent> <leader>q :q<CR>
+inoremap jk <Esc>
 
 " clipboard
 nnoremap <leader>y "+y
