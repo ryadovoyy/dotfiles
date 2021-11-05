@@ -17,7 +17,7 @@ set guicursor=
 set signcolumn=yes
 set number relativenumber
 set list
-set listchars=tab:›\ ,space:·
+set listchars=tab:│\ ,space:·
 set colorcolumn=80
 set scrolloff=8
 set incsearch
