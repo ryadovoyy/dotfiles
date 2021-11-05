@@ -17,7 +17,7 @@ set guicursor=
 set signcolumn=yes
 set number relativenumber
 set list
-set listchars=tab:│\ ,space:·
+set listchars=tab:│\ 
 set colorcolumn=80
 set scrolloff=8
 set incsearch
@@ -42,8 +42,9 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'airblade/vim-gitgutter'
 Plug 'vimwiki/vimwiki'
 
@@ -52,7 +53,6 @@ Plug 'machakann/vim-highlightedyank'
 " Plug 'sainnhe/gruvbox-material'
 " Plug 'axvr/photon.vim'
 Plug 'arzg/vim-substrata'
-" Plug 'HerringtonDarkholme/yats.vim'
 
 call plug#end()
 
@@ -80,6 +80,26 @@ nnoremap <C-p> :Files<CR>
 nnoremap <C-g> :GFiles<CR>
 nnoremap <C-b> :Buffers<CR>
 nnoremap <C-f> :Rg 
+
+" nvim-treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = { enable = true },
+  ensure_installed = {
+    "bash",
+    "dockerfile",
+    "go",
+    "gomod",
+    "graphql",
+    "html",
+    "json",
+    "lua",
+    "regex",
+    "toml",
+    "yaml"
+  }
+}
+EOF
 
 " vim-gitgutter
 let g:gitgutter_map_keys = 0
