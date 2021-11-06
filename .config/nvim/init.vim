@@ -24,9 +24,6 @@ set incsearch
 set nohlsearch
 set noerrorbells
 set background=dark
-if has('termguicolors')
-  set termguicolors
-endif
 
 set noswapfile
 set nobackup
@@ -49,10 +46,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vimwiki/vimwiki'
 
 Plug 'machakann/vim-highlightedyank'
-" Plug 'dylanaraps/wal.vim'
-" Plug 'sainnhe/gruvbox-material'
-" Plug 'axvr/photon.vim'
-Plug 'arzg/vim-substrata'
+Plug 'dylanaraps/wal.vim'
 
 call plug#end()
 
@@ -110,50 +104,21 @@ let g:vimwiki_list = [{'path': '~/cloud/vimwiki/',
   \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " wal
-" colorscheme wal
-
-" gruvbox-material
-" let g:gruvbox_material_palette = 'mix'
-" let g:gruvbox_material_transparent_background = 1
-" let g:gruvbox_material_disable_italic_comment = 1
-" colorscheme gruvbox-material
-
-" photon
-" colorscheme photon
-" hi Normal guibg=none
-" hi Error guifg=#d75f5f
-" hi CursorLineNR guibg=none
-" hi IncSearch guibg=#767676
-" hi MatchParen guifg=#af87d7 gui=none
-" hi SpellBad guifg=#d75f5f
-" hi CocErrorSign guifg=#d75f5f
-" hi CocErrorFloat guifg=#d75f5f
-" hi CocWarningSign guifg=#af87d7
-" hi CocWarningFloat guifg=#af87d7
-" hi CocInfoSign guifg=#af87d7
-" hi CocInfoFloat guifg=#af87d7
-" hi GitGutterAdd guifg=#c6c6c6
-" hi GitGutterChange guifg=#af87d7
-" hi GitGutterDelete guifg=#d75f5f
-" hi diffAdded guifg=#c6c6c6
-" hi diffRemoved guifg=#d75f5f
-
-" vim-substrata
-let g:substrata_italic_comments = 0
-let g:substrata_italic_functions = 0
-colorscheme substrata
-hi Normal guibg=none
-hi CursorLineNR guibg=none
-hi StatusLine guifg=#b5b4c9 guibg=#272935
-hi MatchParen gui=none
-hi CocErrorSign guifg=#fe9f7c
-hi CocErrorFloat guifg=#fe9f7c
-hi CocWarningSign guifg=#d2b45f
-hi CocWarningFloat guifg=#d2b45f
-hi CocInfoSign guifg=#d2b45f
-hi CocInfoFloat guifg=#d2b45f
-hi diffAdded guifg=#92c47e
-hi diffRemoved guifg=#fe9f7c
+colorscheme wal
+hi StatusLine ctermfg=232
+hi CursorLine ctermbg=0 ctermfg=7 cterm=none
+hi Pmenu ctermbg=0
+hi DiffAdd ctermfg=107
+hi DiffDelete ctermfg=167
+hi ColorColumn ctermbg=0
+hi CocErrorSign ctermfg=167
+hi CocErrorFloat ctermfg=167
+hi CocWarningSign ctermfg=179
+hi CocWarningFloat ctermfg=179
+hi CocInfoSign ctermfg=179
+hi CocInfoFloat ctermfg=179
+hi diffAdded ctermfg=107
+hi diffRemoved ctermfg=167
 
 " non-plugin settings and remaps
 " netrw

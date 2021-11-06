@@ -84,17 +84,11 @@ fi
 (cat ~/.cache/wal/sequences &)
 
 # set custom environment variables
-# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
-#     --color=fg:#c6c6c6,hl:#af87d7
-#     --color=fg+:#c6c6c6,bg+:#303030,hl+:#af87d7
-#     --color=info:#767676,prompt:#af87d7,pointer:#af87d7
-#     --color=marker:#767676,spinner:#767676,header:#767676
-# "
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
-    --color=fg:#b5b4c9,hl:#7dc2c7
-    --color=fg+:#b5b4c9,bg+:#272935,hl+:#7dc2c7
-    --color=info:#5b5f71,prompt:#7dc2c7,pointer:#7dc2c7
-    --color=marker:#5b5f71,spinner:#5b5f71,header:#5b5f71
+    --color=fg:7,hl:11
+    --color=fg+:7,bg+:0,hl+:11
+    --color=info:8,prompt:11,pointer:11
+    --color=marker:8,spinner:8,header:8
 "
 export PF_INFO="ascii title os kernel uptime pkgs shell wm editor memory"
 export EDITOR="nvim"
