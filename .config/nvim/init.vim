@@ -38,7 +38,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/ReplaceWithRegister'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -57,18 +57,41 @@ let mapleader = " "
 " autocmd! FileType typescript setlocal commentstring=//\ %s
 " autocmd! FileType typescriptreact setlocal commentstring=//\ %s
 
-" coc
-" let g:coc_global_extensions = [
-"   \ 'coc-tsserver',
-"   \ 'coc-eslint', 
-"   \ 'coc-prettier', 
-"   \ ]
+" nvim-lspconfig
+lua << EOF
+local nvim_lsp = require('lspconfig')
 
-" command! -nargs=0 Prettier :CocCommand prettier.formatFile
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false 
+  }
+)
 
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gr <Plug>(coc-references)
-nnoremap <silent> <leader>e :CocList diagnostics<CR>
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+ 
+  local opts = { noremap = true, silent = true }
+  buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<leader>ep', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+
+  if client.resolved_capabilities.document_formatting then
+    vim.api.nvim_command[[augroup Format]]
+    vim.api.nvim_command[[autocmd! * <buffer>]]
+    vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+    vim.api.nvim_command[[augroup END]]
+  end
+end
+
+local servers = { 'gopls' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach
+  }
+end
+EOF
 
 " fzf
 nnoremap <C-p> :Files<CR>
@@ -100,11 +123,11 @@ EOF
 lua << EOF
 require('gitsigns').setup {
   preview_config = {
-    border = 'rounded',
+    border = 'none',
     style = 'minimal',
     relative = 'cursor',
-    row = 0,
-    col = 1
+    row = 1,
+    col = 0
   }
 }
 EOF
@@ -116,17 +139,10 @@ let g:vimwiki_list = [{'path': '~/cloud/vimwiki/',
 " wal
 colorscheme wal
 hi StatusLine ctermfg=232
-hi CursorLine ctermbg=0 ctermfg=7 cterm=none
 hi Pmenu ctermbg=0
 hi DiffAdd ctermfg=107
 hi DiffDelete ctermfg=167
-hi ColorColumn ctermbg=0
-hi CocErrorSign ctermfg=167
-hi CocErrorFloat ctermfg=167
-hi CocWarningSign ctermfg=179
-hi CocWarningFloat ctermfg=179
-hi CocInfoSign ctermfg=179
-hi CocInfoFloat ctermfg=179
+hi ColorColumn ctermbg=0 ctermfg=7
 hi diffAdded ctermfg=107
 hi diffRemoved ctermfg=167
 
@@ -155,9 +171,17 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
+
+" quickfix list
 nnoremap <silent> <C-j> :cnext<CR>zz
 nnoremap <silent> <C-k> :cprev<CR>zz
+nnoremap <silent> <leader>cc :ccl<CR>
+
+" location list
+nnoremap <silent> <leader>j :lnext<CR>zz
+nnoremap <silent> <leader>k :lprev<CR>zz
+nnoremap <silent> <leader>lc :lcl<CR>
 
 " move text
-nnoremap <silent> <leader>j :m .+1<CR>==
-nnoremap <silent> <leader>k :m .-2<CR>==
+" nnoremap <silent> <leader>j :m .+1<CR>==
+" nnoremap <silent> <leader>k :m .-2<CR>==
