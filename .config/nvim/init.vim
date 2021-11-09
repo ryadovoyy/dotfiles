@@ -42,7 +42,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'airblade/vim-gitgutter'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'vimwiki/vimwiki'
 
 Plug 'machakann/vim-highlightedyank'
@@ -76,28 +77,37 @@ nnoremap <C-b> :Buffers<CR>
 nnoremap <C-f> :Rg 
 
 " nvim-treesitter
-lua <<EOF
+lua << EOF
 require'nvim-treesitter.configs'.setup {
   highlight = { enable = true },
   ensure_installed = {
-    "bash",
-    "dockerfile",
-    "go",
-    "gomod",
-    "graphql",
-    "html",
-    "json",
-    "lua",
-    "regex",
-    "toml",
-    "yaml"
+    'bash',
+    'dockerfile',
+    'go',
+    'gomod',
+    'graphql',
+    'html',
+    'json',
+    'lua',
+    'regex',
+    'toml',
+    'yaml'
   }
 }
 EOF
 
-" vim-gitgutter
-let g:gitgutter_map_keys = 0
-nmap <leader>hp <Plug>(GitGutterPreviewHunk)
+" gitsigns
+lua << EOF
+require('gitsigns').setup {
+  preview_config = {
+    border = 'rounded',
+    style = 'minimal',
+    relative = 'cursor',
+    row = 0,
+    col = 1
+  }
+}
+EOF
 
 " vimwiki
 let g:vimwiki_list = [{'path': '~/cloud/vimwiki/',
