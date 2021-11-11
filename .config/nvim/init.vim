@@ -39,10 +39,10 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
-Plug 'junegunn/fzf.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', {'do': 'make'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'vimwiki/vimwiki'
 
@@ -78,10 +78,10 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>ep', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 
   if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command[[augroup Format]]
-    vim.api.nvim_command[[autocmd! * <buffer>]]
-    vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
-    vim.api.nvim_command[[augroup END]]
+    vim.api.nvim_command('augroup Format')
+    vim.api.nvim_command('autocmd! * <buffer>')
+    vim.api.nvim_command('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()')
+    vim.api.nvim_command('augroup END')
   end
 end
 
@@ -93,11 +93,30 @@ for _, lsp in ipairs(servers) do
 end
 EOF
 
-" fzf
-nnoremap <C-p> :Files<CR>
-nnoremap <C-g> :GFiles<CR>
-nnoremap <C-b> :Buffers<CR>
-nnoremap <C-f> :Rg 
+" telescope
+lua << EOF
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      i = {
+        ['<C-j>'] = 'move_selection_next',
+        ['<C-k>'] = 'move_selection_previous'
+      }
+    }
+  }
+}
+
+require('telescope').load_extension('fzf')
+
+local map = vim.api.nvim_set_keymap
+local options = { noremap = true }
+
+map('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files()<CR>', options)
+map('n', '<C-g>', '<cmd>lua require("telescope.builtin").git_files()<CR>', options)
+map('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', options)
+map('n', '<C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', options)
+map('n', '<leader>fd', '<cmd>lua require("telescope.builtin").lsp_workspace_diagnostics()<CR>', options)
+EOF
 
 " nvim-treesitter
 lua << EOF
@@ -138,6 +157,7 @@ let g:vimwiki_list = [{'path': '~/cloud/vimwiki/',
 
 " wal
 colorscheme wal
+hi Identifier cterm=none
 hi StatusLine ctermfg=232
 hi Pmenu ctermbg=0
 hi DiffAdd ctermfg=107
@@ -145,6 +165,8 @@ hi DiffDelete ctermfg=167
 hi ColorColumn ctermbg=0 ctermfg=7
 hi diffAdded ctermfg=107
 hi diffRemoved ctermfg=167
+hi vimUserCommand cterm=none
+hi htmlTagName cterm=none
 
 " non-plugin settings and remaps
 " netrw
