@@ -1,10 +1,10 @@
 #!/usr/bin/bash
 
 dwm_lang() {
-    case "$(xset -q | grep LED | awk '{ print $10 }')" in
-        "00000000") echo "󰌌 En";;
-        "00001000") echo "󰌌 Ru";;
-                 *) echo "󰌌 Err";;
+    case "$(setxkbmap -print | awk -F "+" '/xkb_symbols/ {print $2}')" in
+        "us") echo "󰌌 En";;
+        "ru") echo "󰌌 Ru";;
+           *) echo "󰌌 Err";;
     esac
 }
 
