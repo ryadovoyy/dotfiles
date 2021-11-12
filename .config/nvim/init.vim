@@ -3,9 +3,13 @@ set path+=**
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set noexpandtab
+set expandtab
 set smartindent
-" autocmd! BufRead,BufNewFile *.ts,*.tsx,*.json setlocal ts=2 sts=2 sw=2 et
+
+augroup Indent
+    autocmd!
+    autocmd BufRead,BufNewFile *.go setlocal noexpandtab
+augroup END
 
 set exrc
 set hidden
@@ -62,98 +66,98 @@ lua << EOF
 local nvim_lsp = require('lspconfig')
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false 
-  }
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false 
+    }
 )
 
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
  
-  local opts = { noremap = true, silent = true }
-  buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<leader>ep', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    local opts = { noremap = true, silent = true }
+    buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    buf_set_keymap('n', '<leader>ep', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 
-  if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_command('augroup Format')
-    vim.api.nvim_command('autocmd! * <buffer>')
-    vim.api.nvim_command('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()')
-    vim.api.nvim_command('augroup END')
-  end
+    if client.resolved_capabilities.document_formatting then
+        vim.api.nvim_command('augroup Format')
+        vim.api.nvim_command('autocmd! * <buffer>')
+        vim.api.nvim_command('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()')
+        vim.api.nvim_command('augroup END')
+    end
 end
 
 local servers = { 'gopls' }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach
-  }
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach
+    }
 end
 EOF
 
 " telescope
 lua << EOF
 require('telescope').setup {
-  defaults = {
-    mappings = {
-      i = {
-        ['<C-j>'] = 'move_selection_next',
-        ['<C-k>'] = 'move_selection_previous'
-      }
+    defaults = {
+        mappings = {
+            i = {
+                ['<C-j>'] = 'move_selection_next',
+                ['<C-k>'] = 'move_selection_previous'
+            }
+        }
     }
-  }
 }
 
 require('telescope').load_extension('fzf')
 
 local map = vim.api.nvim_set_keymap
-local options = { noremap = true }
+local opts = { noremap = true }
 
-map('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files()<CR>', options)
-map('n', '<C-g>', '<cmd>lua require("telescope.builtin").git_files()<CR>', options)
-map('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', options)
-map('n', '<C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', options)
-map('n', '<leader>fd', '<cmd>lua require("telescope.builtin").lsp_workspace_diagnostics()<CR>', options)
+map('n', '<C-p>', '<cmd>lua require("telescope.builtin").find_files()<CR>', opts)
+map('n', '<C-g>', '<cmd>lua require("telescope.builtin").git_files()<CR>', opts)
+map('n', '<C-b>', '<cmd>lua require("telescope.builtin").buffers()<CR>', opts)
+map('n', '<C-f>', '<cmd>lua require("telescope.builtin").live_grep()<CR>', opts)
+map('n', '<leader>fd', '<cmd>lua require("telescope.builtin").lsp_workspace_diagnostics()<CR>', opts)
 EOF
 
 " nvim-treesitter
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  highlight = { enable = true },
-  ensure_installed = {
-    'bash',
-    'dockerfile',
-    'go',
-    'gomod',
-    'graphql',
-    'html',
-    'json',
-    'lua',
-    'regex',
-    'toml',
-    'yaml'
-  }
+    highlight = { enable = true },
+    ensure_installed = {
+        'bash',
+        'dockerfile',
+        'go',
+        'gomod',
+        'graphql',
+        'html',
+        'json',
+        'lua',
+        'regex',
+        'toml',
+        'yaml'
+    }
 }
 EOF
 
 " gitsigns
 lua << EOF
 require('gitsigns').setup {
-  preview_config = {
-    border = 'none',
-    style = 'minimal',
-    relative = 'cursor',
-    row = 1,
-    col = 0
-  }
+    preview_config = {
+        border = 'none',
+        style = 'minimal',
+        relative = 'cursor',
+        row = 1,
+        col = 0
+    }
 }
 EOF
 
 " vimwiki
 let g:vimwiki_list = [{'path': '~/cloud/vimwiki/',
-  \ 'syntax': 'markdown', 'ext': '.md'}]
+    \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " wal
 colorscheme wal
