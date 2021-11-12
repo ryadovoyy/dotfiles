@@ -1,5 +1,13 @@
 #!/usr/bin/bash
 
+dwm_lang() {
+    case "$(xset -q | grep LED | awk '{ print $10 }')" in
+        "00000000") echo "󰌌 En";;
+        "00001000") echo "󰌌 Ru";;
+                 *) echo "󰌌 Err";;
+    esac
+}
+
 dwm_pulse () {
     vol=$(pactl list sinks | grep '^[[:space:]]Volume:' | \
         head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
@@ -19,7 +27,7 @@ dwm_date () {
 }
 
 generate_content () {
-    echo "[$(dwm_pulse)] [$(dwm_date)]"
+    echo "[$(dwm_lang)] [$(dwm_pulse)] [$(dwm_date)]"
 }
 
 while true; do
