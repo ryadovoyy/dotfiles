@@ -8,7 +8,7 @@ eval $(gnome-keyring-daemon --start)
 export SSH_AUTH_SOCK
 
 # add russian keyboard layout and remap caps lock to ctrl
-setxkbmap -layout us,ru -option "caps:ctrl_modifier"
+setxkbmap -layout us,ru -option "grp:win_space_toggle,caps:ctrl_modifier"
 
 # disable mouse acceleration
 xinput --set-prop 14 "libinput Accel Profile Enabled" 0, 1
