@@ -7,6 +7,11 @@ export PATH=$PATH:$HOME/scripts
 eval $(gnome-keyring-daemon --start)
 export SSH_AUTH_SOCK
 
+# fix java errors
+export _JAVA_AWT_WM_NONREPARENTING=1
+export AWT_TOOLKIT=MToolkit
+wmname LG3D
+
 # add russian keyboard layout and remap caps lock to ctrl
 setxkbmap -layout us,ru -option "grp:win_space_toggle,caps:ctrl_modifier"
 
