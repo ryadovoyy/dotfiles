@@ -17,6 +17,7 @@ set updatetime=100
 set shortmess+=c
 set regexpengine=0
 set nowrap
+set textwidth=78
 set guicursor=
 set signcolumn=yes
 set number relativenumber
