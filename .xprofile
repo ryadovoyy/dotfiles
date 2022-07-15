@@ -1,10 +1,10 @@
-#!/usr/bin/bash
+#!/bin/sh
 
 # add scripts folder to PATH
 export PATH=$PATH:$HOME/scripts
 
 # start the gnome-keyring-daemon
-eval $(gnome-keyring-daemon --start)
+eval "$(gnome-keyring-daemon --start)"
 export SSH_AUTH_SOCK
 
 # fix java errors
@@ -16,7 +16,7 @@ wmname LG3D
 setxkbmap -layout us,ru -option "grp:win_space_toggle,caps:ctrl_modifier"
 
 # disable mouse acceleration
-xinput --set-prop 14 "libinput Accel Profile Enabled" 0, 1
+xinput --set-prop 12 "libinput Accel Profile Enabled" 0, 1
 
 # start automounter for removable media
 udiskie -N &

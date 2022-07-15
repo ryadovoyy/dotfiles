@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/sh
 
 dwm_lang() {
     case "$(xset -q | grep LED | awk '{ print $10 }')" in
