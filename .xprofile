@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# add scripts folder to PATH
-export PATH=$PATH:$HOME/scripts
-
 # start the gnome-keyring-daemon
 eval "$(gnome-keyring-daemon --start)"
 export SSH_AUTH_SOCK
