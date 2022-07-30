@@ -18,3 +18,7 @@ alias \
 # send a notification after a long running command execution
 # example: [command]; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# copy an entry's password to the clipboard
+# format: kp [entry] [timeout in seconds]
+alias kp="keepassxc-cli clip -k ~/Documents/database.key ~/Documents/database.kdbx"
