@@ -6,6 +6,8 @@
 export PATH="$PATH:$HOME/scripts"
 export PF_INFO="ascii title os kernel uptime pkgs shell wm editor memory"
 export EDITOR=nvim
+export FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git . $HOME"
+export FZF_CTRL_T_COMMAND="fd --hidden --exclude .git . $HOME"
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
     --color=fg:7,hl:11
     --color=fg+:7,bg+:0,hl+:11
