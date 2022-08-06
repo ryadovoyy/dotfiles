@@ -61,9 +61,9 @@ XClock*secondColor: rgba:{color15.xrgba}
 ! dwm.selbordercolor: {color15}
 
 ! My dwm colors.
-dwm.normfgcolor: {color15}
+dwm.normfgcolor: {color7}
 dwm.normbgcolor: {color0}
 dwm.normbordercolor: {color0}
 dwm.selfgcolor: {color0}
-dwm.selbgcolor: {color11}
-dwm.selbordercolor: {color11}
+dwm.selbgcolor: {color3}
+dwm.selbordercolor: {color3}
