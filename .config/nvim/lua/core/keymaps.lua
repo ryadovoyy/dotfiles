@@ -19,6 +19,7 @@ map('n', '<leader><leader>', '<C-^>')
 
 -- make Y behave like the rest of the capital letters
 map('n', 'Y', 'y$')
+map('n', '<leader>Y', '"+y$')
 
 -- keep it centered
 map('n', 'n', 'nzz')

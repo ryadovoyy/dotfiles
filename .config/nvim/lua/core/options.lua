@@ -21,6 +21,7 @@ o.list = true
 o.listchars = 'tab:│ '
 
 o.laststatus = 3
+o.showmode = false
 o.colorcolumn = '80'
 o.guicursor = ''
 o.scrolloff = 8

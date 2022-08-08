@@ -3,6 +3,7 @@ local set_map = require('core.util').set_map
 
 require('telescope').setup({
     defaults = {
+        color_devicons = false,
         mappings = {
             i = {
                 ['<C-j>'] = 'move_selection_next',

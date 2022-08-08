@@ -80,6 +80,15 @@ return packer.startup(function(use)
         end
     })
 
+    -- statusline
+    use({
+        'nvim-lualine/lualine.nvim',
+        event = 'BufRead',
+        config = function()
+            require('plugins.lualine')
+        end
+    })
+
     -- devicons
     use({
         'kyazdani42/nvim-web-devicons',
