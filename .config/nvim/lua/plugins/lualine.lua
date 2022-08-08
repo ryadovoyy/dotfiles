@@ -1,10 +1,14 @@
 local custom_pywal = require('lualine.themes.pywal')
+local a_colors = { fg = 232, bg = 3, gui = 'bold' }
 
-custom_pywal.normal.a.bg = 3
-custom_pywal.normal.b.fg = 232
-custom_pywal.normal.b.gui = 'bold'
-custom_pywal.insert.a.bg = 3
-custom_pywal.replace.a.bg = 3
+custom_pywal.normal = {
+    a = a_colors,
+    b = { fg = 232, bg = 7, gui = 'bold' },
+    c = { fg = 7, bg = 232 }
+}
+custom_pywal.insert = { a = a_colors }
+custom_pywal.visual = { a = a_colors }
+custom_pywal.replace = { a = a_colors }
 
 require('lualine').setup({
     options = {
