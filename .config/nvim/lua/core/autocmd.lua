@@ -23,10 +23,10 @@ autocmd('BufWritePost', {
     end
 })
 
--- don't replace tabs with spaces in .go files
+-- don't replace tabs with spaces in specified files
 autocmd({ 'BufRead', 'BufNewFile' }, {
     group = indent_augroup,
-    pattern = '*.go',
+    pattern = '*.go,*.c,*.h',
     callback = function()
         vim.bo.expandtab = false
     end
