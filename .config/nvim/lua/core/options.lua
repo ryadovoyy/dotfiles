@@ -38,6 +38,3 @@ o.undofile = false
 o.backup = false
 
 g.mapleader = ' '
-
--- fix netrw error
-g.netrw_keepdir = 0

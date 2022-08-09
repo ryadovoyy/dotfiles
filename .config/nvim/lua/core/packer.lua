@@ -71,6 +71,14 @@ return packer.startup(function(use)
         end
     })
 
+    -- file explorer
+    use({
+        'kyazdani42/nvim-tree.lua',
+        config = function()
+            require('plugins.nvim-tree')
+        end
+    })
+
     -- git integration
     use({
         'lewis6991/gitsigns.nvim',
@@ -83,7 +91,6 @@ return packer.startup(function(use)
     -- statusline
     use({
         'nvim-lualine/lualine.nvim',
-        event = 'BufRead',
         config = function()
             require('plugins.lualine')
         end

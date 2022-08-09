@@ -26,5 +26,6 @@ require('lualine').setup({
         lualine_x = { 'encoding', 'fileformat', { 'filetype', colored = false } },
         lualine_y = { 'progress' },
         lualine_z = { 'location' }
-    }
+    },
+    extensions = { 'nvim-tree' }
 })

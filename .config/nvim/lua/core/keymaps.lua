@@ -35,6 +35,3 @@ map('n', '<leader>k', ':m .-2<CR>==')
 map('n', '<C-j>', ':cnext<CR>zz')
 map('n', '<C-k>', ':cprev<CR>zz')
 map('n', '<leader>cc', ':ccl<CR>')
-
--- netrw
-map('n', '<leader>n', ':Ex<CR>')
