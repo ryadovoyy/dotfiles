@@ -22,3 +22,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # copy an entry's password to the clipboard
 # format: kp [entry] [timeout in seconds]
 alias kp="keepassxc-cli clip -k ~/Documents/database.key ~/Documents/database.kdbx"
+
+# transmission
+alias tmr="transmission-remote"
