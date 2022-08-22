@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# start the session manager
-lxsession &
-
 # start gnome-keyring-daemon
 eval "$(gnome-keyring-daemon --start)"
 export SSH_AUTH_SOCK
