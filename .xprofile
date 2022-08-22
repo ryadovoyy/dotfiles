@@ -1,6 +1,9 @@
 #!/bin/sh
 
-# start the gnome-keyring-daemon
+# start the session manager
+lxsession &
+
+# start gnome-keyring-daemon
 eval "$(gnome-keyring-daemon --start)"
 export SSH_AUTH_SOCK
 
@@ -9,20 +12,20 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export AWT_TOOLKIT=MToolkit
 wmname LG3D
 
-# add russian keyboard layout and remap caps lock to ctrl
+# add the russian keyboard layout and remap caps lock to ctrl
 setxkbmap -layout us,ru -option "grp:win_space_toggle,caps:ctrl_modifier"
 
 # disable mouse acceleration
 xinput --set-prop 12 "libinput Accel Profile Enabled" 0, 1
 
-# start automounter for removable media
+# start the automounter for removable media
 udiskie -N &
 
-# add status monitor
+# start the status monitor
 killbar.sh
 bar.sh &
 
-# fix tearing and add transparency support
+# start the compositor (fixes tearing and adds transparency support)
 picom --experimental-backends &
 
 # restore the last colorscheme that was in use
