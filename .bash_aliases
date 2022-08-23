@@ -10,7 +10,7 @@ alias \
 
 # color output
 alias \
-    ls="ls -h --group-directories-first --color=auto" \
+    ls="ls -alh --group-directories-first --color=auto" \
     grep="grep --color=auto" \
     diff="diff --color=auto" \
     ip="ip -color=auto"
