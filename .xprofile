@@ -15,8 +15,8 @@ xinput --set-prop 12 "libinput Accel Profile Enabled" 0, 1
 udiskie -N &
 
 # start the status monitor
-killbar.sh
-bar.sh &
+killbar
+bar &
 
 # start the compositor (fixes tearing and adds transparency support)
 picom --experimental-backends &
