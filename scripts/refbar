@@ -1,7 +1,7 @@
 #!/bin/sh
  
-# look for sleep running inside bar.sh and kill it
-pid=$(pstree -lp | grep -- -bar.sh)
-pid=${pid##*bar.sh\(*sleep\(}
+# look for sleep running inside the bar and kill it
+pid=$(pstree -lp | grep -- -bar)
+pid=${pid##*bar\(*sleep\(}
 pid=${pid%\)}
 kill "$pid"

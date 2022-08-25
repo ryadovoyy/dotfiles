@@ -1,4 +1,4 @@
 #!/bin/sh
 
-killbar.sh
+killbar
 xdotool key alt+shift+q
