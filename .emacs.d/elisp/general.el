@@ -28,3 +28,39 @@
 ;; override some modes which derive from the above
 (dolist (mode '(org-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; disable cursor blinking
+(setq blink-cursor-mode nil)
+
+;;; keep .emacs.d and other folders clean
+
+;; set the custom emacs directory
+(setq user-emacs-directory (expand-file-name "~/.local/share/emacs/"))
+
+;; store customizations in a separate file
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+;; set backup file location
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
+
+;; set auto-save file location
+(make-directory (expand-file-name "tmp/auto-saves/" user-emacs-directory) t)
+
+(setq auto-save-list-file-prefix
+      (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory))
+
+(setq auto-save-file-name-transforms
+      `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
+
+;; disable lock files
+(setq create-lockfiles nil)
+
+;; set the native comp cache directory
+(add-to-list 'native-comp-eln-load-path
+             (expand-file-name "eln-cache/" user-emacs-directory))
+
+;;; other settings
+
+;; silence compiler warnings
+(setq native-comp-async-report-warnings-errors nil)

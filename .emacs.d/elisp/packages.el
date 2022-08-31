@@ -7,6 +7,10 @@
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
+;; set the installation folder for packages
+(setq package-user-dir (expand-file-name "elpa/" user-emacs-directory))
+(setq package-gnupghome-dir (expand-file-name "elpa/gnupg/" user-emacs-directory))
+
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
@@ -21,6 +25,9 @@
 (setq use-package-always-ensure t)
 
 ;;; packages
+
+;; hide or abbreviate mode line displays of minor modes
+(use-package diminish)
 
 ;; generic completion system
 (use-package ivy
