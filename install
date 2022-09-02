@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+DOTFILES="$HOME/.dotfiles"
+STOW_PACKAGES='btop,gtk,mpv,nvim,picom,ranger,wal,emacs,scipts,shell,tmux,x'
+
+help() {
+cat <<EOF
+Usage: $0 [OPTIONS]
+    -h  show this message
+
+    -p [PACKAGES]
+        set stow packages for installation
+
+    The PACKAGES argument is a comma-separated string, for example: nvim,emacs
+    Default value (all available packages):
+        btop,gtk,mpv,nvim,picom,ranger,wal,emacs,scipts,shell,tmux,x
+EOF
+}
+
+exit_abnormal() {
+    help
+    exit 1
+}
+
+check_packages() {
+    input_pkgs="${1//,/$'\n'}"
+    available_pkgs="${STOW_PACKAGES//,/$'\n'}"
+    input_pkg_number="$(echo "$input_pkgs" | wc -w)"
+    counter=0
+
+    for input_pkg in $input_pkgs; do
+        for available_pkg in $available_pkgs; do
+            [[ "$input_pkg" == "$available_pkg" ]] \
+                && (( ++counter ))
+        done
+    done
+
+    if [[ "$input_pkg_number" != "$counter" ]]; then
+        echo "./install: please enter packages from the available list"
+        exit_abnormal
+    fi
+}
+
+while getopts 'hp:' flag; do
+    case "$flag" in
+        h) help && exit 0 ;;
+        p)
+            check_packages "$OPTARG"
+            STOW_PACKAGES="$OPTARG"
+            ;;
+        *) exit_abnormal ;;
+    esac
+done
+
+cd "$DOTFILES" || exit 1
