@@ -4,27 +4,28 @@ set -euo pipefail
 IFS=$'\n\t'
 
 DOTFILES="$HOME/.dotfiles"
-stow_packages='btop,gtk,mpv,nvim,picom,ranger,wal,emacs,scipts,shell,tmux,x'
+stow_packages='btop,gtk,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,tmux,x'
 stow_packages_formatted="${stow_packages//,/$'\n'}"
 
-stow_dirs=(
-    "$HOME/.config/btop"
-    "$HOME/.config/gtk-3.0"
-    "$HOME/.config/mpv"
-    "$HOME/.config/nvim"
-    "$HOME/.config/picom"
-    "$HOME/.config/ranger"
-    "$HOME/.config/wal"
-    "$HOME/.emacs.d"
-    "$HOME/scripts"
+declare -A stow_files
+stow_files=(
+    [btop]="$HOME/.config/btop"
+    [gtk]="$HOME/.config/gtk-3.0"
+    [mpv]="$HOME/.config/mpv"
+    [nvim]="$HOME/.config/nvim"
+    [picom]="$HOME/.config/picom"
+    [ranger]="$HOME/.config/ranger"
+    [wal]="$HOME/.config/wal"
+    [emacs]="$HOME/.emacs.d"
+    [scripts]="$HOME/scripts"
+    [tmux]="$HOME/.tmux.conf"
+    [x]="$HOME/.xprofile"
 )
 
-stow_files=(
+stow_shell_files=(
     "$HOME/.bash_aliases"
     "$HOME/.bash_profile"
     "$HOME/.bashrc"
-    "$HOME/.tmux.conf"
-    "$HOME/.xprofile"
 )
 
 help() {
@@ -33,11 +34,11 @@ Usage: $0 [OPTIONS]
     -h  show this message
 
     -p [PACKAGES]
-        set stow packages for installation
+        set Stow packages for installation
 
     The PACKAGES argument is a comma-separated string, for example: nvim,emacs
     Default value (all available packages):
-        btop,gtk,mpv,nvim,picom,ranger,wal,emacs,scipts,shell,tmux,x
+        btop,gtk,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,tmux,x
 EOF
 }
 
@@ -49,13 +50,19 @@ error() {
 
 exit_abnormal() {
     # same as 'error' but with help
+    local msg
     msg="${1:-}"
     [[ -n "$msg" ]] && printf '%s\n' "$0: $msg" >&2
     help
     exit 1
 }
 
-check_packages() {
+check_stow_packages() {
+    local input_pkgs
+    local available_pkgs
+    local input_pkg_number
+    local counter
+
     input_pkgs="${1//,/$'\n'}"
     available_pkgs="$stow_packages_formatted"
     input_pkg_number="$(echo "$input_pkgs" | wc -w)"
@@ -70,27 +77,36 @@ check_packages() {
 
     [[ "$input_pkg_number" != "$counter" ]] \
         && exit_abnormal 'please enter packages from the available list'
+
+    stow_packages="$1"
     stow_packages_formatted="$input_pkgs"
 }
 
 while getopts 'hp:' flag; do
     case "$flag" in
         h) help && exit 0 ;;
-        p) check_packages "$OPTARG" ;;
+        p) check_stow_packages "$OPTARG" ;;
         *) exit_abnormal ;;
     esac
 done
 
 cd "$DOTFILES" || error "can't cd into the dotfiles folder"
 
-echo "Packages to be installed: ${stow_packages_formatted//$'\n'/,}"
-echo "Installing packages..."
+# make all scripts executable
+chmod -R +x "$DOTFILES/scripts"
+
+echo "Stow packages to be installed: $stow_packages"
+echo -e "Installing Stow packages...\n"
 
 for pkg in $stow_packages_formatted; do
-    case "$pkg" in
-        shell|tmux|x)
-            ;;
-        *)
-            ;;
-    esac
+    if [[ "$pkg" == 'shell' ]]; then
+        for shell_file in "${stow_shell_files[@]}"; do
+            [[ -e "$shell_file" ]] && rm -fv "$shell_file"
+        done
+    else
+        [[ -e "${stow_files[$pkg]}" ]] && rm -rfv "${stow_files[$pkg]}"
+    fi
+    stow -v "$pkg"
 done
+
+echo -e "\nInstallation completed"
