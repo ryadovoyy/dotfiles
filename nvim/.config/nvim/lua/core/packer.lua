@@ -71,6 +71,15 @@ return packer.startup(function(use)
         end
     })
 
+    -- code context
+    use({
+        'nvim-treesitter/nvim-treesitter-context',
+        after = 'nvim-treesitter',
+        config = function()
+            require('plugins.treesitter-context')
+        end
+    })
+
     -- file explorer
     use({
         'kyazdani42/nvim-tree.lua',
