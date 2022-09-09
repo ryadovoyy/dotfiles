@@ -36,16 +36,11 @@
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
          ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
-         :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
-         :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
+         ("C-k" . ivy-previous-line))
   :config
   (ivy-mode))
+  ;; set the fuzzy completion style
+  (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
 
 ;; more friendly interface for ivy (shows documentation strings and keybinds in counsel)
 (use-package ivy-rich
@@ -80,7 +75,13 @@
 
 ;; mode line
 (use-package doom-modeline
-  :init (doom-modeline-mode 1))
+  :init
+  (doom-modeline-mode 1)
+  :config
+  (setq doom-modeline-height 30
+        doom-modeline-buffer-file-name-style 'file-name
+        doom-modeline-major-mode-icon nil
+        doom-modeline-minor-modes t))
 
 ;; themes
 (use-package doom-themes

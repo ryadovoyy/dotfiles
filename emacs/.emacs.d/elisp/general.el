@@ -12,6 +12,7 @@
 
 ;; font
 (set-face-attribute 'default nil :font "JetBrainsMonoNL Nerd Font" :height 120)
+(add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL Nerd Font-12"))
 
 ;; enable column number in the mode line
 (column-number-mode)
