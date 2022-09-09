@@ -93,7 +93,7 @@ done
 cd "$DOTFILES" || error "can't cd into the dotfiles folder"
 
 # make all scripts executable
-chmod -R +x "$DOTFILES/scripts"
+chmod -R +x 'scripts'
 
 echo "Stow packages to be installed: $stow_packages"
 echo -e "Installing Stow packages...\n"
