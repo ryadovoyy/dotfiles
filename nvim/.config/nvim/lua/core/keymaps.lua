@@ -10,6 +10,9 @@ map('n', '<leader>s', ':w<CR><C-l>')
 map('n', '<leader>q', ':q<CR>')
 map('i', 'jk', '<Esc>')
 
+-- backspace replacement
+map('i', '<C-h>', '<BS>')
+
 -- system clipboard
 map('n', '<leader>y', '"+y')
 map('n', '<leader>Y', '"+y$')
