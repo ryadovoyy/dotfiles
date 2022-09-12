@@ -7,8 +7,11 @@
 (tool-bar-mode -1)
 (tooltip-mode -1)
 
-;; add a thin strip down the left and right edge of a window
-(set-fringe-mode 10)
+;; add sign columns
+(set-fringe-mode 15)
+
+;; remove sign columns from dired
+(add-hook 'dired-mode-hook (lambda () (setq left-fringe-width 0 right-fringe-width 0)))
 
 ;; font
 (set-face-attribute 'default nil :font "JetBrainsMonoNL Nerd Font" :height 120)
@@ -32,6 +35,10 @@
 
 ;; disable cursor blinking
 (setq blink-cursor-mode nil)
+
+;; vim-like scrolling
+(setq scroll-step 1)
+(setq scroll-margin 8)
 
 ;;; keep .emacs.d and other folders clean
 

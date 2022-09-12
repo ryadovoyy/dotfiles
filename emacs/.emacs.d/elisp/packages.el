@@ -26,12 +26,22 @@
 
 ;;; packages
 
-;; hide or abbreviate mode line displays of minor modes
-(use-package diminish)
+;; convenient and unified interface for key definitions
+(use-package general
+  :config
+  (general-create-definer core/leader-key-def
+    :keymaps '(normal emacs)
+    :prefix "SPC"))
+
+;; keybinding panel (displays available keybindings in a popup)
+(use-package which-key
+  :init
+  (which-key-mode)
+  :config
+  (setq which-key-idle-delay 1))
 
 ;; generic completion system
 (use-package ivy
-  :diminish
   :bind (("C-s" . swiper)
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
@@ -58,20 +68,22 @@
          :map minibuffer-local-map
          ("C-r" . 'counsel-minibuffer-history)))
 
-;; convenient and unified interface for key definitions
-(use-package general
-  :config
-  (general-create-definer core/leader-key-def
-    :keymaps '(normal emacs)
-    :prefix "SPC"))
-
-;; keybinding panel (displays available keybindings in a popup)
-(use-package which-key
+;; telescope-like project interaction
+(use-package projectile
   :init
-  (which-key-mode)
-  :diminish which-key-mode
-  :config
-  (setq which-key-idle-delay 1))
+  (when (file-directory-p "~/projects")
+    (setq projectile-project-search-path '("~/projects")))
+  (setq projectile-switch-project-action #'projectile-dired)
+  :custom
+  ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :config (projectile-mode))
+
+;; git integration
+(use-package magit
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 ;; extensible vi layer
 (use-package evil
@@ -83,7 +95,8 @@
         evil-respect-visual-line-mode t
         evil-vsplit-window-right t
         evil-undo-system 'undo-redo
-        evil-insert-state-cursor 'box)
+        evil-insert-state-cursor 'box
+        evil-insert-state-message nil)
   :config
   (evil-mode 1)
 
