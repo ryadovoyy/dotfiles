@@ -31,7 +31,8 @@
   :config
   (general-create-definer core/leader-key-def
     :keymaps '(normal emacs)
-    :prefix "SPC"))
+    :prefix "SPC"
+    :global-prefix "C-SPC"))
 
 ;; keybinding panel (displays available keybindings in a popup)
 (use-package which-key
@@ -42,17 +43,8 @@
 
 ;; generic completion system
 (use-package ivy
-  :bind (("C-s" . swiper)
-         :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
-         :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-switch-buffer-kill))
   :config
   (ivy-mode)
-
   ;; set the fuzzy completion style
   (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy))))
 
@@ -62,11 +54,9 @@
 
 ;; collection of ivy-enhanced versions of common Emacs commands
 (use-package counsel
-  :bind (("M-x" . counsel-M-x)
-         ("C-x b" . counsel-switch-buffer)
-         ("C-x C-f" . counsel-find-file)
-         :map minibuffer-local-map
-         ("C-r" . 'counsel-minibuffer-history)))
+  :custom
+  (counsel-rg-base-command
+    "rg -SHnM 240 --no-heading --color never --hidden --glob '!.git/*' %s"))
 
 ;; telescope-like project interaction
 (use-package projectile
@@ -75,15 +65,18 @@
     (setq projectile-project-search-path '("~/projects")))
   (setq projectile-switch-project-action #'projectile-dired)
   :custom
-  ((projectile-completion-system 'ivy))
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :config (projectile-mode))
+  (projectile-completion-system 'ivy)
+  :config
+  (projectile-mode))
 
 ;; git integration
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+;; work with git forges (github or gitlab)
+(use-package forge
+  :after magit)
 
 ;; extensible vi layer
 (use-package evil
@@ -136,12 +129,7 @@
 (use-package helpful
   :custom
   (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
-  :bind
-  ([remap describe-key] . helpful-key)
-  ([remap describe-command] . helpful-command)
-  ([remap describe-function] . counsel-describe-function)
-  ([remap describe-variable] . counsel-describe-variable))
+  (counsel-describe-variable-function #'helpful-variable))
 
 ;; mode line
 (use-package doom-modeline
@@ -156,7 +144,7 @@
 
 ;; themes
 (use-package doom-themes
-  :config (load-theme 'doom-one t))
+  :config (load-theme 'doom-wilmersdorf t))
 
 ;; icons
 (use-package all-the-icons

@@ -29,10 +29,6 @@
                 conf-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 1))))
 
-;; override some modes which derive from the above
-(dolist (mode '(org-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
 ;; disable cursor blinking
 (setq blink-cursor-mode nil)
 
