@@ -2,4 +2,5 @@
 
 (load-library "common")
 (load-library "packages")
+(load-library "util")
 (load-library "keybinds")

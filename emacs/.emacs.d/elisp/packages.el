@@ -92,31 +92,6 @@
         evil-insert-state-message nil)
   :config
   (evil-mode 1)
-
-  (defun my-jk ()
-    (interactive)
-    (let* ((initial-key ?j)
-           (final-key ?k)
-           (timeout 0.5)
-           (event (read-event nil nil timeout)))
-      (if event
-          ;; timeout met
-          (if (and (characterp event) (= event final-key))
-              (evil-normal-state)
-            (insert initial-key)
-            (push event unread-command-events))
-        ;; timeout exceeded
-        (insert initial-key))))
-
-  (define-key evil-insert-state-map (kbd "j") 'my-jk)
-  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
-
-  ;; use visual line motions even outside of visual-line-mode buffers
-  ;; (for moving between wrapped lines without skipping to other lines)
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-
-  (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
 
 ;; evil-mode keybindings for different emacs modes
@@ -144,7 +119,9 @@
 
 ;; themes
 (use-package doom-themes
-  :config (load-theme 'doom-wilmersdorf t))
+  :config
+  (load-theme 'doom-wilmersdorf t)
+  (doom-themes-org-config))
 
 ;; icons
 (use-package all-the-icons

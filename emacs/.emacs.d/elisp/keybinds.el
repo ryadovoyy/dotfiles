@@ -12,28 +12,30 @@
 
 (core/leader-key-def
   "e"  '(:ignore t :which-key "emacs config")
-  "er" '((lambda () (interactive) (load-file "~/.emacs.d/init.el")) :which-key "reload config")
-  "ee" '((lambda () (interactive) (find-file "~/.emacs.d/init.el")) :which-key "edit config"))
+  "er" '(core/reload-emacs-config :which-key "reload config")
+  "ee" '(core/edit-emacs-config :which-key "edit config"))
 
 ;;; package keybindings
 
 ;; ivy, counsel, projectile
 (core/leader-key-def
-  "p"   '(:ignore t :which-key "telescope")
-  "ps"  '(swiper :which-key "buffer search")
-  "pr"  '(counsel-rg :which-key "project ripgrep")
-  "pb"  '(counsel-switch-buffer :which-key "switch buffer")
-  "pp"  '(projectile-switch-project :which-key "switch project")
-  "pf"  '(:ignore t :which-key "open file")
-  "pff" '(projectile-find-file :which-key "open project file")
-  "pfw" '(projectile-find-file-other-window :which-key "open project file in another window")
-  "pfg" '(counsel-find-file :which-key "open global file"))
+  "p"  '(:ignore t :which-key "telescope")
+  "ps" '(swiper :which-key "buffer search")
+  "pr" '(counsel-rg :which-key "ripgrep")
+  "pf" '(core/counsel-fzf :which-key "open file")
+  "pb" '(counsel-switch-buffer :which-key "switch buffer")
+  "pp" '(projectile-switch-project :which-key "switch project"))
+
+(ivy-add-actions
+  'counsel-fzf
+  '(("j" core/other-window "other window")))
 
 (general-define-key
   :keymaps 'ivy-minibuffer-map
-  "TAB" 'ivy-alt-done
-  "C-j" 'ivy-next-line
-  "C-k" 'ivy-previous-line)
+  "TAB"   'ivy-alt-done
+  "C-SPC" 'ivy-dispatching-done
+  "C-j"   'ivy-next-line
+  "C-k"   'ivy-previous-line)
 
 (general-define-key
   :keymaps 'ivy-switch-buffer-map
@@ -57,6 +59,18 @@
   "g" '(magit-status :which-key "magit"))
 
 ;; evil
+(general-define-key
+  :keymaps 'evil-insert-state-map
+  "C-h" 'evil-delete-backward-char-and-join
+  "j"   'core/my-jk)
+
+;; use visual line motions even outside of visual-line-mode buffers
+;; (for moving between wrapped lines without skipping to other lines)
+(general-define-key
+  :keymaps 'motion
+  "j" 'evil-next-visual-line
+  "k" 'evil-previous-visual-line)
+
 (core/leader-key-def
   "w" 'evil-window-map)
 
