@@ -6,6 +6,7 @@
 
 (core/leader-key-def
   "h"  '(help-command :which-key "help")
+  "q"  '(evil-quit :whick-key "exit")
   "s"  '(:ignore t :which-key "save")
   "ss" '(save-buffer :which-key "save current buffer")
   "sa" '(save-some-buffers :which-key "save several buffers"))
@@ -23,6 +24,7 @@
   "ps" '(swiper :which-key "buffer search")
   "pr" '(counsel-rg :which-key "ripgrep")
   "pf" '(core/counsel-fzf :which-key "open file")
+  "pg" '(counsel-find-file :which-key "open global file")
   "pb" '(counsel-switch-buffer :which-key "switch buffer")
   "pp" '(projectile-switch-project :which-key "switch project"))
 
@@ -72,7 +74,8 @@
   "k" 'evil-previous-visual-line)
 
 (core/leader-key-def
-  "w" 'evil-window-map)
+  "w"   'evil-window-map
+  "SPC" '(evil-switch-to-windows-last-buffer :which-key "toggle between buffers"))
 
 ;; helpful
 (general-define-key

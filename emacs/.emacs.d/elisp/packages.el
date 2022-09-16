@@ -92,7 +92,14 @@
         evil-insert-state-message nil)
   :config
   (evil-mode 1)
-  (evil-set-initial-state 'dashboard-mode 'normal))
+  (evil-set-initial-state 'dashboard-mode 'normal)
+
+  ;; highlight on yank
+  (defun core/evil-yank-advice (orig-fn beg end &rest args)
+    (pulse-momentary-highlight-region beg end)
+    (apply orig-fn beg end args))
+
+  (advice-add 'evil-yank :around #'core/evil-yank-advice))
 
 ;; evil-mode keybindings for different emacs modes
 (use-package evil-collection
