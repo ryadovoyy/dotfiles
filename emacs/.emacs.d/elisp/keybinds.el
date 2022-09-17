@@ -6,7 +6,7 @@
 
 (core/leader-key-def
   "h"  '(help-command :which-key "help")
-  "q"  '(evil-quit :whick-key "exit")
+  "q"  '(evil-quit :which-key "exit")
   "s"  '(:ignore t :which-key "save")
   "ss" '(save-buffer :which-key "save current buffer")
   "sa" '(save-some-buffers :which-key "save several buffers"))
@@ -83,3 +83,21 @@
   [remap describe-command]  'helpful-command
   [remap describe-function] 'counsel-describe-function
   [remap describe-variable] 'counsel-describe-variable)
+
+;; org
+(core/leader-key-def
+  "o"   '(:ignore t :which-key "org")
+  "oi"  '(org-meta-return :which-key "insert item")
+  "oh"  '(org-insert-heading-respect-content :which-key "insert heading")
+  "ol"  '(org-insert-link :which-key "insert/edit link")
+  "oo"  '(org-open-at-point :which-key "open at point")
+  "o-"  '(org-ctrl-c-minus :which-key "(head)line to item, cycle type")
+  "oa"  '(org-agenda :which-key "agenda")
+  "ot"  '(:ignore t :which-key "TODO/checkbox")
+  "ott" '(org-insert-todo-heading :which-key "insert TODO/checkbox")
+  "otr" '(org-todo :which-key "rotate TODO state")
+  "otc" '(org-toggle-checkbox :which-key "toggle checkbox")
+  "od"  '(:ignore t :which-key "insert/edit date")
+  "ods" '(org-schedule :which-key "schedule")
+  "odd" '(org-deadline :which-key "deadline")
+  "odt" '(org-time-stamp :which-key "time stamp"))

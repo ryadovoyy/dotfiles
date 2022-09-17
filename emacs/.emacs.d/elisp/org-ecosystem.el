@@ -22,13 +22,24 @@
   :hook (org-mode . core/org-setup)
   :config
   (setq org-ellipsis " "
-        org-hide-emphasis-markers t)
+        org-hide-emphasis-markers t
+        org-directory "~/Documents/org/"
+        org-agenda-files '("~/Documents/org/tasks.org"
+                           "~/Documents/org/birthdays.org")
+        ;; agenda logging
+        org-agenda-start-with-log-mode t
+        org-log-done 'time
+        org-log-into-drawer t)
   (core/org-font-setup))
 
 (use-package org-bullets
-  :after org
   :hook (org-mode . org-bullets-mode)
   :custom
   (org-bullets-bullet-list '("" "" "" "" "" "")))
 
-(use-package visual-fill-column)
+(use-package visual-fill-column
+  :hook (org-mode . visual-fill-column-mode)
+  :config
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t
+        visual-fill-column-enable-sensible-window-split t))

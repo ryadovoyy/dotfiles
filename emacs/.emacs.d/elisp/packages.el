@@ -30,7 +30,7 @@
 (use-package general
   :config
   (general-create-definer core/leader-key-def
-    :keymaps '(normal emacs)
+    :keymaps '(normal insert visual emacs)
     :prefix "SPC"
     :global-prefix "C-SPC"))
 
@@ -50,7 +50,7 @@
 
 ;; more friendly interface for ivy (shows documentation strings and keybinds in counsel)
 (use-package ivy-rich
-  :init (ivy-rich-mode 1))
+  :init (ivy-rich-mode))
 
 ;; collection of ivy-enhanced versions of common Emacs commands
 (use-package counsel
@@ -91,7 +91,7 @@
         evil-insert-state-cursor 'box
         evil-insert-state-message nil)
   :config
-  (evil-mode 1)
+  (evil-mode)
   (evil-set-initial-state 'dashboard-mode 'normal)
 
   ;; highlight on yank
@@ -116,7 +116,7 @@
 ;; mode line
 (use-package doom-modeline
   :init
-  (doom-modeline-mode 1)
+  (doom-modeline-mode)
   :config
   (setq doom-modeline-height 35
         doom-modeline-bar-width 5
