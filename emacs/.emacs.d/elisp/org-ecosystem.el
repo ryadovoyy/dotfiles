@@ -26,10 +26,20 @@
         org-directory "~/Documents/org/"
         org-agenda-files '("~/Documents/org/tasks.org"
                            "~/Documents/org/birthdays.org")
+        org-refile-targets '(("archive.org" :maxlevel . 1)
+                             ("tasks.org" :maxlevel . 1))
+        org-capture-templates
+        '(("t" "Task" entry (file+headline "~/Documents/org/tasks.org" "Inbox")
+           "* TODO %?\n%U\n%a" :empty-lines 1 :kill-buffer t)
+          ("b" "Birthday" entry (file+headline "~/Documents/org/birthdays.org" "People")
+           "* %^{Name}\n%^{Birthday}t" :empty-lines-before 1 :kill-buffer t))
         ;; agenda logging
         org-agenda-start-with-log-mode t
         org-log-done 'time
         org-log-into-drawer t)
+
+  ;; save org buffers after refiling
+  (advice-add 'org-refile :after #'org-save-all-org-buffers)
   (core/org-font-setup))
 
 (use-package org-bullets

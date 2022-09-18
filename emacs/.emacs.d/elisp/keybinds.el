@@ -13,8 +13,10 @@
 
 (core/leader-key-def
   "e"  '(:ignore t :which-key "emacs config")
+  "ee" '(eval-expression :which-key "evaluate elisp expression")
+  "es" '(eval-last-sexp :which-key "evaluate elisp code")
   "er" '(core/reload-emacs-config :which-key "reload config")
-  "ee" '(core/edit-emacs-config :which-key "edit config"))
+  "ec" '(core/edit-emacs-config :which-key "edit config"))
 
 ;;; package keybindings
 
@@ -93,10 +95,15 @@
   "oo"  '(org-open-at-point :which-key "open at point")
   "o-"  '(org-ctrl-c-minus :which-key "(head)line to item, cycle type")
   "oa"  '(org-agenda :which-key "agenda")
+  "of"  '(org-cycle-agenda-files :which-key "cycle through agenda files")
+  "oc"  '(:ignore t :which-key "capture")
+  "oci" '(org-capture :which-key "capture new item")
+  "ocf" '(org-capture-finalize :which-key "finalize capture process")
   "ot"  '(:ignore t :which-key "TODO/checkbox")
-  "ott" '(org-insert-todo-heading :which-key "insert TODO/checkbox")
-  "otr" '(org-todo :which-key "rotate TODO state")
+  "oti" '(org-insert-todo-heading :which-key "insert TODO/checkbox")
+  "ott" '(org-todo :which-key "rotate TODO state")
   "otc" '(org-toggle-checkbox :which-key "toggle checkbox")
+  "otm" '(org-refile :which-key "move TODO to another heading")
   "od"  '(:ignore t :which-key "insert/edit date")
   "ods" '(org-schedule :which-key "schedule")
   "odd" '(org-deadline :which-key "deadline")

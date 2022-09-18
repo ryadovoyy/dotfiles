@@ -52,6 +52,9 @@
 (use-package ivy-rich
   :init (ivy-rich-mode))
 
+;; better fuzzy matching for ivy
+(use-package flx)
+
 ;; collection of ivy-enhanced versions of common Emacs commands
 (use-package counsel
   :custom

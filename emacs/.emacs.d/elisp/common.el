@@ -44,27 +44,26 @@
 ;; store customizations in a separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-;; set backup file location
-(setq backup-directory-alist
-      `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
-
-;; set auto-save file location
-(make-directory (expand-file-name "tmp/auto-saves/" user-emacs-directory) t)
-
-(setq auto-save-list-file-prefix
-      (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory))
-
-(setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
-
-;; disable lock files
-(setq create-lockfiles nil)
-
 ;; set the native comp cache directory
 (add-to-list 'native-comp-eln-load-path
              (expand-file-name "eln-cache/" user-emacs-directory))
 
+;; disable creating backup, auto-save and lock files
+(setq make-backup-files nil
+      auto-save-default nil
+      create-lockfiles nil)
+
 ;;; other settings
+
+;; prevent garbage collection while minibuffer is open (improves performance)
+(defun core/minibuffer-setup ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun core/minibuffer-exit ()
+  (setq gc-cons-threshold 800000))
+
+(add-hook 'minibuffer-setup-hook #'core/minibuffer-setup)
+(add-hook 'minibuffer-exit-hook #'core/minibuffer-exit)
 
 ;; silence compiler warnings
 (setq native-comp-async-report-warnings-errors nil)
