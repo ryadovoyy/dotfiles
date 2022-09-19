@@ -19,6 +19,6 @@ require('gitsigns').setup({
         local gs = package.loaded.gitsigns
         local opts = { buffer = bufnr }
         local map = set_map(opts)
-        map('n', '<leader>hp', gs.preview_hunk)
+        map('n', '<leader>gh', gs.preview_hunk)
     end
 })

@@ -27,4 +27,4 @@ require('nvim-tree').setup({
 
 local opts = { noremap = true, silent = true }
 local map = set_map(opts)
-map('n', '<leader>n', ':NvimTreeToggle<CR>')
+map('n', '<leader>t', ':NvimTreeToggle<CR>')

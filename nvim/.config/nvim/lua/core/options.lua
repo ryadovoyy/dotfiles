@@ -9,9 +9,10 @@ o.expandtab = true
 o.smartindent = true
 
 o.hidden = true
+o.clipboard = 'unnamedplus'
 o.updatetime = 100
 o.regexpengine = 0
-o.wrap = false
+o.wrap = true
 o.signcolumn = 'yes'
 o.number = true
 o.relativenumber = true

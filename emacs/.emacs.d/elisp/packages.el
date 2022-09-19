@@ -46,7 +46,9 @@
   :config
   (ivy-mode)
   ;; set the fuzzy completion style
-  (setq ivy-re-builders-alist '((t . ivy--regex-fuzzy))))
+  (setq ivy-re-builders-alist '((counsel-rg . ivy--regex-plus)
+                                (swiper . ivy--regex-plus)
+                                (t . ivy--regex-fuzzy))))
 
 ;; more friendly interface for ivy (shows documentation strings and keybinds in counsel)
 (use-package ivy-rich
