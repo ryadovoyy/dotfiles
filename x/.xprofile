@@ -24,5 +24,5 @@ picom --experimental-backends &
 # start emacs in daemon mode
 emacs --daemon &
 
-# restore the last colorscheme that was in use
-wal -R
+# restore the last theme that was in use
+theme -r

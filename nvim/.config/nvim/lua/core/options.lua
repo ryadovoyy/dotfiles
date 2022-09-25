@@ -24,6 +24,7 @@ o.listchars = 'tab:│ '
 o.laststatus = 3
 o.showmode = false
 o.colorcolumn = '80'
+o.cursorline = true
 o.guicursor = ''
 o.scrolloff = 8
 o.incsearch = true

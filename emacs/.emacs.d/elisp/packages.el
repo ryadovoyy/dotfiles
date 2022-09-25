@@ -80,8 +80,8 @@
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 ;; work with git forges (github or gitlab)
-(use-package forge
-  :after magit)
+;; (use-package forge
+;;   :after magit)
 
 ;; extensible vi layer
 (use-package evil
@@ -128,6 +128,9 @@
         doom-modeline-buffer-file-name-style 'file-name
         doom-modeline-modal-icon nil
         doom-modeline-major-mode-icon nil))
+
+;; colorize color names
+(use-package rainbow-mode)
 
 ;; themes
 (use-package doom-themes

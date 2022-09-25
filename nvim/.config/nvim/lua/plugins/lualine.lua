@@ -38,12 +38,12 @@ local custom_pywal = require('lualine.themes.pywal')
 -- end
 
 -- local b_bg_color = brightness_modifier(custom_pywal.inactive.b.bg, 150)
-local a_colors = { fg = 232, bg = 3, gui = 'bold' }
+local a_colors = { fg = 232, bg = 4, gui = 'bold' }
 
 custom_pywal.normal = {
     a = a_colors,
     b = { fg = 232, bg = 7, gui = 'bold' },
-    c = { fg = 7, bg = 232 }
+    c = { fg = 7, bg = 8 }
 }
 custom_pywal.insert = { a = a_colors }
 custom_pywal.visual = { a = a_colors }

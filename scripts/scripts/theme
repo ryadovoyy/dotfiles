@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+config_dir="$HOME/.config/wal"
+theme_dir="$config_dir/themes"
+template="$config_dir/templates/colors.Xresources"
+
+cache_dir="$HOME/.cache/theme"
+cached_root_color="$cache_dir/colors-root"
+cached_colors="$cache_dir/colors.Xresources"
+
+help() {
+cat <<EOF
+Usage: $0 [OPTIONS]
+    -h  show this message
+
+    -r  restore the last theme that was in use
+
+    -i [THEME]
+        which theme to use
+
+    The THEME argument is a string, for example: doom-wilmersdorf
+EOF
+}
+
+error() {
+    # log to stderr and exit with failure
+    printf '%s\n' "$0: $1" >&2
+    exit 1
+}
+
+exit_abnormal() {
+    # same as 'error' but with help
+    local msg
+    msg="${1:-}"
+    [[ -n "$msg" ]] && printf '%s\n' "$0: $msg" >&2
+    help
+    exit 1
+}
+
+apply_colors() {
+    read -r root_color < "$cached_root_color"
+    xrdb "$cached_colors"
+    hsetroot -solid "$root_color"
+}
+
+install_theme() {
+    local theme
+    theme="$theme_dir/$1"
+    [[ ! -e "$theme" ]] && error "theme doesn't exist"
+
+    mkdir -p "$cache_dir"
+    cp "$template" "$cached_colors"
+
+    local counter
+    counter=0
+    while read -r line; do
+        sed -i "s/{color$counter}/$line/g" "$cached_colors"
+        [[ "$counter" -eq 16 ]] && echo "$line" > "$cached_root_color"
+        (( ++counter ))
+    done < "$theme"
+
+    apply_colors
+}
+
+restore_theme() {
+    [[ ! -e "$cached_colors" ]] && error "can't find generated colors"
+    apply_colors
+}
+
+while getopts 'hri:' flag; do
+    case "$flag" in
+        h) help && exit 0 ;;
+        r) restore_theme ;;
+        i) install_theme "$OPTARG" ;;
+        *) exit_abnormal ;;
+    esac
+done
