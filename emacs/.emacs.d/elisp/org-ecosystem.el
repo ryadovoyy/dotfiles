@@ -53,3 +53,18 @@
   (setq visual-fill-column-width 100
         visual-fill-column-center-text t
         visual-fill-column-enable-sensible-window-split t))
+
+;; org babel
+(setq org-confirm-babel-evaluate nil)
+
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)
+    (shell . t)
+    (python . t)))
+
+(add-to-list 'org-modules 'org-tempo)
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+(add-to-list 'org-structure-template-alist '("bash" . "src bash"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))

@@ -96,6 +96,7 @@
   "o-"  '(org-ctrl-c-minus :which-key "(head)line to item, cycle type")
   "oa"  '(org-agenda :which-key "agenda")
   "of"  '(org-cycle-agenda-files :which-key "cycle through agenda files")
+  "oe"  '(org-babel-execute-src-block :which-key "execute code block")
   "oc"  '(:ignore t :which-key "capture")
   "oci" '(org-capture :which-key "capture new item")
   "ocf" '(org-capture-finalize :which-key "finalize capture process")

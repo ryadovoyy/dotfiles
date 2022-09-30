@@ -51,6 +51,7 @@
 ;; disable creating backup, auto-save and lock files
 (setq make-backup-files nil
       auto-save-default nil
+      auto-save-list-file-prefix nil
       create-lockfiles nil)
 
 ;;; other settings
