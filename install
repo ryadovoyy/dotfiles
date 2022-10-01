@@ -4,12 +4,13 @@ set -euo pipefail
 IFS=$'\n\t'
 
 DOTFILES="$HOME/.dotfiles"
-stow_packages='btop,gtk,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,tmux,x'
+stow_packages='btop,dunst,gtk,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,tmux,x'
 stow_packages_formatted="${stow_packages//,/$'\n'}"
 
 declare -A stow_files
 stow_files=(
     [btop]="$HOME/.config/btop"
+    [dunst]="$HOME/.config/dunst"
     [gtk]="$HOME/.config/gtk-3.0"
     [mpv]="$HOME/.config/mpv"
     [nvim]="$HOME/.config/nvim"
@@ -38,7 +39,7 @@ Usage: $0 [OPTIONS]
 
     The PACKAGES argument is a comma-separated string, for example: nvim,emacs
     Default value (all available packages):
-        btop,gtk,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,tmux,x
+        $stow_packages
 EOF
 }
 
@@ -96,7 +97,7 @@ cd "$DOTFILES" || error "can't cd into the dotfiles folder"
 chmod -R +x 'scripts'
 
 echo "Stow packages to be installed: $stow_packages"
-echo -e "Installing Stow packages...\n"
+printf '%s\n\n' "Installing Stow packages..."
 
 for pkg in $stow_packages_formatted; do
     if [[ "$pkg" == 'shell' ]]; then
@@ -109,4 +110,4 @@ for pkg in $stow_packages_formatted; do
     stow -v "$pkg"
 done
 
-echo -e "\nInstallation completed"
+printf '\n%s\n' "Installation completed"

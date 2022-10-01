@@ -14,6 +14,9 @@ xinput --set-prop 12 "libinput Accel Profile Enabled" 0, 1
 # start the automounter for removable media
 udiskie -N &
 
+# start the notification daemon
+dunst &
+
 # start the status monitor
 killbar
 bar &
