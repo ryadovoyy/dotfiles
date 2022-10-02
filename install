@@ -110,4 +110,9 @@ for pkg in $stow_packages_formatted; do
     stow -v "$pkg"
 done
 
+if [[ "$stow_packages" =~ 'wal' ]]; then
+    printf '\n%s\n' "Installing a theme..."
+    theme -i doom-wilmersdorf
+fi
+
 printf '\n%s\n' "Installation completed"
