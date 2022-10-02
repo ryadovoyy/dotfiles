@@ -53,7 +53,7 @@
 ! My dwm colors
 dwm.normfgcolor:     {color7}
 dwm.normbgcolor:     {color0}
-dwm.normbordercolor: {color17}
+dwm.normbordercolor: {color18}
 dwm.selfgcolor:      {color4}
-dwm.selbgcolor:      {color16}
-dwm.selbordercolor:  {color17}
+dwm.selbgcolor:      {color17}
+dwm.selbordercolor:  {color18}

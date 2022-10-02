@@ -5,11 +5,15 @@ IFS=$'\n\t'
 
 config_dir="$HOME/.config/wal"
 theme_dir="$config_dir/themes"
-template="$config_dir/templates/colors.Xresources"
+template_x="$config_dir/templates/colors.Xresources"
+template_dunst="$config_dir/templates/dunstrc"
 
 cache_dir="$HOME/.cache/theme"
 cached_root_color="$cache_dir/colors-root"
 cached_colors="$cache_dir/colors.Xresources"
+
+dunst_dir="$HOME/.config/dunst"
+dunst_config="$dunst_dir/dunstrc"
 
 help() {
 cat <<EOF
@@ -52,13 +56,16 @@ install_theme() {
     [[ ! -e "$theme" ]] && error "theme doesn't exist"
 
     mkdir -p "$cache_dir"
-    cp "$template" "$cached_colors"
+    mkdir -p "$dunst_dir"
+    cp "$template_x" "$cached_colors"
+    cp "$template_dunst" "$dunst_config"
 
     local counter
     counter=0
     while read -r line; do
         sed -i "s/{color$counter}/$line/g" "$cached_colors"
-        [[ "$counter" -eq 16 ]] && echo "$line" > "$cached_root_color"
+        sed -i "s/{color$counter}/$line/g" "$dunst_config"
+        [[ "$counter" -eq 17 ]] && echo "$line" > "$cached_root_color"
         (( ++counter ))
     done < "$theme"
 
