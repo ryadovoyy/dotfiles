@@ -5,12 +5,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export AWT_TOOLKIT=MToolkit
 wmname LG3D
 
-# add the russian keyboard layout and remap caps lock to ctrl
-setxkbmap -layout us,ru -option "grp:win_space_toggle,caps:ctrl_modifier"
-
-# disable mouse acceleration
-xinput --set-prop 12 "libinput Accel Profile Enabled" 0, 1
-
 # start the automounter for removable media
 udiskie -N &
 

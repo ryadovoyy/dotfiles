@@ -49,10 +49,20 @@
 
 (use-package visual-fill-column
   :hook (org-mode . visual-fill-column-mode)
+  :custom
+  (visual-fill-column-width 100)
+  (visual-fill-column-center-text t)
+  (visual-fill-column-enable-sensible-window-split t))
+
+(use-package org-alert
+  :custom
+  (alert-default-style 'notifications)
   :config
-  (setq visual-fill-column-width 100
-        visual-fill-column-center-text t
-        visual-fill-column-enable-sensible-window-split t))
+  (setq org-alert-notification-title "Org alert reminder"
+        org-alert-interval 300
+        org-alert-notify-cutoff 5
+        org-alert-notify-after-event-cutoff 0)
+  (org-alert-enable))
 
 ;; org babel
 (setq org-confirm-babel-evaluate nil)
