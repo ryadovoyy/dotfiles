@@ -6,7 +6,7 @@ export AWT_TOOLKIT=MToolkit
 wmname LG3D
 
 # start the automounter for removable media
-udiskie -N &
+udiskie &
 
 # start the notification daemon
 dunst &

@@ -47,6 +47,7 @@
   :custom
   (org-bullets-bullet-list '("" "" "" "" "" "")))
 
+;; reader mode
 (use-package visual-fill-column
   :hook (org-mode . visual-fill-column-mode)
   :custom
@@ -54,6 +55,7 @@
   (visual-fill-column-center-text t)
   (visual-fill-column-enable-sensible-window-split t))
 
+;; agenda notifications
 (use-package org-alert
   :custom
   (alert-default-style 'notifications)
@@ -64,7 +66,7 @@
         org-alert-notify-after-event-cutoff 0)
   (org-alert-enable))
 
-;; org babel
+;; code block creation and execution
 (setq org-confirm-babel-evaluate nil)
 
 (org-babel-do-load-languages

@@ -56,15 +56,21 @@
 
 ;;; other settings
 
+;; reduce the frequency of garbage collection by setting the threshold to 16mb
+(setq gc-cons-threshold (* 16 1024 1024))
+
 ;; prevent garbage collection while minibuffer is open (improves performance)
 (defun core/minibuffer-setup ()
   (setq gc-cons-threshold most-positive-fixnum))
 
 (defun core/minibuffer-exit ()
-  (setq gc-cons-threshold 800000))
+  (setq gc-cons-threshold (* 16 1024 1024)))
 
 (add-hook 'minibuffer-setup-hook #'core/minibuffer-setup)
 (add-hook 'minibuffer-exit-hook #'core/minibuffer-exit)
+
+;; increase the amount of data which emacs reads from the process to 1mb (for lsp)
+(setq read-process-output-max (* 1024 1024))
 
 ;; silence compiler warnings
 (setq native-comp-async-report-warnings-errors nil)

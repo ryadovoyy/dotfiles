@@ -106,6 +106,11 @@
 
   (advice-add 'evil-yank :around #'core/evil-yank-advice))
 
+(use-package evil-commentary
+  :after evil
+  :config
+  (evil-commentary-mode))
+
 ;; evil-mode keybindings for different emacs modes
 (use-package evil-collection
   :after evil
@@ -130,13 +135,24 @@
         doom-modeline-major-mode-icon nil))
 
 ;; colorize color names
-(use-package rainbow-mode)
+(use-package rainbow-mode
+  :commands rainbow-mode)
 
 ;; themes
 (use-package doom-themes
+  :custom
+  (doom-themes-enable-italic nil)
   :config
   (load-theme 'doom-wilmersdorf t)
-  (doom-themes-org-config))
+  (doom-themes-org-config)
+  (custom-set-faces
+    `(markdown-code-face ((t (:background ,(doom-color 'base4)))))))
+
+(use-package paren
+  :custom
+  (show-paren-delay 0)
+  :config
+  (set-face-attribute 'show-paren-match nil :weight 'normal))
 
 ;; icons
 (use-package all-the-icons

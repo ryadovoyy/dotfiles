@@ -109,3 +109,8 @@
   "ods" '(org-schedule :which-key "schedule")
   "odd" '(org-deadline :which-key "deadline")
   "odt" '(org-time-stamp :which-key "time stamp"))
+
+;; company
+(general-define-key
+  :keymaps 'company-active-map
+  "<tab>" 'company-complete-selection)

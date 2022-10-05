@@ -3,5 +3,6 @@
 (load-library "common")
 (load-library "packages")
 (load-library "org-ecosystem")
+(load-library "languages")
 (load-library "util")
 (load-library "keybinds")
