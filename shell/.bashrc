@@ -1,5 +1,5 @@
 # if not running interactively, don't do anything
-[[ $- != *i* ]] && return
+[ -z "$PS1" ] && return
 
 # enable infinite history
 HISTSIZE=
@@ -43,5 +43,12 @@ fi
 # add aliases
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
 
-# add fzf
+# add fzf support
 [ -f "$HOME/.fzf.bash" ] && source "$HOME/.fzf.bash"
+
+# add vterm support
+if [ "$INSIDE_EMACS" = 'vterm' ] \
+    && [ -n "$EMACS_VTERM_PATH" ] \
+    && [ -f "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh" ]; then
+    source "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh"
+fi

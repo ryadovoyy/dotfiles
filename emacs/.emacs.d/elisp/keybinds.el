@@ -18,6 +18,12 @@
   "er" '(core/reload-emacs-config :which-key "reload config")
   "ec" '(core/edit-emacs-config :which-key "edit config"))
 
+;; fix non-working prefix in some modes
+(general-define-key
+  :keymaps '(help-mode-map dired-mode-map)
+  :prefix "<normal-state> SPC"
+  "" nil)
+
 ;;; package keybindings
 
 ;; ivy, counsel, projectile
@@ -31,8 +37,29 @@
   "pp" '(projectile-switch-project :which-key "switch project"))
 
 (ivy-add-actions
+  'counsel-rg
+  '(("s" core/counsel-rg-split "horizontal split")
+    ("v" core/counsel-rg-vsplit "vertical split")))
+
+(ivy-add-actions
   'counsel-fzf
-  '(("j" core/other-window "other window")))
+  '(("s" core/counsel-fzf-split "horizontal split")
+    ("v" core/counsel-fzf-vsplit "vertical split")))
+
+(ivy-add-actions
+  'counsel-find-file
+  '(("s" core/counsel-find-file-split "horizontal split")
+    ("v" core/counsel-find-file-vsplit "vertical split")))
+
+(ivy-add-actions
+  'counsel-switch-buffer
+  '(("s" core/counsel-switch-buffer-split "horizontal split")
+    ("v" core/counsel-switch-buffer-vsplit "vertical split")))
+
+(ivy-add-actions
+  'projectile-switch-project
+  '(("s" core/projectile-switch-project-split "horizontal split")
+    ("v" core/projectile-switch-project-vsplit "vertical split")))
 
 (general-define-key
   :keymaps 'ivy-minibuffer-map
@@ -68,15 +95,9 @@
   "C-h" 'evil-delete-backward-char-and-join
   "j"   'core/my-jk)
 
-;; use visual line motions even outside of visual-line-mode buffers
-;; (for moving between wrapped lines without skipping to other lines)
-(general-define-key
-  :keymaps 'motion
-  "j" 'evil-next-visual-line
-  "k" 'evil-previous-visual-line)
-
 (core/leader-key-def
   "w"   'evil-window-map
+  "n"   '(evil-normal-state :which-key "normal state")
   "SPC" '(evil-switch-to-windows-last-buffer :which-key "toggle between buffers"))
 
 ;; helpful
@@ -85,6 +106,15 @@
   [remap describe-command]  'helpful-command
   [remap describe-function] 'counsel-describe-function
   [remap describe-variable] 'counsel-describe-variable)
+
+;; vterm
+(core/leader-key-def
+  "v"  '(:ignore t :which-key "vterm")
+  "vo" '(multi-vterm :which-key "open vterm")
+  "vs" '(core/vterm-split :which-key "open vterm in horizontal split")
+  "vv" '(core/vterm-vsplit :which-key "open vterm in vertical split")
+  "vn" '(vterm-next-prompt :which-key "next prompt")
+  "vp" '(vterm-previous-prompt :which-key "previous prompt"))
 
 ;; org
 (core/leader-key-def

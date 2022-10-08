@@ -45,10 +45,13 @@
 (use-package ivy
   :config
   (ivy-mode)
-  ;; set the fuzzy completion style
-  (setq ivy-re-builders-alist '((counsel-rg . ivy--regex-plus)
-                                (swiper . ivy--regex-plus)
-                                (t . ivy--regex-fuzzy))))
+  ;; set completion styles and switch buffer faces
+  (setq ivy-re-builders-alist
+        '((counsel-rg . ivy--regex-plus)
+          (swiper . ivy--regex-plus)
+          (t . ivy--regex-fuzzy))
+        ivy-switch-buffer-faces-alist
+        '((dired-mode . ivy-subdir))))
 
 ;; more friendly interface for ivy (shows documentation strings and keybinds in counsel)
 (use-package ivy-rich
@@ -91,6 +94,7 @@
         evil-want-C-u-scroll t
         evil-want-Y-yank-to-eol t
         evil-respect-visual-line-mode t
+        evil-split-window-below t
         evil-vsplit-window-right t
         evil-undo-system 'undo-redo
         evil-insert-state-cursor 'box
@@ -123,6 +127,18 @@
   (counsel-describe-function-function #'helpful-callable)
   (counsel-describe-variable-function #'helpful-variable))
 
+;; best terminal emulator
+(use-package vterm
+  :commands vterm
+  :config
+  (setq vterm-timer-delay nil
+        vterm-max-scrollback 10000))
+
+(use-package multi-vterm
+  :after vterm
+  :custom
+  (multi-vterm-buffer-name "vterm"))
+
 ;; mode line
 (use-package doom-modeline
   :init
@@ -144,15 +160,18 @@
   (doom-themes-enable-italic nil)
   :config
   (load-theme 'doom-wilmersdorf t)
-  (doom-themes-org-config)
-  (custom-set-faces
-    `(markdown-code-face ((t (:background ,(doom-color 'base4)))))))
+  (doom-themes-org-config))
 
 (use-package paren
   :custom
   (show-paren-delay 0)
   :config
   (set-face-attribute 'show-paren-match nil :weight 'normal))
+
+(use-package pulse
+  :config
+  (set-face-background 'pulse-highlight-face (doom-color 'blue))
+  (set-face-background 'pulse-highlight-start-face (doom-color 'blue)))
 
 ;; icons
 (use-package all-the-icons

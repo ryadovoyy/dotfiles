@@ -57,7 +57,7 @@
   (lsp-ui-doc-delay 0.5)
   (lsp-ui-doc-border (doom-color 'bg-alt))
   :config
-  (set-face-background 'lsp-ui-doc-background (doom-color 'base4)))
+  (set-face-background 'lsp-ui-doc-background (doom-color 'base3)))
 
 ;; text completion framework
 ;; (use-package company
