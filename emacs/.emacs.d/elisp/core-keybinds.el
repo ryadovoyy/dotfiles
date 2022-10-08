@@ -116,6 +116,17 @@
   "vn" '(vterm-next-prompt :which-key "next prompt")
   "vp" '(vterm-previous-prompt :which-key "previous prompt"))
 
+;; tab-bar
+(core/leader-key-def
+  "t"  '(:ignore t :which-key "tabs")
+  "to" '(tab-new :which-key "open tab")
+  "tc" '(tab-close :which-key "close tab")
+  "td" '(tab-close-other :which-key "close other tabs")
+  "tu" '(tab-undo :which-key "restore last closed tab")
+  "tn" '(tab-next :which-key "next tab")
+  "tp" '(tab-previous :which-key "previous tab")
+  "tr" '(tab-rename :which-key "rename tab"))
+
 ;; org
 (core/leader-key-def
   "o"   '(:ignore t :which-key "org")

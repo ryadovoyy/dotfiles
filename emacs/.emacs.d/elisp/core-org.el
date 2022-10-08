@@ -14,9 +14,10 @@
                   (org-level-4 . 1.05)
                   (org-level-5 . 1.0)
                   (org-level-6 . 1.0)))
-    (set-face-attribute (car face) nil :font "JetBrainsMonoNL Nerd Font"
-                                       :weight 'bold
-                                       :height (cdr face))))
+    (set-face-attribute (car face) nil
+      :font "JetBrainsMonoNL Nerd Font"
+      :weight 'bold
+      :height (cdr face))))
 
 (use-package org
   :hook (org-mode . core/org-setup)

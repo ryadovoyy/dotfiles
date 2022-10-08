@@ -147,6 +147,7 @@
   (setq doom-modeline-height 35
         doom-modeline-bar-width 5
         doom-modeline-buffer-file-name-style 'file-name
+        doom-modeline-workspace-name nil
         doom-modeline-modal-icon nil
         doom-modeline-major-mode-icon nil))
 
@@ -179,3 +180,20 @@
   :init
   (unless (find-font (font-spec :name "all-the-icons"))
     (all-the-icons-install-fonts)))
+
+;; workspaces
+(use-package tab-bar
+  :custom
+  (tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
+  (tab-bar-close-button-show nil)
+  (tab-bar-show 1)
+  :config
+  (set-face-attribute 'tab-bar nil
+    :background (doom-color 'modeline-bg)
+    :foreground (doom-color 'modeline-bg))
+  (set-face-attribute 'tab-bar-tab nil
+    :background (doom-color 'modeline-bg)
+    :foreground (doom-color 'blue))
+  (set-face-attribute 'tab-bar-tab-inactive nil
+    :background (doom-color 'modeline-bg)
+    :foreground (doom-color 'fg)))
