@@ -139,6 +139,13 @@
   :custom
   (multi-vterm-buffer-name "vterm"))
 
+;; workspaces
+(use-package tab-bar
+  :custom
+  (tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
+  (tab-bar-close-button-show nil)
+  (tab-bar-show 1))
+
 ;; mode line
 (use-package doom-modeline
   :init
@@ -156,12 +163,38 @@
   :commands rainbow-mode)
 
 ;; themes
+(use-package pulse)
+
 (use-package doom-themes
   :custom
   (doom-themes-enable-italic nil)
   :config
   (load-theme 'doom-wilmersdorf t)
-  (doom-themes-org-config))
+  (doom-themes-org-config)
+  ;; pulse
+  (set-face-background 'pulse-highlight-face (doom-color 'highlight))
+  (set-face-background 'pulse-highlight-start-face (doom-color 'highlight))
+  ;; vertical-border
+  (set-face-attribute 'vertical-border nil
+    :background (doom-color 'bg-alt)
+    :foreground (doom-color 'bg-alt))
+  ;; tab-bar
+  (set-face-attribute 'tab-bar nil
+    :background (doom-color 'modeline-bg)
+    :foreground (doom-color 'modeline-bg))
+  (set-face-attribute 'tab-bar-tab nil
+    :background (doom-color 'modeline-bg)
+    :foreground (doom-color 'highlight))
+  (set-face-attribute 'tab-bar-tab-inactive nil
+    :background (doom-color 'modeline-bg)
+    :foreground (doom-color 'fg))
+  ;; mode line
+  (set-face-attribute 'mode-line-inactive nil
+    :background (doom-color 'bg)
+    :foreground (doom-color 'bg))
+  (set-face-attribute 'doom-modeline-bar-inactive nil
+    :background (doom-color 'bg)
+    :foreground (doom-color 'bg)))
 
 (use-package paren
   :custom
@@ -169,31 +202,9 @@
   :config
   (set-face-attribute 'show-paren-match nil :weight 'normal))
 
-(use-package pulse
-  :config
-  (set-face-background 'pulse-highlight-face (doom-color 'blue))
-  (set-face-background 'pulse-highlight-start-face (doom-color 'blue)))
-
 ;; icons
 (use-package all-the-icons
   :if (display-graphic-p)
   :init
   (unless (find-font (font-spec :name "all-the-icons"))
     (all-the-icons-install-fonts)))
-
-;; workspaces
-(use-package tab-bar
-  :custom
-  (tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
-  (tab-bar-close-button-show nil)
-  (tab-bar-show 1)
-  :config
-  (set-face-attribute 'tab-bar nil
-    :background (doom-color 'modeline-bg)
-    :foreground (doom-color 'modeline-bg))
-  (set-face-attribute 'tab-bar-tab nil
-    :background (doom-color 'modeline-bg)
-    :foreground (doom-color 'blue))
-  (set-face-attribute 'tab-bar-tab-inactive nil
-    :background (doom-color 'modeline-bg)
-    :foreground (doom-color 'fg)))

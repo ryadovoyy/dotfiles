@@ -13,6 +13,12 @@
 ;; remove sign columns from dired
 (add-hook 'dired-mode-hook (lambda () (setq left-fringe-width 0 right-fringe-width 0)))
 
+;; enable window dividers
+(setq window-divider-default-places t)
+(setq window-divider-default-right-width 10)
+(setq window-divider-default-bottom-width 10)
+(window-divider-mode)
+
 ;; font
 (set-face-attribute 'default nil :font "JetBrainsMonoNL Nerd Font" :height 120)
 (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL Nerd Font-12"))
