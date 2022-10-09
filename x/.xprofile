@@ -18,8 +18,5 @@ bar &
 # start the compositor (fixes tearing and adds transparency support)
 picom --experimental-backends &
 
-# start emacs in daemon mode
-emacs --daemon &
-
 # restore the last theme that was in use
 theme -r

@@ -50,6 +50,13 @@
 ;; store customizations in a separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
+;; create and set the session directory
+(defvar core/session-dir (expand-file-name "sessions/" user-emacs-directory))
+
+(make-directory core/session-dir t)
+(setq desktop-path `(,core/session-dir))
+(setq desktop-dirname core/session-dir)
+
 ;; set the native comp cache directory
 (add-to-list 'native-comp-eln-load-path
              (expand-file-name "eln-cache/" user-emacs-directory))

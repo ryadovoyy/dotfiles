@@ -144,7 +144,32 @@
   :custom
   (tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
   (tab-bar-close-button-show nil)
+  (tab-bar-new-tab-to 'rightmost)
+  (tab-bar-new-tab-choice "*dashboard*")
+  (tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
   (tab-bar-show 1))
+
+;; dashboard
+(use-package dashboard
+  :custom
+  (dashboard-startup-banner 'logo)
+  (dashboard-center-content t)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-items '((projects . 5)
+                     (recents . 5)
+                     (agenda . 5)))
+  (dashboard-item-names '(("Recent Files:" . "Recent files:")))
+  (dashboard-agenda-prefix-format "%-6:c %s ")
+  (dashboard-agenda-sort-strategy '(time-up))
+  (dashboard-match-agenda-entry "TODO=\"TODO\"")
+  :config
+  (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+  (setq dashboard-footer-messages
+        (mapcar (lambda (str)
+                  (concat str (make-string 6 ? )))
+                dashboard-footer-messages))
+  (dashboard-setup-startup-hook))
 
 ;; mode line
 (use-package doom-modeline
