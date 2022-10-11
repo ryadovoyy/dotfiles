@@ -86,6 +86,17 @@
 ;; (use-package forge
 ;;   :after magit)
 
+(use-package git-gutter
+  :hook (prog-mode . git-gutter-mode)
+  :custom
+  (git-gutter:update-interval 1))
+
+(use-package git-gutter-fringe
+  :config
+  (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+
 ;; extensible vi layer
 (use-package evil
   :init
@@ -163,11 +174,12 @@
   (dashboard-agenda-prefix-format "%-6:c %s ")
   (dashboard-agenda-sort-strategy '(time-up))
   (dashboard-match-agenda-entry "TODO=\"TODO\"")
+  (dashboard-set-footer nil)
   :config
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
   (setq dashboard-footer-messages
         (mapcar (lambda (str)
-                  (concat str (make-string 6 ? )))
+                  (concat str (make-string 5 ? )))
                 dashboard-footer-messages))
   (dashboard-setup-startup-hook))
 
@@ -199,6 +211,10 @@
   ;; pulse
   (set-face-background 'pulse-highlight-face (doom-color 'highlight))
   (set-face-background 'pulse-highlight-start-face (doom-color 'highlight))
+  ;; diff
+  (set-face-foreground 'diff-indicator-added (doom-color 'vc-added))
+  (set-face-foreground 'diff-indicator-removed (doom-color 'vc-deleted))
+  (set-face-background 'diff-removed nil)
   ;; vertical-border
   (set-face-attribute 'vertical-border nil
     :background (doom-color 'bg-alt)
@@ -226,6 +242,24 @@
   (show-paren-delay 0)
   :config
   (set-face-attribute 'show-paren-match nil :weight 'normal))
+
+(use-package whitespace
+  :custom
+  (whitespace-global-modes '(text-mode prog-mode conf-mode))
+  (whitespace-style
+   '(face
+     trailing
+     tabs
+     missing-newline-at-eof
+     empty
+     indentation
+     space-after-tab
+     space-before-tab
+     tab-mark))
+  (whitespace-display-mappings '((tab-mark 9 [9474 9] [92 9])))
+  :config
+  (set-face-background 'whitespace-tab nil)
+  (global-whitespace-mode))
 
 ;; icons
 (use-package all-the-icons

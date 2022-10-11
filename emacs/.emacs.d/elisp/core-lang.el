@@ -71,3 +71,5 @@
 (use-package go-mode
   :mode "\\.go\\'"
   :hook (go-mode . lsp-deferred))
+
+(add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode t)))

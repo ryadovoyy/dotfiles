@@ -15,8 +15,8 @@
 
 ;; enable window dividers
 (setq window-divider-default-places t)
-(setq window-divider-default-right-width 10)
-(setq window-divider-default-bottom-width 10)
+(setq window-divider-default-right-width 2)
+(setq window-divider-default-bottom-width 2)
 (window-divider-mode)
 
 ;; font
@@ -41,6 +41,15 @@
 ;; vim-like scrolling
 (setq scroll-step 1)
 (setq scroll-margin 8)
+
+;;; editor
+
+;; use spaces instead of tabs when indenting
+(setq-default indent-tabs-mode nil)
+
+;; display 4 spaces for every TAB character
+(setq-default tab-width 4)
+(defvaralias 'c-basic-offset 'tab-width)
 
 ;;; keep .emacs.d and other folders clean
 

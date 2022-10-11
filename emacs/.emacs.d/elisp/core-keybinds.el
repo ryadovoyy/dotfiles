@@ -22,9 +22,15 @@
 
 ;; fix non-working prefix in some modes
 (general-define-key
-  :keymaps '(help-mode-map dired-mode-map)
+  :keymaps '(help-mode-map dired-mode-map diff-mode-map)
   :prefix "<normal-state> SPC"
   "" nil)
+
+(add-hook 'view-mode-hook (lambda ()
+  (general-define-key
+    :keymaps 'view-mode-map
+    :prefix "<normal-state> SPC"
+    "" nil)))
 
 ;;; package keybindings
 
@@ -87,9 +93,16 @@
   :keymaps 'minibuffer-local-map
   "C-r" 'counsel-minibuffer-history)
 
-;; magit
+;; magit, git-gutter
 (core/leader-key-def
-  "g" '(magit-status :which-key "magit"))
+  "g"   '(:ignore t :which-key "git")
+  "gs"  '(magit-status :which-key "magit status")
+  "gh"  '(:ignore t :which-key "hunk")
+  "ghv" '(git-gutter:popup-hunk :which-key "preview hunk")
+  "ghn" '(git-gutter:next-hunk :which-key "next hunk")
+  "ghp" '(git-gutter:previous-hunk :which-key "previous hunk")
+  "ghs" '(git-gutter:stage-hunk :which-key "stage hunk")
+  "ghr" '(git-gutter:revert-hunk :which-key "revert hunk"))
 
 ;; evil
 (general-define-key
@@ -117,6 +130,12 @@
   "vv" '(core/vterm-vsplit :which-key "open vterm in vertical split")
   "vn" '(vterm-next-prompt :which-key "next prompt")
   "vp" '(vterm-previous-prompt :which-key "previous prompt"))
+
+;; dired
+(general-define-key
+  :keymaps 'dired-mode-map
+  "<normal-state> h" 'dired-up-directory
+  "<normal-state> l" 'dired-find-file)
 
 ;; tab-bar
 (core/leader-key-def
