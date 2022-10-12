@@ -126,6 +126,18 @@
   :config
   (evil-commentary-mode))
 
+(use-package evil-surround
+  :after evil
+  :config
+  (global-evil-surround-mode))
+
+(use-package evil-replace-with-register
+  :after evil
+  :custom
+  (evil-replace-with-register-key "gr")
+  :config
+  (evil-replace-with-register-install))
+
 ;; evil-mode keybindings for different emacs modes
 (use-package evil-collection
   :after evil
@@ -137,6 +149,9 @@
   :custom
   (counsel-describe-function-function #'helpful-callable)
   (counsel-describe-variable-function #'helpful-variable))
+
+;; cheatsheets
+(use-package tldr)
 
 ;; best terminal emulator
 (use-package vterm
@@ -151,6 +166,7 @@
   (multi-vterm-buffer-name "vterm"))
 
 ;; workspaces
+;; <built-in>
 (use-package tab-bar
   :custom
   (tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
@@ -199,9 +215,11 @@
 (use-package rainbow-mode
   :commands rainbow-mode)
 
-;; themes
+;; temporary highlighting
+;; <built-in>
 (use-package pulse)
 
+;; themes
 (use-package doom-themes
   :custom
   (doom-themes-enable-italic nil)
@@ -237,15 +255,20 @@
     :background (doom-color 'bg)
     :foreground (doom-color 'bg)))
 
+;; parentheses
+;; <built-in>
 (use-package paren
   :custom
   (show-paren-delay 0)
   :config
   (set-face-attribute 'show-paren-match nil :weight 'normal))
 
+;; blank visualization
+;; <built-in>
 (use-package whitespace
   :custom
   (whitespace-global-modes '(text-mode prog-mode conf-mode))
+  (whitespace-display-mappings '((tab-mark 9 [9474 9] [92 9])))
   (whitespace-style
    '(face
      trailing
@@ -256,7 +279,6 @@
      space-after-tab
      space-before-tab
      tab-mark))
-  (whitespace-display-mappings '((tab-mark 9 [9474 9] [92 9])))
   :config
   (set-face-background 'whitespace-tab nil)
   (global-whitespace-mode))

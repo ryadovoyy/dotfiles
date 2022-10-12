@@ -122,6 +122,10 @@
   [remap describe-function] 'counsel-describe-function
   [remap describe-variable] 'counsel-describe-variable)
 
+;; tldr
+(core/leader-key-def
+  "c" '(tldr :which-key "cheatsheets"))
+
 ;; vterm
 (core/leader-key-def
   "v"  '(:ignore t :which-key "vterm")

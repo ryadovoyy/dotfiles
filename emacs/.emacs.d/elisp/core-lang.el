@@ -11,6 +11,7 @@
   (lsp-signature-auto-activate nil)
   (lsp-modeline-code-actions-enable nil)
   (lsp-modeline-diagnostics-enable nil)
+  (lsp-idle-delay 1)
   ;; breadcrumbs
   (lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
   (lsp-headerline-breadcrumb-enable-diagnostics nil)
@@ -37,7 +38,8 @@
     "SPC" 'self-insert-command)
   (lsp-enable-which-key-integration t)
   ;; customize the appearance of error types
-  (setq flymake-fringe-indicator-position nil)
+  (setq flymake-fringe-indicator-position nil
+        flymake-no-changes-timeout 1)
   (push '(face . nil) (get :note 'flymake-overlay-control))
   (push '(face . nil) (get :warning 'flymake-overlay-control))
   (push '(face . nil) (get :error 'flymake-overlay-control)))
@@ -50,11 +52,11 @@
   (lsp-ui-sideline-show-diagnostics nil)
   (lsp-ui-sideline-show-hover nil)
   (lsp-ui-sideline-show-code-actions nil)
-  (lsp-ui-sideline-delay 0.5)
+  (lsp-ui-sideline-delay 1)
   ;; doc
   (lsp-ui-doc-position 'at-point)
   (lsp-ui-doc-show-with-mouse nil)
-  (lsp-ui-doc-delay 0.5)
+  (lsp-ui-doc-delay 1)
   (lsp-ui-doc-border (doom-color 'bg-alt))
   :config
   (set-face-attribute 'lsp-ui-doc-background nil :inherit 'markdown-code-face))

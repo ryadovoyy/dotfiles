@@ -19,6 +19,7 @@
       :weight 'bold
       :height (cdr face))))
 
+;; <built-in>
 (use-package org
   :hook (org-mode . core/org-setup)
   :config

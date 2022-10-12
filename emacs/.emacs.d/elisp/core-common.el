@@ -13,6 +13,11 @@
 ;; remove sign columns from dired
 (add-hook 'dired-mode-hook (lambda () (setq left-fringe-width 0 right-fringe-width 0)))
 
+;; enable the fill-column indicator
+(setq-default fill-column 80)
+(set-face-attribute 'fill-column-indicator nil :inherit 'whitespace-tab)
+(add-hook 'prog-mode-hook (lambda () (display-fill-column-indicator-mode)))
+
 ;; enable window dividers
 (setq window-divider-default-places t)
 (setq window-divider-default-right-width 2)
@@ -33,7 +38,7 @@
 (dolist (mode '(text-mode-hook
                 prog-mode-hook
                 conf-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 1))))
+  (add-hook mode (lambda () (display-line-numbers-mode))))
 
 ;; disable cursor blinking
 (setq blink-cursor-mode nil)
@@ -77,6 +82,9 @@
       create-lockfiles nil)
 
 ;;; other settings
+
+;; follow symbolic links and visit real files
+(setq vc-follow-symlinks t)
 
 ;; reduce the frequency of garbage collection by setting the threshold to 16mb
 (setq gc-cons-threshold (* 16 1024 1024))
