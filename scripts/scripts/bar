@@ -27,7 +27,7 @@ dwm_date() {
 }
 
 generate_content() {
-    echo "$(dwm_lang)  $(dwm_pulse)  $(dwm_date)"
+    echo "$(dwm_lang) · $(dwm_pulse) · $(dwm_date)"
 }
 
 while true; do

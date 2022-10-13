@@ -87,7 +87,7 @@
 ;;   :after magit)
 
 (use-package git-gutter
-  :hook (prog-mode . git-gutter-mode)
+  :hook ((text-mode prog-mode conf-mode) . git-gutter-mode)
   :custom
   (git-gutter:update-interval 1))
 
