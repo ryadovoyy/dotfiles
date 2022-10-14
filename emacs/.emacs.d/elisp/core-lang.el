@@ -1,3 +1,5 @@
+;;; tools
+
 ;; lsp
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
@@ -69,9 +71,13 @@
 ;;   (company-minimum-prefix-length 1)
 ;;   (company-idle-delay 0))
 
-;; languages
+;;; languages
+
 (use-package go-mode
   :mode "\\.go\\'"
   :hook (go-mode . lsp-deferred))
 
 (add-hook 'c-mode-common-hook (lambda () (setq indent-tabs-mode t)))
+
+;; disable echo area display of lisp objects at point
+(global-eldoc-mode -1)

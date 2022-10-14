@@ -86,15 +86,21 @@
 ;; follow symbolic links and visit real files
 (setq vc-follow-symlinks t)
 
-;; reduce the frequency of garbage collection by setting the threshold to 16mb
-(setq gc-cons-threshold (* 16 1024 1024))
+;; prevent garbage collection at startup to cut down startup time
+(setq gc-cons-threshold most-positive-fixnum)
 
-;; prevent garbage collection while minibuffer is open (improves performance)
+;; reduce the frequency of GC after startup by setting the threshold to 16mb
+(add-hook 'emacs-startup-hook (lambda ()
+  (setq gc-cons-threshold (* 16 1024 1024))))
+
+;; prevent GC while minibuffer is open (improves performance)
 (defun core/minibuffer-setup ()
   (setq gc-cons-threshold most-positive-fixnum))
 
 (defun core/minibuffer-exit ()
-  (setq gc-cons-threshold (* 16 1024 1024)))
+  ;; defer it so that commands launched immediately after will enjoy the benefits
+  (run-at-time 1 nil (lambda ()
+    (setq gc-cons-threshold (* 16 1024 1024)))))
 
 (add-hook 'minibuffer-setup-hook #'core/minibuffer-setup)
 (add-hook 'minibuffer-exit-hook #'core/minibuffer-exit)

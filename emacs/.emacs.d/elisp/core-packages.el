@@ -60,7 +60,7 @@
 ;; better fuzzy matching for ivy
 (use-package flx)
 
-;; collection of ivy-enhanced versions of common Emacs commands
+;; collection of ivy-enhanced versions of common emacs commands
 (use-package counsel
   :custom
   (counsel-rg-base-command
