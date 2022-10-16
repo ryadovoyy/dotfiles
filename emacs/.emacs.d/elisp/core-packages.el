@@ -153,6 +153,62 @@
 ;; cheatsheets
 (use-package tldr)
 
+;; best file manager
+(use-package dirvish
+  :after dired
+  :custom
+  (dired-listing-switches
+   "-l --almost-all --human-readable --group-directories-first --no-group")
+  (dirvish-attributes
+   '(subtree-state all-the-icons vc-state file-size))
+  (dirvish-default-layout '(1 0.13 0.53))
+  (dirvish-layout-recipes
+   '((0 0 0.4)
+     (0 0 0.8)
+     (1 0.13 0.53)))
+  (dirvish-mode-line-format
+   '(:left (sort file-time symlink) :right (omit yank index)))
+  (dirvish-mode-line-height 35)
+  (dirvish-header-line-height 35)
+  (dirvish-side-auto-expand nil)
+  ;; kill all session buffers on quit or opening a file
+  (dirvish-reuse-session nil)
+  :config
+  ;; replace default directory and pdf previewers
+  (dirvish-define-preview core/default (file ext)
+    "Fixed default preview dispatcher for FILE."
+    (when-let ((attrs (ignore-errors (file-attributes file)))
+               (size (file-attribute-size attrs)))
+      (cond ((file-directory-p file)
+             (let* ((script `(with-current-buffer
+                                 (dired-noselect ,file "-lAhG --group-directories-first")
+                               (buffer-string)))
+                    (cmd (format "%S" `(message "\n%s" ,script))))
+               `(dired . ("emacs" "-Q" "-batch" "--eval" ,cmd))))
+            ((> size (or large-file-warning-threshold 10000000))
+             `(info . ,(format "File %s is too big for literal preview." file)))
+            ((member ext dirvish-media-exts)
+             `(info . "Preview disabled for media files"))
+            (t (dirvish--find-file-temporarily file)))))
+
+  (add-to-list 'dirvish-preview-dispatchers 'core/default t)
+  (setq dirvish-preview-dispatchers
+        (cl-substitute 'pdf-preface 'pdf dirvish-preview-dispatchers))
+  ;; hide continuation lines and disable parentheses highlighting
+  (add-hook 'dirvish-find-entry-hook
+            (lambda (&rest _)
+              (setq-local truncate-lines t)
+              (show-paren-local-mode -1)))
+  ;; modes
+  (dirvish-override-dired-mode)
+  (dirvish-peek-mode))
+
+;; addtional syntax highlighting for dired
+(use-package diredfl
+  :hook ((dired-mode dirvish-directory-view-mode) . diredfl-mode)
+  :config
+  (set-face-attribute 'diredfl-dir-name nil :bold t))
+
 ;; best terminal emulator
 (use-package vterm
   :commands vterm

@@ -1,3 +1,23 @@
+;;; garbage collection
+
+;; prevent GC at startup to cut down startup time
+(defun core/enable-gc ()
+  (setq gc-cons-threshold (* 16 1024 1024)))
+
+(defun core/disable-gc ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(core/disable-gc)
+(add-hook 'emacs-startup-hook #'core/enable-gc)
+
+;; prevent GC while minibuffer is open to improve performance
+(defun core/minibuffer-exit ()
+  ;; defer it so that commands launched immediately after will enjoy the benefits
+  (run-at-time 1 nil #'core/enable-gc))
+
+(add-hook 'minibuffer-setup-hook #'core/disable-gc)
+(add-hook 'minibuffer-exit-hook #'core/minibuffer-exit)
+
 ;;; user interface
 
 ;; clean up user interface
@@ -6,6 +26,9 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
+
+;; kill the *scratch* buffer at startup
+(add-hook 'emacs-startup-hook (lambda () (kill-buffer "*scratch*")))
 
 ;; add sign columns
 (set-fringe-mode 15)
@@ -42,6 +65,9 @@
 
 ;; disable cursor blinking
 (setq blink-cursor-mode nil)
+
+;; turn off cursors in non-selected windows
+(setq-default cursor-in-non-selected-windows nil)
 
 ;; vim-like scrolling
 (setq scroll-step 1)
@@ -85,25 +111,6 @@
 
 ;; follow symbolic links and visit real files
 (setq vc-follow-symlinks t)
-
-;; prevent garbage collection at startup to cut down startup time
-(setq gc-cons-threshold most-positive-fixnum)
-
-;; reduce the frequency of GC after startup by setting the threshold to 16mb
-(add-hook 'emacs-startup-hook (lambda ()
-  (setq gc-cons-threshold (* 16 1024 1024))))
-
-;; prevent GC while minibuffer is open (improves performance)
-(defun core/minibuffer-setup ()
-  (setq gc-cons-threshold most-positive-fixnum))
-
-(defun core/minibuffer-exit ()
-  ;; defer it so that commands launched immediately after will enjoy the benefits
-  (run-at-time 1 nil (lambda ()
-    (setq gc-cons-threshold (* 16 1024 1024)))))
-
-(add-hook 'minibuffer-setup-hook #'core/minibuffer-setup)
-(add-hook 'minibuffer-exit-hook #'core/minibuffer-exit)
 
 ;; increase the amount of data which emacs reads from the process to 1mb (for lsp)
 (setq read-process-output-max (* 1024 1024))

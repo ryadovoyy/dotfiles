@@ -126,6 +126,29 @@
 (core/leader-key-def
   "c" '(tldr :which-key "cheatsheets"))
 
+;; dirvish, dired
+(core/leader-key-def
+  "d"   '(:ignore t :which-key "dirvish")
+  "do"  '(dirvish-dwim :which-key "open dirvish")
+  "ds"  '(dirvish-side :which-key "toggle sidebar")
+  "dq"  '(dirvish-quit :which-key "quit dirvish session")
+  "dy"  '(dirvish-yank-menu :which-key "yank menu")
+  "dm"  '(dirvish-mark-menu :which-key "mark menu")
+  "dn"  '(dirvish-narrow :which-key "live file filtering")
+  "dl"  '(:ignore t :which-key "layout")
+  "dlt" '(dirvish-layout-toggle :which-key "toggle layout")
+  "dls" '(dirvish-layout-switch :which-key "switch layout"))
+
+(general-define-key
+  :keymaps 'dirvish-mode-map
+  "<normal-state> TAB" 'dirvish-subtree-toggle)
+
+(general-define-key
+  :keymaps 'dired-mode-map
+  "<normal-state> h" 'dired-up-directory
+  "<normal-state> l" 'dired-find-file
+  "<normal-state> A" 'dired-create-empty-file)
+
 ;; vterm
 (core/leader-key-def
   "v"  '(:ignore t :which-key "vterm")
@@ -134,12 +157,6 @@
   "vv" '(core/vterm-vsplit :which-key "open vterm in vertical split")
   "vn" '(vterm-next-prompt :which-key "next prompt")
   "vp" '(vterm-previous-prompt :which-key "previous prompt"))
-
-;; dired
-(general-define-key
-  :keymaps 'dired-mode-map
-  "<normal-state> h" 'dired-up-directory
-  "<normal-state> l" 'dired-find-file)
 
 ;; tab-bar
 (core/leader-key-def
