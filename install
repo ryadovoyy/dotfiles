@@ -4,12 +4,11 @@ set -euo pipefail
 IFS=$'\n\t'
 
 DOTFILES="$HOME/.dotfiles"
-stow_packages='btop,dunst,gtk,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,tmux,x'
+stow_packages='dunst,gtk,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,tmux,x'
 stow_packages_formatted="${stow_packages//,/$'\n'}"
 
 declare -A stow_files
 stow_files=(
-    [btop]="$HOME/.config/btop"
     [dunst]="$HOME/.config/dunst"
     [gtk]="$HOME/.config/gtk-3.0"
     [mpv]="$HOME/.config/mpv"
