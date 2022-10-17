@@ -167,13 +167,38 @@
      (0 0 0.8)
      (1 0.13 0.53)))
   (dirvish-mode-line-format
-   '(:left (sort file-time symlink) :right (omit yank index)))
+   '(:left (sort file-time symlink) :right (omit yank)))
   (dirvish-mode-line-height 35)
   (dirvish-header-line-height 35)
   (dirvish-side-auto-expand nil)
+  (dirvish-path-separators '(" ~" " /" "  "))
+  (dirvish-vc-state-face-alist
+   '((up-to-date       . nil)
+     (edited           . git-gutter:modified)
+     (added            . git-gutter:added)
+     (removed          . git-gutter:deleted)
+     (missing          . vc-missing-state)
+     (needs-merge      . dirvish-vc-needs-merge-face)
+     (conflict         . vc-conflict-state)
+     (unlocked-changes . vc-locked-state)
+     (needs-update     . vc-needs-update-state)
+     (ignored          . nil)
+     (unregistered     . dirvish-vc-unregistered-face)))
   ;; kill all session buffers on quit or opening a file
   (dirvish-reuse-session nil)
   :config
+  ;; redefine and fix the bar creating function to remove the side line
+  (defun dirvish--bar-image (fullscreenp header)
+    (when (and (display-graphic-p) (image-type-available-p 'pbm))
+      (let* ((hv (if header dirvish-header-line-height dirvish-mode-line-height))
+             (ht (cond ((numberp hv) hv) (fullscreenp (cdr hv)) (t (car hv)))))
+        (propertize
+         " " 'display
+         (ignore-errors
+           (create-image
+            (concat (format "P1\n%i %i\n" 2 ht) "\n")
+            'pbm t :foreground "None" :ascent 'center))))))
+
   ;; replace default directory and pdf previewers
   (dirvish-define-preview core/default (file ext)
     "Fixed default preview dispatcher for FILE."
@@ -194,11 +219,17 @@
   (add-to-list 'dirvish-preview-dispatchers 'core/default t)
   (setq dirvish-preview-dispatchers
         (cl-substitute 'pdf-preface 'pdf dirvish-preview-dispatchers))
-  ;; hide continuation lines and disable parentheses highlighting
+
+  ;; improve the interface
   (add-hook 'dirvish-find-entry-hook
             (lambda (&rest _)
+              ;; hide continuation lines
               (setq-local truncate-lines t)
-              (show-paren-local-mode -1)))
+              ;; disable parentheses highlighting
+              (show-paren-local-mode -1)
+              ;; set the vc gutter
+              (define-fringe-bitmap 'dirvish-vc-gutter
+                                    [224] nil nil '(center repeated))))
   ;; modes
   (dirvish-override-dired-mode)
   (dirvish-peek-mode))
@@ -309,7 +340,9 @@
     :foreground (doom-color 'bg))
   (set-face-attribute 'doom-modeline-bar-inactive nil
     :background (doom-color 'bg)
-    :foreground (doom-color 'bg)))
+    :foreground (doom-color 'bg))
+  ;; header-line
+  (set-face-background 'header-line (doom-color 'bg)))
 
 ;; parentheses
 ;; <built-in>
