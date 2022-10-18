@@ -187,7 +187,7 @@
   ;; kill all session buffers on quit or opening a file
   (dirvish-reuse-session nil)
   :config
-  ;; redefine and fix the bar creating function to remove the side line
+  ;; fix the bar creating function to remove the side line
   (defun dirvish--bar-image (fullscreenp header)
     (when (and (display-graphic-p) (image-type-available-p 'pbm))
       (let* ((hv (if header dirvish-header-line-height dirvish-mode-line-height))
@@ -248,9 +248,14 @@
         vterm-max-scrollback 10000))
 
 (use-package multi-vterm
-  :after vterm
+  :commands multi-vterm
   :custom
-  (multi-vterm-buffer-name "vterm"))
+  (multi-vterm-buffer-name "vterm")
+  :config
+  ;; fix the buffer name formatting function
+  (defun multi-vterm-format-buffer-index (index)
+    "Format vterm buffer name with INDEX."
+    (format "*%s%s*" multi-vterm-buffer-name index)))
 
 ;; workspaces
 ;; <built-in>

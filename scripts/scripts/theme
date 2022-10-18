@@ -15,6 +15,10 @@ dunst_dir="$HOME/.config/dunst"
 template_dunst="$dunst_dir/dunstrc.tmpl"
 dunst_config="$dunst_dir/dunstrc"
 
+lock_dir="$HOME/.config"
+template_lock="$lock_dir/betterlockscreenrc.tmpl"
+lock_config="$lock_dir/betterlockscreenrc"
+
 help() {
 cat <<EOF
 Usage: $0 [OPTIONS]
@@ -58,6 +62,7 @@ install_theme() {
     mkdir -p "$cache_dir"
     cp "$template_colors" "$cached_colors"
     [[ -e "$template_dunst" ]] && cp "$template_dunst" "$dunst_config"
+    [[ -e "$template_lock" ]] && cp "$template_lock" "$lock_config"
 
     local counter
     counter=0
@@ -65,6 +70,8 @@ install_theme() {
         sed -i "s/{color$counter}/$line/g" "$cached_colors"
         [[ -e "$dunst_config" ]] \
             && sed -i "s/{color$counter}/$line/g" "$dunst_config"
+        [[ -e "$lock_config" ]] \
+            && sed -i "s/{color$counter}/${line:1}/g" "$lock_config"
         [[ "$counter" -eq 17 ]] && echo "$line" > "$cached_root_color"
         (( ++counter ))
     done < "$theme"
