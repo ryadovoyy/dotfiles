@@ -112,7 +112,6 @@
 
 (core/leader-key-def
   "w"   'evil-window-map
-  "n"   '(evil-normal-state :which-key "normal state")
   "SPC" '(evil-switch-to-windows-last-buffer :which-key "toggle between buffers"))
 
 ;; helpful

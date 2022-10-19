@@ -6,7 +6,7 @@ HISTSIZE=
 HISTFILESIZE=
 
 # show date and time in the history
-HISTTIMEFORMAT="%Y-%m-%d %T "
+HISTTIMEFORMAT='%Y-%m-%d %T '
 
 # don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
@@ -47,7 +47,7 @@ fi
 [ -f "$HOME/.fzf.bash" ] && source "$HOME/.fzf.bash"
 
 # add vterm support
-if [ "$INSIDE_EMACS" = 'vterm' ] \
+if [ "$INSIDE_EMACS" = vterm ] \
     && [ -n "$EMACS_VTERM_PATH" ] \
     && [ -f "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh" ]; then
     source "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh"

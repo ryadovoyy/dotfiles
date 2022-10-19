@@ -2,18 +2,18 @@
 
 # improve verbosity
 alias \
-    cp="cp -iv" \
-    mv="mv -iv" \
-    rm="rm -Iv" \
-    mkdir="mkdir -v" \
-    bc="bc -q"
+    cp='cp -v' \
+    mv='mv -v' \
+    rm='rm -Iv' \
+    mkdir='mkdir -v' \
+    bc='bc -q'
 
 # color output
 alias \
-    ls="ls -alh --group-directories-first --color=auto" \
-    grep="grep --color=auto" \
-    diff="diff --color=auto" \
-    ip="ip -color=auto"
+    ls='ls -lAh --group-directories-first --color=auto' \
+    grep='grep --color=auto' \
+    diff='diff --color=auto' \
+    ip='ip -color=auto'
 
 # send a notification after a long running command execution
 # example: [command]; alert
@@ -21,7 +21,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # copy an entry's password to the clipboard
 # format: kp [entry] [timeout in seconds]
-alias kp="keepassxc-cli clip -k ~/Documents/database.key ~/Documents/database.kdbx"
+alias kp="keepassxc-cli clip -k $HOME/Documents/database.key $HOME/Documents/database.kdbx"
 
 # transmission
-alias tmr="transmission-remote"
+alias tmr='transmission-remote'
