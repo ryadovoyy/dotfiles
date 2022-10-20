@@ -158,7 +158,7 @@
   :after dired
   :custom
   (dired-listing-switches
-   "-l --almost-all --human-readable --group-directories-first --no-group")
+   "-l --almost-all --human-readable --group-directories-first")
   (dirvish-attributes
    '(subtree-state all-the-icons vc-state file-size))
   (dirvish-default-layout '(1 0.13 0.53))
@@ -206,7 +206,7 @@
                (size (file-attribute-size attrs)))
       (cond ((file-directory-p file)
              (let* ((script `(with-current-buffer
-                                 (dired-noselect ,file "-lAhG --group-directories-first")
+                                 (dired-noselect ,file "-lAh --group-directories-first")
                                (buffer-string)))
                     (cmd (format "%S" `(message "\n%s" ,script))))
                `(dired . ("emacs" "-Q" "-batch" "--eval" ,cmd))))
@@ -230,9 +230,8 @@
               ;; set the vc gutter
               (define-fringe-bitmap 'dirvish-vc-gutter
                                     [224] nil nil '(center repeated))))
-  ;; modes
-  (dirvish-override-dired-mode)
-  (dirvish-peek-mode))
+  ;; mode
+  (dirvish-override-dired-mode))
 
 ;; addtional syntax highlighting for dired
 (use-package diredfl
@@ -266,7 +265,7 @@
   (tab-bar-new-tab-to 'rightmost)
   (tab-bar-new-tab-choice "*dashboard*")
   (tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
-  (tab-bar-show 1))
+  (tab-bar-show 0))
 
 ;; dashboard
 (use-package dashboard

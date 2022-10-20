@@ -24,4 +24,4 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias kp="keepassxc-cli clip -k $HOME/Documents/database.key $HOME/Documents/database.kdbx"
 
 # transmission
-alias tmr='transmission-remote'
+alias trem='transmission-remote'

@@ -4,7 +4,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 DOTFILES="$HOME/.dotfiles"
-stow_packages='dunst,gtk,lock,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,tmux,x'
+stow_packages=dunst,gtk,lock,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,tmux,x
 stow_packages_formatted="${stow_packages//,/$'\n'}"
 
 declare -A stow_files
@@ -94,13 +94,13 @@ done
 cd "$DOTFILES" || error "can't cd into the dotfiles folder"
 
 # make all scripts executable
-chmod -R +x 'scripts'
+chmod -R +x scripts
 
 echo "Stow packages to be installed: $stow_packages"
-printf '%s\n\n' "Installing Stow packages..."
+printf '%s\n\n' 'Installing Stow packages...'
 
 for pkg in $stow_packages_formatted; do
-    if [[ "$pkg" == 'shell' ]]; then
+    if [[ "$pkg" == shell ]]; then
         for shell_file in "${stow_shell_files[@]}"; do
             [[ -e "$shell_file" ]] && rm -fv "$shell_file"
         done
@@ -110,9 +110,9 @@ for pkg in $stow_packages_formatted; do
     stow -v "$pkg"
 done
 
-if [[ "$stow_packages" =~ 'wal' ]]; then
-    printf '\n%s\n' "Installing a theme..."
+if [[ "$stow_packages" =~ wal ]]; then
+    printf '\n%s\n' 'Installing a theme...'
     theme -i doom-wilmersdorf
 fi
 
-printf '\n%s\n' "Installation completed"
+printf '\n%s\n' 'Installation completed'
