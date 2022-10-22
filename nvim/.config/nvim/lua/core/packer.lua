@@ -36,7 +36,7 @@ return packer.startup(function(use)
     -- essential nvim plugins
     use({
         'neovim/nvim-lspconfig',
-        event = 'BufRead',
+        event = 'BufReadPre',
         config = function()
             require('plugins.lspconfig')
         end
@@ -44,7 +44,7 @@ return packer.startup(function(use)
 
     use({
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.0',
+        branch = '0.1.x',
         requires = { 'nvim-lua/plenary.nvim' },
         config = function()
             require('plugins.telescope')
@@ -69,6 +69,12 @@ return packer.startup(function(use)
         config = function()
             require('plugins.treesitter')
         end
+    })
+
+    -- additional textobjects for treesitter
+    use({
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        after = 'nvim-treesitter'
     })
 
     -- code context
@@ -113,14 +119,27 @@ return packer.startup(function(use)
         end
     })
 
+    -- colorcolumn
+    use({
+        'lukas-reineke/virt-column.nvim',
+        config = function()
+            require('plugins.virt-column')
+        end
+    })
+
+    -- colorscheme
+    use({
+        'folke/tokyonight.nvim',
+        config = function()
+            require('plugins.tokyonight')
+        end
+    })
+
     -- improved text editing
     use('tpope/vim-repeat')
     use('tpope/vim-surround')
     use('tpope/vim-commentary')
     use('vim-scripts/ReplaceWithRegister')
-
-    -- colorscheme
-    use('dylanaraps/wal.vim')
 
     if packer_bootstrap then
         require('packer').sync()

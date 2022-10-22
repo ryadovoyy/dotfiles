@@ -21,6 +21,9 @@ o.relativenumber = true
 o.list = true
 o.listchars = 'tab:│ '
 
+-- split separators
+o.fillchars = 'horiz:━,horizup:┻,horizdown:┳,vert:┃,vertleft:┫,vertright:┣,verthoriz:╋'
+
 o.laststatus = 3
 o.showmode = false
 o.colorcolumn = '80'
@@ -28,7 +31,8 @@ o.cursorline = true
 o.guicursor = ''
 o.scrolloff = 8
 o.incsearch = true
-o.hlsearch = false
+o.hlsearch = true
+o.termguicolors = true
 o.background = 'dark'
 o.errorbells = false
 

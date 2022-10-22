@@ -9,14 +9,20 @@ require('nvim-tree').setup({
         hide_root_folder = true
     },
     renderer = {
-        icons = { webdev_colors = false }
+        icons = {
+            glyphs = {
+                git = {
+                    unstaged = '┃',
+                    untracked = '┃'
+                }
+            }
+        }
     },
     actions = {
         open_file = {
             window_picker = { enable = false }
         }
     },
-    git = { enable = false },
     on_attach = function(bufnr)
         local opts = { buffer = bufnr }
         local map = set_map(opts)
@@ -27,4 +33,4 @@ require('nvim-tree').setup({
 
 local opts = { noremap = true, silent = true }
 local map = set_map(opts)
-map('n', '<leader>t', ':NvimTreeToggle<CR>')
+map('n', '<leader>d', ':NvimTreeToggle<CR>')
