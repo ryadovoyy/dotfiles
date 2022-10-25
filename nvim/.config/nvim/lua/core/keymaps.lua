@@ -8,19 +8,19 @@ local expr_map = set_map(expr_opts)
 map('n', '<Space>', '<Nop>')
 
 -- save and quit
-map('n', '<leader>ss', ':w<CR><C-l>')
-map('n', '<leader>sa', ':wa<CR><C-l>')
-map('n', '<leader>q', ':q<CR>')
+map('n', '<leader>ss', ':w<CR><C-l>', 'save current buffer')
+map('n', '<leader>sa', ':wa<CR><C-l>', 'save all buffers')
+map('n', '<leader>q', ':q<CR>', 'quit')
 map('i', 'jk', '<Esc>')
 
 -- backspace replacement
 map('i', '<C-h>', '<BS>')
 
 -- windows
-map('n', '<leader>w', '<C-w>')
+map('n', '<leader>w', '<C-w>', 'windows')
 
 -- toggle between buffers
-map('n', '<leader><leader>', '<C-^>')
+map('n', '<leader><leader>', '<C-^>', 'toggle between buffers')
 
 -- make Y behave like the rest of the capital letters
 map('n', 'Y', 'y$')
@@ -32,13 +32,12 @@ map('n', '*', '*zz')
 map('n', '#', '#zz')
 
 -- move lines of text
-map('n', '<leader>j', ':m .+1<CR>==')
-map('n', '<leader>k', ':m .-2<CR>==')
+map('n', '<leader>j', ':m .+1<CR>==', 'move one line down')
+map('n', '<leader>k', ':m .-2<CR>==', 'move one line up')
 
 -- quickfix list
 map('n', '<C-j>', ':cnext<CR>zz')
 map('n', '<C-k>', ':cprev<CR>zz')
-map('n', '<leader>cc', ':ccl<CR>')
 
 -- move between wrapped lines
 expr_map('n', 'j', 'v:count ? "j" : "gj"')

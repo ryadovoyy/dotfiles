@@ -3,8 +3,18 @@ require('tokyonight').setup({
         comments = { italic = false },
         keywords = { italic = false }
     },
-    sidebars = { 'qf', 'help', 'man' },
+    sidebars = {},
     lualine_bold = true,
+    on_colors = function(c)
+        local bg = '#13141c'
+
+        c.bg_statusline = '#171822'
+        c.bg_dark = bg
+        c.bg_float = bg
+        c.bg_popup = bg
+        c.bg_sidebar = bg
+        c.border = bg
+    end,
     on_highlights = function(hl, c)
         local prompt = '#2d3149'
 

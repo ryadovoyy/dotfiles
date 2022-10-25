@@ -25,6 +25,8 @@ o.listchars = 'tab:│ '
 o.fillchars = 'horiz:━,horizup:┻,horizdown:┳,vert:┃,vertleft:┫,vertright:┣,verthoriz:╋'
 
 o.laststatus = 3
+o.splitright = true
+o.splitbelow = true
 o.showmode = false
 o.colorcolumn = '80'
 o.cursorline = true

@@ -174,9 +174,9 @@
   (dirvish-path-separators '(" ~" " /" "  "))
   (dirvish-vc-state-face-alist
    '((up-to-date       . nil)
-     (edited           . git-gutter:modified)
-     (added            . git-gutter:added)
-     (removed          . git-gutter:deleted)
+     (edited           . git-gutter-fr:modified)
+     (added            . git-gutter-fr:added)
+     (removed          . git-gutter-fr:deleted)
      (missing          . vc-missing-state)
      (needs-merge      . dirvish-vc-needs-merge-face)
      (conflict         . vc-conflict-state)
@@ -288,6 +288,7 @@
         (mapcar (lambda (str)
                   (concat str (make-string 5 ? )))
                 dashboard-footer-messages))
+  (add-hook 'dashboard-after-initialize-hook #'dashboard-refresh-buffer)
   (dashboard-setup-startup-hook))
 
 ;; mode line
@@ -310,52 +311,6 @@
 ;; <built-in>
 (use-package pulse)
 
-;; themes
-(use-package doom-themes
-  :custom
-  (doom-themes-enable-italic nil)
-  :config
-  (load-theme 'doom-wilmersdorf t)
-  (doom-themes-org-config)
-  ;; pulse
-  (set-face-background 'pulse-highlight-face (doom-color 'highlight))
-  (set-face-background 'pulse-highlight-start-face (doom-color 'highlight))
-  ;; diff
-  (set-face-foreground 'diff-indicator-added (doom-color 'vc-added))
-  (set-face-foreground 'diff-indicator-removed (doom-color 'vc-deleted))
-  (set-face-background 'diff-removed nil)
-  ;; vertical-border
-  (set-face-attribute 'vertical-border nil
-    :background (doom-color 'bg-alt)
-    :foreground (doom-color 'bg-alt))
-  ;; tab-bar
-  (set-face-attribute 'tab-bar nil
-    :background (doom-color 'modeline-bg)
-    :foreground (doom-color 'modeline-bg))
-  (set-face-attribute 'tab-bar-tab nil
-    :background (doom-color 'modeline-bg)
-    :foreground (doom-color 'highlight))
-  (set-face-attribute 'tab-bar-tab-inactive nil
-    :background (doom-color 'modeline-bg)
-    :foreground (doom-color 'fg))
-  ;; mode line
-  (set-face-attribute 'mode-line-inactive nil
-    :background (doom-color 'bg)
-    :foreground (doom-color 'bg))
-  (set-face-attribute 'doom-modeline-bar-inactive nil
-    :background (doom-color 'bg)
-    :foreground (doom-color 'bg))
-  ;; header-line
-  (set-face-background 'header-line (doom-color 'bg)))
-
-;; parentheses
-;; <built-in>
-(use-package paren
-  :custom
-  (show-paren-delay 0)
-  :config
-  (set-face-attribute 'show-paren-match nil :weight 'normal))
-
 ;; blank visualization
 ;; <built-in>
 (use-package whitespace
@@ -373,8 +328,95 @@
      space-before-tab
      tab-mark))
   :config
-  (set-face-background 'whitespace-tab nil)
   (global-whitespace-mode))
+
+;; themes
+(use-package doom-themes
+  :custom
+  (doom-themes-enable-italic nil)
+  :config
+  (load-theme 'doom-tokyo-night t)
+  (doom-themes-org-config)
+  ;; cursor
+  (set-face-background 'cursor (doom-color 'blue))
+  ;; minibuffer-prompt
+  (set-face-foreground 'minibuffer-prompt (doom-color 'blue))
+  ;; link
+  (set-face-foreground 'link (doom-color 'blue))
+  ;; pulse
+  (set-face-background 'pulse-highlight-face (doom-color 'blue))
+  (set-face-background 'pulse-highlight-start-face (doom-color 'blue))
+  ;; diff
+  (set-face-foreground 'diff-indicator-added (doom-color 'vc-added))
+  (set-face-foreground 'diff-indicator-removed (doom-color 'vc-deleted))
+  (set-face-background 'diff-removed nil)
+  ;; git-gutter-fringe
+  (set-face-foreground 'git-gutter-fr:modified (doom-color 'dark-blue))
+  ;; line-number
+  (set-face-background 'line-number (doom-color 'bg))
+  ;; header-line
+  (set-face-background 'header-line (doom-color 'bg-alt))
+  ;; mode line
+  (set-face-foreground 'mode-line-emphasis (doom-color 'blue))
+  (set-face-background 'mode-line-highlight (doom-color 'blue))
+  (set-face-background 'mode-line-buffer-id (doom-color 'blue))
+  (set-face-foreground 'doom-modeline-buffer-file (doom-color 'fg))
+  (set-face-foreground 'doom-modeline-info (doom-color 'blue))
+  (set-face-background 'doom-modeline-bar (doom-color 'blue))
+  (set-face-foreground 'doom-modeline-lsp-success (doom-color 'blue))
+  (set-face-foreground 'doom-modeline-evil-normal-state (doom-color 'blue))
+  (set-face-foreground 'doom-modeline-evil-insert-state (doom-color 'dark-green))
+  (set-face-foreground 'doom-modeline-evil-visual-state (doom-color 'magenta))
+
+  (set-face-attribute 'doom-modeline-evil-operator-state nil
+    :foreground (doom-color 'blue)
+    :weight 'bold)
+  ;; highlight
+  (set-face-attribute 'highlight nil
+    :background (doom-color 'blue)
+    :foreground (doom-color 'bg-alt))
+  (set-face-attribute 'lazy-highlight nil
+    :background (doom-color 'orange)
+    :foreground (doom-color 'bg-alt))
+  ;; vertical-border
+  (set-face-attribute 'vertical-border nil
+    :background (doom-color 'bg-alt)
+    :foreground (doom-color 'bg-alt))
+  ;; whitespace
+  (set-face-attribute 'whitespace-tab nil
+    :background nil
+    :foreground (doom-color 'base0))
+  ;; tab-bar
+  (set-face-attribute 'tab-bar nil
+    :background (doom-color 'modeline-bg-l)
+    :foreground (doom-color 'modeline-bg-l))
+  (set-face-attribute 'tab-bar-tab nil
+    :background (doom-color 'modeline-bg-l)
+    :foreground (doom-color 'blue))
+  (set-face-attribute 'tab-bar-tab-inactive nil
+    :background (doom-color 'modeline-bg-l)
+    :foreground (doom-color 'fg))
+  ;; org
+  (custom-set-faces
+    `(org-link ((t (:foreground ,(doom-color 'blue)))))
+    `(org-list-dt ((t (:foreground ,(doom-color 'blue)))))
+    `(org-todo ((t (:foreground ,(doom-color 'yellow))))))
+  ;; lsp-ui
+  (add-hook 'lsp-ui-mode-hook (lambda () (setq lsp-ui-doc-border (doom-color 'bg-alt)))))
+
+;; distinguish buffers by making some darker
+(use-package solaire-mode
+  :after doom-themes
+  :config
+  (solaire-global-mode))
+
+;; parentheses
+;; <built-in>
+(use-package paren
+  :custom
+  (show-paren-delay 0)
+  :config
+  (set-face-attribute 'show-paren-match nil :weight 'normal))
 
 ;; icons
 (use-package all-the-icons

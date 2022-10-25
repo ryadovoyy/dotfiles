@@ -1,7 +1,8 @@
 local M = {}
 
 function M.set_map(opts)
-    return function(mode, lhs, rhs)
+    return function(mode, lhs, rhs, desc)
+        opts.desc = desc
         vim.keymap.set(mode, lhs, rhs, opts)
     end
 end

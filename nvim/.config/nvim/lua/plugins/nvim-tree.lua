@@ -4,6 +4,7 @@ local set_map = require('core.util').set_map
 require('nvim-tree').setup({
     disable_netrw = true,
     hijack_cursor = true,
+    sync_root_with_cwd = true,
     view = {
         adaptive_size = true,
         hide_root_folder = true
@@ -33,4 +34,4 @@ require('nvim-tree').setup({
 
 local opts = { noremap = true, silent = true }
 local map = set_map(opts)
-map('n', '<leader>d', ':NvimTreeToggle<CR>')
+map('n', '<leader>d', ':NvimTreeToggle<CR>', 'toggle nvim tree')

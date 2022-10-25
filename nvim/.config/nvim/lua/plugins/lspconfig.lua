@@ -9,8 +9,8 @@ local function on_attach(client, bufnr)
     local opts = { noremap = true, silent = true, buffer = bufnr }
     local map = set_map(opts)
 
-    map('n', '<leader>ln', vim.lsp.buf.rename)
-    map('n', '<leader>lev', vim.diagnostic.open_float)
+    map('n', '<leader>ln', vim.lsp.buf.rename, 'rename all references')
+    map('n', '<leader>lev', vim.diagnostic.open_float, 'preview error')
 
     if client.server_capabilities.documentFormattingProvider then
         local format_augroup = augroup('Format', { clear = true })

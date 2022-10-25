@@ -1,4 +1,5 @@
 local tsb = require('telescope.builtin')
+local tspr = require('telescope').extensions.project.project
 local set_map = require('core.util').set_map
 
 require('telescope').setup({
@@ -34,29 +35,37 @@ require('telescope').setup({
                 return { '--hidden' }
             end
         }
+    },
+    extensions = {
+        project = {
+            hidden_files = true,
+            sync_with_nvim_tree = true
+        }
     }
 })
 
 local opts = { noremap = true }
 local map = set_map(opts)
 
--- search
-map('n', '<leader>pp', tsb.resume)
-map('n', '<leader>pf', tsb.find_files)
-map('n', '<leader>ph', tsb.oldfiles)
-map('n', '<leader>pb', tsb.buffers)
-map('n', '<leader>pr', tsb.live_grep)
-map('n', '<leader>ps', tsb.current_buffer_fuzzy_find)
-map('n', '<leader>pt', tsb.treesitter)
+-- files
+map('n', '<leader>pc', tsb.resume, 'continue searching')
+map('n', '<leader>pf', tsb.find_files, 'open file')
+map('n', '<leader>po', tsb.oldfiles, 'search old files')
+map('n', '<leader>pb', tsb.buffers, 'switch buffer')
+map('n', '<leader>pr', tsb.live_grep, 'ripgrep')
+map('n', '<leader>ps', tsb.current_buffer_fuzzy_find, 'buffer search')
+map('n', '<leader>pt', tsb.treesitter, 'treesitter symbols')
+map('n', '<leader>pp', tspr, 'switch project')
 
 -- help
-map('n', '<leader>hd', tsb.help_tags)
-map('n', '<leader>hv', tsb.vim_options)
-map('n', '<leader>hk', tsb.keymaps)
-map('n', '<leader>ho', tsb.highlights)
-map('n', '<leader>hm', tsb.man_pages)
+map('n', '<leader>hd', tsb.help_tags, 'nvim docs')
+map('n', '<leader>ho', tsb.vim_options, 'nvim options')
+map('n', '<leader>hk', tsb.keymaps, 'keymaps')
+map('n', '<leader>ha', tsb.autocommands, 'autocmd')
+map('n', '<leader>hh', tsb.highlights, 'highlights')
+map('n', '<leader>hm', tsb.man_pages, 'man pages')
 
 -- lsp
-map('n', '<leader>ld', tsb.lsp_definitions)
-map('n', '<leader>lr', tsb.lsp_references)
-map('n', '<leader>led', tsb.diagnostics)
+map('n', '<leader>ld', tsb.lsp_definitions, 'find definitions')
+map('n', '<leader>lr', tsb.lsp_references, 'find references')
+map('n', '<leader>led', tsb.diagnostics, 'diagnostics')

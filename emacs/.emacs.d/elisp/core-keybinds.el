@@ -6,7 +6,6 @@
 
 (core/leader-key-def
   "h"  '(help-command :which-key "help")
-  "q"  '(evil-quit :which-key "exit")
   "s"  '(:ignore t :which-key "save")
   "ss" '(save-buffer :which-key "save current buffer")
   "sa" '(save-some-buffers :which-key "save several buffers")
@@ -112,6 +111,7 @@
 
 (core/leader-key-def
   "w"   'evil-window-map
+  "q"   '(evil-quit :which-key "quit")
   "SPC" '(evil-switch-to-windows-last-buffer :which-key "toggle between buffers"))
 
 ;; helpful

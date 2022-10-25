@@ -45,10 +45,7 @@ return packer.startup(function(use)
     use({
         'nvim-telescope/telescope.nvim',
         branch = '0.1.x',
-        requires = { 'nvim-lua/plenary.nvim' },
-        config = function()
-            require('plugins.telescope')
-        end
+        requires = { 'nvim-lua/plenary.nvim' }
     })
 
     use({
@@ -58,6 +55,15 @@ return packer.startup(function(use)
         cond = vim.fn.executable('make') == 1,
         config = function()
             require('telescope').load_extension('fzf')
+        end
+    })
+
+    use({
+        'nvim-telescope/telescope-project.nvim',
+        after = 'telescope.nvim',
+        config = function()
+            require('telescope').load_extension('project')
+            require('plugins.telescope')
         end
     })
 
@@ -88,7 +94,7 @@ return packer.startup(function(use)
 
     -- file explorer
     use({
-        'kyazdani42/nvim-tree.lua',
+        'nvim-tree/nvim-tree.lua',
         config = function()
             require('plugins.nvim-tree')
         end
@@ -96,10 +102,25 @@ return packer.startup(function(use)
 
     -- git integration
     use({
+        'TimUntersberger/neogit',
+        config = function()
+            require('plugins.neogit')
+        end
+    })
+
+    use({
         'lewis6991/gitsigns.nvim',
         event = 'BufRead',
         config = function()
             require('plugins.gitsigns')
+        end
+    })
+
+    -- keymap panel
+    use({
+        'folke/which-key.nvim',
+        config = function()
+            require('plugins.which-key')
         end
     })
 
@@ -113,7 +134,7 @@ return packer.startup(function(use)
 
     -- devicons
     use({
-        'kyazdani42/nvim-web-devicons',
+        'nvim-tree/nvim-web-devicons',
         config = function()
             require('nvim-web-devicons').setup()
         end

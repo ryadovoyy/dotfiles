@@ -59,7 +59,6 @@
   (lsp-ui-doc-position 'at-point)
   (lsp-ui-doc-show-with-mouse nil)
   (lsp-ui-doc-delay 1)
-  (lsp-ui-doc-border (doom-color 'bg-alt))
   :config
   (set-face-attribute 'lsp-ui-doc-background nil :inherit 'markdown-code-face))
 

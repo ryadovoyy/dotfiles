@@ -20,9 +20,9 @@ require('gitsigns').setup({
         local opts = { buffer = bufnr }
         local map = set_map(opts)
 
-        map('n', '<leader>ghv', gs.preview_hunk)
-        map('n', '<leader>ghn', gs.next_hunk)
-        map('n', '<leader>ghp', gs.prev_hunk)
-        map('n', '<leader>ghr', gs.reset_hunk)
+        map('n', '<leader>ghv', gs.preview_hunk, 'preview hunk')
+        map('n', '<leader>ghn', gs.next_hunk, 'next hunk')
+        map('n', '<leader>ghp', gs.prev_hunk, 'previous hunk')
+        map('n', '<leader>ghr', gs.reset_hunk, 'revert hunk')
     end
 })
