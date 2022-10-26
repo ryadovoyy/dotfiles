@@ -9,8 +9,8 @@ export EDITOR=nvim
 export FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git . $HOME"
 export FZF_CTRL_T_COMMAND="fd --hidden --exclude .git . $HOME"
 export FZF_DEFAULT_OPTS='
-    --color=fg:7,hl:4
-    --color=fg+:7,bg+:8,hl+:4
-    --color=info:8,prompt:4,pointer:4
-    --color=marker:8,spinner:8,header:8
+    --color=fg:7,hl:2
+    --color=fg+:7,bg+:8,hl+:2
+    --color=info:8,prompt:5,pointer:8
+    --color=marker:5,spinner:8,header:8
 '

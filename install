@@ -19,7 +19,7 @@ stow_files=(
     [wal]="$HOME/.config/wal"
     [emacs]="$HOME/.emacs.d"
     [scripts]="$HOME/scripts"
-    [tmux]="$HOME/.tmux.conf"
+    [tmux]="$HOME/.tmux.conf.tmpl"
     [x]="$HOME/.xprofile"
 )
 
@@ -112,7 +112,7 @@ done
 
 if [[ "$stow_packages" =~ wal ]]; then
     printf '\n%s\n' 'Installing a theme...'
-    theme -i doom-wilmersdorf
+    theme -i doom-tokyo-night
 fi
 
 printf '\n%s\n' 'Installation completed'

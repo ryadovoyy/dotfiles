@@ -352,6 +352,9 @@
   (set-face-background 'diff-removed nil)
   ;; git-gutter-fringe
   (set-face-foreground 'git-gutter-fr:modified (doom-color 'dark-blue))
+  ;; tldr
+  (set-face-background 'tldr-command-itself (doom-color 'blue))
+  (set-face-foreground 'tldr-code-block (doom-color 'blue))
   ;; line-number
   (set-face-background 'line-number (doom-color 'bg))
   ;; header-line

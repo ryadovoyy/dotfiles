@@ -11,10 +11,16 @@ cache_dir="$HOME/.cache/theme"
 cached_root_color="$cache_dir/root-color"
 cached_colors="$cache_dir/.Xresources"
 
+# tmux
+template_tmux="$HOME/.tmux.conf.tmpl"
+tmux_config="$HOME/.tmux.conf"
+
+# dunst
 dunst_dir="$HOME/.config/dunst"
 template_dunst="$dunst_dir/dunstrc.tmpl"
 dunst_config="$dunst_dir/dunstrc"
 
+# betterlockscreen
 lock_dir="$HOME/.config"
 template_lock="$lock_dir/betterlockscreenrc.tmpl"
 lock_config="$lock_dir/betterlockscreenrc"
@@ -61,6 +67,7 @@ install_theme() {
 
     mkdir -p "$cache_dir"
     cp "$template_colors" "$cached_colors"
+    [[ -e "$template_tmux" ]] && cp "$template_tmux" "$tmux_config"
     [[ -e "$template_dunst" ]] && cp "$template_dunst" "$dunst_config"
     [[ -e "$template_lock" ]] && cp "$template_lock" "$lock_config"
 
@@ -68,11 +75,13 @@ install_theme() {
     counter=0
     while read -r line; do
         sed -i "s/{color$counter}/$line/g" "$cached_colors"
+        [[ -e "$tmux_config" ]] \
+            && sed -i "s/{color$counter}/$line/g" "$tmux_config"
         [[ -e "$dunst_config" ]] \
             && sed -i "s/{color$counter}/$line/g" "$dunst_config"
         [[ -e "$lock_config" ]] \
             && sed -i "s/{color$counter}/${line:1}/g" "$lock_config"
-        [[ "$counter" -eq 17 ]] && echo "$line" > "$cached_root_color"
+        [[ "$counter" -eq 20 ]] && echo "$line" > "$cached_root_color"
         (( ++counter ))
     done < "$theme"
 

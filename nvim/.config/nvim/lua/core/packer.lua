@@ -156,6 +156,14 @@ return packer.startup(function(use)
         end
     })
 
+    -- sessions
+    use({
+        'tpope/vim-obsession',
+        config = function()
+            require('plugins.vim-obsession')
+        end
+    })
+
     -- improved text editing
     use('tpope/vim-repeat')
     use('tpope/vim-surround')

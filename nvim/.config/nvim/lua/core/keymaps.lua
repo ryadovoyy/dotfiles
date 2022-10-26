@@ -16,10 +16,8 @@ map('i', 'jk', '<Esc>')
 -- backspace replacement
 map('i', '<C-h>', '<BS>')
 
--- windows
+-- windows and buffers
 map('n', '<leader>w', '<C-w>', 'windows')
-
--- toggle between buffers
 map('n', '<leader><leader>', '<C-^>', 'toggle between buffers')
 
 -- make Y behave like the rest of the capital letters
