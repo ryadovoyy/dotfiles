@@ -26,6 +26,16 @@
 
 ;;; packages
 
+;; automatically update packages
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-delete-old-versions t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe))
+
 ;; convenient and unified interface for key definitions
 (use-package general
   :config
@@ -265,7 +275,7 @@
   (tab-bar-new-tab-to 'rightmost)
   (tab-bar-new-tab-choice "*dashboard*")
   (tab-bar-tab-name-function 'tab-bar-tab-name-truncated)
-  (tab-bar-show 0))
+  (tab-bar-show 1))
 
 ;; dashboard
 (use-package dashboard

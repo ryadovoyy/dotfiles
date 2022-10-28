@@ -30,7 +30,7 @@ packer.init({
 })
 
 -- install plugins
-return packer.startup(function(use)
+packer.startup(function(use)
     use('wbthomason/packer.nvim')
 
     -- essential nvim plugins
@@ -174,3 +174,26 @@ return packer.startup(function(use)
         require('packer').sync()
     end
 end)
+
+-- update plugins every 7 days
+local update_date_path = fn.stdpath('data') .. '/.last-package-update-date'
+
+local function write_current_date()
+    local command = 'echo ' .. os.time() .. '>' .. update_date_path
+    os.execute(command)
+end
+
+if fn.filereadable(update_date_path) == 0 then
+    write_current_date()
+end
+
+vim.cmd('let g:update_date = readfile("' .. update_date_path .. '")[0]')
+local update_date = vim.api.nvim_get_var('update_date')
+local day_seconds = 24 * 60 * 60
+local update_day = math.floor(tonumber(update_date) / day_seconds)
+local current_day = math.floor(os.time() / day_seconds)
+
+if current_day > (update_day + 7) then
+    packer.update()
+    write_current_date()
+end
