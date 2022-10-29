@@ -1,6 +1,11 @@
+local status_ok, neogit = pcall(require, 'neogit')
+if not status_ok then
+    return
+end
+
 local set_map = require('core.util').set_map
 
-require('neogit').setup({
+neogit.setup({
     disable_context_highlighting = true,
     use_magit_keybindings = true,
     kind = 'replace',

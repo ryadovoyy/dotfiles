@@ -1,6 +1,11 @@
-local keymap_groups = require('which-key').register
+local status_ok, which_key = pcall(require, 'which-key')
+if not status_ok then
+    return
+end
 
-require('which-key').setup({
+local keymap_groups = which_key.register
+
+which_key.setup({
     key_labels = {
         ['<leader>'] = 'SPC',
         ['<space>'] = 'SPC'

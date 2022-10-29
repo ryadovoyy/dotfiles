@@ -1,4 +1,8 @@
-local lsp = require('lspconfig')
+local status_ok, lsp = pcall(require, 'lspconfig')
+if not status_ok then
+    return
+end
+
 local set_map = require('core.util').set_map
 local augroup = require('core.util').augroup
 local autocmd = require('core.util').autocmd

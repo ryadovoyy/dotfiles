@@ -1,6 +1,11 @@
+local status_ok, gitsigns = pcall(require, 'gitsigns')
+if not status_ok then
+    return
+end
+
 local set_map = require('core.util').set_map
 
-require('gitsigns').setup({
+gitsigns.setup({
     signs = {
         add          = { hl = 'GitSignsAdd'   , text = '┃' },
         change       = { hl = 'GitSignsChange', text = '┃' },

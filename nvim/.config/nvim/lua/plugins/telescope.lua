@@ -1,8 +1,12 @@
+local status_ok, telescope = pcall(require, 'telescope')
+if not status_ok then
+    return
+end
+
 local tsb = require('telescope.builtin')
-local tspr = require('telescope').extensions.project.project
 local set_map = require('core.util').set_map
 
-require('telescope').setup({
+telescope.setup({
     defaults = {
         prompt_prefix = '   ',
         selection_caret = '  ',
@@ -44,6 +48,10 @@ require('telescope').setup({
     }
 })
 
+telescope.load_extension('fzf')
+telescope.load_extension('project')
+
+local tspr = telescope.extensions.project.project
 local opts = { noremap = true }
 local map = set_map(opts)
 

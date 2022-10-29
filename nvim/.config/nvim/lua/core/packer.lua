@@ -45,32 +45,25 @@ packer.startup(function(use)
     use({
         'nvim-telescope/telescope.nvim',
         branch = '0.1.x',
-        requires = { 'nvim-lua/plenary.nvim' }
-    })
-
-    use({
-        'nvim-telescope/telescope-fzf-native.nvim',
-        after = 'telescope.nvim',
-        run = 'make',
-        cond = vim.fn.executable('make') == 1,
+        requires = { 'nvim-lua/plenary.nvim' },
+        after = { 'telescope-fzf-native.nvim', 'telescope-project.nvim' },
         config = function()
-            require('telescope').load_extension('fzf')
-        end
-    })
-
-    use({
-        'nvim-telescope/telescope-project.nvim',
-        after = 'telescope.nvim',
-        config = function()
-            require('telescope').load_extension('project')
             require('plugins.telescope')
         end
     })
 
     use({
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make',
+        cond = vim.fn.executable('make') == 1
+    })
+
+    use('nvim-telescope/telescope-project.nvim')
+
+    use({
         'nvim-treesitter/nvim-treesitter',
         run = function()
-            require('nvim-treesitter.install').update({ with_sync = true })
+            require('nvim-treesitter.install').update()
         end,
         config = function()
             require('plugins.treesitter')
@@ -133,12 +126,7 @@ packer.startup(function(use)
     })
 
     -- devicons
-    use({
-        'nvim-tree/nvim-web-devicons',
-        config = function()
-            require('nvim-web-devicons').setup()
-        end
-    })
+    use('nvim-tree/nvim-web-devicons')
 
     -- colorcolumn
     use({
@@ -176,7 +164,7 @@ packer.startup(function(use)
 end)
 
 -- update plugins every 7 days
-local update_date_path = fn.stdpath('data') .. '/.last-package-update-date'
+local update_date_path = fn.stdpath('data') .. '/.last-plugin-update-date'
 
 local function write_current_date()
     local command = 'echo ' .. os.time() .. '>' .. update_date_path
@@ -194,6 +182,12 @@ local update_day = math.floor(tonumber(update_date) / day_seconds)
 local current_day = math.floor(os.time() / day_seconds)
 
 if current_day > (update_day + 7) then
-    packer.update()
-    write_current_date()
+    vim.ui.input({
+        prompt = 'Auto-update plugins now? (y or n) '
+    }, function(input)
+        if input == 'y' then
+            packer.sync()
+            write_current_date()
+        end
+    end)
 end
