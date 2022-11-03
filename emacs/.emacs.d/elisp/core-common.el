@@ -20,12 +20,15 @@
 
 ;;; user interface
 
-;; clean up user interface
+;; clean up UI
 (setq inhibit-startup-message t)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
+
+;; prevent using UI dialogs for prompts
+(setq use-dialog-box nil)
 
 ;; kill the *scratch* buffer at startup
 (add-hook 'emacs-startup-hook (lambda () (kill-buffer "*scratch*")))
@@ -108,6 +111,14 @@
       create-lockfiles nil)
 
 ;;; other settings
+
+;; remember minibuffer prompt history
+(setq history-length 25)
+(savehist-mode)
+
+;; automatically refresh buffers for changed files
+(setq global-auto-revert-non-file-buffers t)
+(global-auto-revert-mode)
 
 ;; follow symbolic links and visit real files
 (setq vc-follow-symlinks t)

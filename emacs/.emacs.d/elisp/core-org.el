@@ -26,7 +26,8 @@
   (setq org-ellipsis " "
         org-hide-emphasis-markers t
         org-directory "~/Documents/org/"
-        org-agenda-files '("~/Documents/org/tasks.org"
+        org-agenda-files '("~/Documents/org/tags.org"
+                           "~/Documents/org/tasks.org"
                            "~/Documents/org/birthdays.org")
         org-refile-targets '(("archive.org" :maxlevel . 1)
                              ("tasks.org" :maxlevel . 1))
@@ -82,3 +83,27 @@
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
+
+;; knowledge management system
+(use-package org-roam
+  :custom
+  (org-roam-directory "~/Documents/org-roam/")
+  (org-roam-capture-templates
+   '(("d" "default" plain
+      "#+filetags: %^G\n\nPrevious:\nRelated to:\n\n* Questions\n\n- %?\n\n* Body\n\n* References"
+      :target
+      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ("m" "map" plain
+      "#+filetags: %^G:map:\n\nPrevious:\nRelated to:\n\n* Questions\n\n- %?\n\n* Body"
+      :target
+      (file+head "%<%Y%m%d%H%M%S>-${slug}-moc.org" "#+title: ${title} MOC\n")
+      :unnarrowed t)))
+  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:50}" 'face 'org-tag)))
+  :config
+  (unless (file-directory-p "~/Documents/org-roam/")
+    (make-directory (expand-file-name "~/Documents/org-roam/")))
+  (org-roam-db-autosync-mode))
+
+(use-package org-roam-ui
+  :after org-roam)

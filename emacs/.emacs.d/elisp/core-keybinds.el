@@ -5,6 +5,7 @@
   "<escape>" 'keyboard-escape-quit)
 
 (core/leader-key-def
+  "u"  '(universal-argument :which-key "universal argument")
   "h"  '(help-command :which-key "help")
   "s"  '(:ignore t :which-key "save")
   "ss" '(save-buffer :which-key "save current buffer")
@@ -19,7 +20,8 @@
   "er" '(core/reload-emacs-config :which-key "reload config")
   "ec" '(core/edit-emacs-config :which-key "edit config"))
 
-;; fix non-working prefix in some modes
+;;; fix non-working prefix in some modes
+
 (general-define-key
   :keymaps '(help-mode-map dired-mode-map diff-mode-map)
   :prefix "<normal-state> SPC"
@@ -30,6 +32,11 @@
     :keymaps 'view-mode-map
     :prefix "<normal-state> SPC"
     "" nil)))
+
+(general-define-key
+  :keymaps 'org-roam-mode-map
+  :prefix "SPC"
+  "" nil)
 
 ;;; package keybindings
 
@@ -73,7 +80,9 @@
   "TAB"   'ivy-alt-done
   "C-SPC" 'ivy-dispatching-done
   "C-j"   'ivy-next-line
-  "C-k"   'ivy-previous-line)
+  "C-k"   'ivy-previous-line
+  "C-n"   'next-history-element
+  "C-p"   'previous-history-element)
 
 (general-define-key
   :keymaps 'ivy-switch-buffer-map
@@ -190,7 +199,12 @@
   "od"  '(:ignore t :which-key "insert/edit date")
   "ods" '(org-schedule :which-key "schedule")
   "odd" '(org-deadline :which-key "deadline")
-  "odt" '(org-time-stamp :which-key "time stamp"))
+  "odt" '(org-time-stamp :which-key "time stamp")
+  "or"  '(:ignore t :which-key "roam")
+  "orn" '(org-roam-node-find :which-key "open node")
+  "orl" '(org-roam-node-insert :which-key "insert link to another node")
+  "orb" '(org-roam-buffer-toggle :which-key "toggle backlinks buffer")
+  "org" '(org-roam-ui-mode :which-key "view graph in browser"))
 
 ;; company
 (general-define-key

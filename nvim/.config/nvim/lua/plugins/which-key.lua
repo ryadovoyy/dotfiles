@@ -3,8 +3,6 @@ if not status_ok then
     return
 end
 
-local keymap_groups = which_key.register
-
 which_key.setup({
     key_labels = {
         ['<leader>'] = 'SPC',
@@ -18,7 +16,8 @@ which_key.setup({
     triggers = { '<leader>' }
 })
 
-keymap_groups({
+-- keymap groups
+which_key.register({
     g = { name = 'git', h = { name = 'hunk' } },
     h = { name = 'help' },
     l = { name = 'lsp', e = { name = 'errors' } },
