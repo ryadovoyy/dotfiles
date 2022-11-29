@@ -81,6 +81,11 @@ tokyonight.setup({
             fg = c.gitSigns.delete
         }
 
+        -- treesitter-context
+        hl.TreesitterContext = {
+            bg = c.bg_dark
+        }
+
         -- custom highlights
         hl.ExtraWhitespace = {
             bg = c.error
