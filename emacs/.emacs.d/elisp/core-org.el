@@ -80,7 +80,7 @@
 
 (add-to-list 'org-modules 'org-tempo)
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
 (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 
@@ -90,12 +90,12 @@
   (org-roam-directory "~/Documents/org-roam/")
   (org-roam-capture-templates
    '(("d" "default" plain
-      "#+filetags: %^G\n\nPrevious:\nRelated to:\n\n* Questions\n\n- %?\n\n* Body\n\n* References"
+      "#+filetags: %^G:develop:\n\nPrevious:\nRelated to:\n\n* Questions\n\n- %?\n\n* Body\n\n* References"
       :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)
      ("m" "map" plain
-      "#+filetags: %^G:map:\n\nPrevious:\nRelated to:\n\n* Questions\n\n- %?\n\n* Body"
+      "#+filetags: %^G:map:develop:\n\nPrevious:\nRelated to:\n\n* Questions\n\n- %?\n\n* Body"
       :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}-moc.org" "#+title: ${title} MOC\n")
       :unnarrowed t)))
