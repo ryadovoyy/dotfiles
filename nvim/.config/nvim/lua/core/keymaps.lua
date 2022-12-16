@@ -29,6 +29,9 @@ map('n', 'N', 'Nzz')
 map('n', '*', '*zz')
 map('n', '#', '#zz')
 
+-- rename all occurrences of a word in the current buffer
+map('n', '<leader>n', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', 'rename word')
+
 -- move lines of text
 map('n', '<leader>j', ':m .+1<CR>==', 'move one line down')
 map('n', '<leader>k', ':m .-2<CR>==', 'move one line up')
