@@ -95,7 +95,7 @@
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)
      ("m" "map" plain
-      "#+filetags: %^G:map:develop:\n\nPrevious:\nRelated to:\n\n* Questions\n\n- %?\n\n* Body"
+      "#+filetags: :map:%^G:develop:\n\nPrevious:\nRelated to:\n\n* Body\n\n- %?"
       :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}-moc.org" "#+title: ${title} MOC\n")
       :unnarrowed t)))
