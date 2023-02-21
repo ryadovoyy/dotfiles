@@ -25,6 +25,7 @@
   :config
   (setq org-ellipsis " "
         org-hide-emphasis-markers t
+        org-pretty-entities t
         org-directory "~/Documents/org/"
         org-agenda-files '("~/Documents/org/tags.org"
                            "~/Documents/org/tasks.org"
