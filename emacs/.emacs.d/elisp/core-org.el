@@ -95,12 +95,30 @@
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)
      ("m" "map" plain
-      "#+filetags: :map:%^G:develop:\n\nPrevious:\nRelated to:\n\n* Body\n\n- %?"
+      "#+filetags: :map%^G:develop:\n\nPrevious:\nRelated to:\n\n* Body\n\n- %?"
       :target
-      (file+head "%<%Y%m%d%H%M%S>-${slug}-moc.org" "#+title: ${title} MOC\n")
+      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)))
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:50}" 'face 'org-tag)))
   :config
+  ;; use hyphens instead of underscores in the file creation
+  (cl-defmethod org-roam-node-slug ((node org-roam-node))
+    "Return the slug of NODE."
+    (let ((title (org-roam-node-title node))
+          (slug-trim-chars '(768 769 770 771 772 774 775 776 777 778 779 780 795 803 804 805 807 813 814 816 817)))
+      (cl-flet* ((nonspacing-mark-p (char) (memq char slug-trim-chars))
+                 (strip-nonspacing-marks (s) (string-glyph-compose
+                                              (apply #'string
+                                                     (seq-remove #'nonspacing-mark-p
+                                                                 (string-glyph-decompose s)))))
+                 (cl-replace (title pair) (replace-regexp-in-string (car pair) (cdr pair) title)))
+        (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-")
+                        ("--*" . "-")
+                        ("^-" . "")
+                        ("-$" . "")))
+               (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
+          (downcase slug)))))
+
   (unless (file-directory-p "~/Documents/org-roam/")
     (make-directory (expand-file-name "~/Documents/org-roam/")))
   (org-roam-db-autosync-mode))
