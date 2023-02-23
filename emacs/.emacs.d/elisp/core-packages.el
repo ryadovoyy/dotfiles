@@ -411,6 +411,7 @@
     :foreground (doom-color 'fg))
   ;; org
   (custom-set-faces
+    `(org-code ((t (:extend nil))))
     `(org-link ((t (:foreground ,(doom-color 'blue)))))
     `(org-list-dt ((t (:foreground ,(doom-color 'blue)))))
     `(org-todo ((t (:foreground ,(doom-color 'yellow))))))
