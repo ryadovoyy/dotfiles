@@ -1,0 +1,48 @@
+" options
+set clipboard+=unnamedplus
+set number relativenumber
+set scrolloff=8
+set incsearch
+
+" handlers
+sethandler <C-u> a:vim
+sethandler <C-d> a:vim
+sethandler <C-l> a:vim
+sethandler <C-h> a:vim
+sethandler <C-w> a:vim
+
+" keymaps
+" the leader key
+let mapleader = ' '
+
+" save and quit
+nnoremap <leader>ss :w<CR><C-l>
+nnoremap <leader>sa :wa<CR><C-l>
+nnoremap <silent> <leader>q :q<CR>
+inoremap jk <Esc>
+
+" backspace replacement
+inoremap <C-h> <BS>
+
+" windows
+nnoremap <leader>w <C-w>
+
+" make Y behave like the rest of the capital letters
+nnoremap Y y$
+
+" keep it centered
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+
+" plugins
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'machakann/vim-highlightedyank'
+Plug 'preservim/nerdtree'
+
+" plugin options and keymaps
+let g:highlightedyank_highlight_duration = '300'
+nnoremap <leader>d :NERDTreeFocus<CR>
