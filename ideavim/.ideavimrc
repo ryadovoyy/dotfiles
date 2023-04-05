@@ -36,6 +36,36 @@ nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 
+" config
+nnoremap <leader>ce :e ~/.ideavimrc<CR>
+nnoremap <leader>cr :source ~/.ideavimrc<CR>
+
+" code generation
+nnoremap <leader>gg :action Generate<CR>
+vnoremap <leader>gs :action SurroundWith<CR>
+
+" refactoring
+nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
+vnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
+
+" search
+nnoremap <leader>pf :action GotoClass<CR>
+nnoremap <leader>pr :action FindInPath<CR>
+nnoremap <leader>ps :action Find<CR>
+
+" lsp
+nnoremap <leader>lh :action QuickJavaDoc<CR>
+nnoremap <leader>ld :action GotoImplementation<CR>
+nnoremap <leader>lr :action FindUsages<CR>
+
+" tabs
+nnoremap <leader>tn :action NextTab<CR>
+nnoremap <leader>tp :action PreviousTab<CR>
+
+" bookmarks
+nnoremap <leader>bs :action ShowBookmarks<CR>
+nnoremap <leader>bt :action ToggleBookmark<CR>
+
 " plugins
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'

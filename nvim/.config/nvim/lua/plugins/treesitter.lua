@@ -31,6 +31,7 @@ treesitter.setup({
         'help',
         'html',
         'http',
+        'java',
         'json',
         'lua',
         'make',
