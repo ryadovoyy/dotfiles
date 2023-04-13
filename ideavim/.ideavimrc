@@ -55,7 +55,7 @@ nnoremap <leader>ps :action Find<CR>
 
 " lsp
 nnoremap <leader>lh :action QuickJavaDoc<CR>
-nnoremap <leader>ld :action GotoImplementation<CR>
+nnoremap <leader>ld :action GotoDeclaration<CR>
 nnoremap <leader>lr :action FindUsages<CR>
 
 " tabs
