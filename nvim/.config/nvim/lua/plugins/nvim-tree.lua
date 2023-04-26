@@ -10,11 +10,9 @@ nvim_tree.setup({
     disable_netrw = true,
     hijack_cursor = true,
     sync_root_with_cwd = true,
-    view = {
-        adaptive_size = true,
-        hide_root_folder = true
-    },
+    view = { adaptive_size = true },
     renderer = {
+        root_folder_label = false,
         icons = {
             glyphs = {
                 git = {
