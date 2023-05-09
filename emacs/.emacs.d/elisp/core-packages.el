@@ -284,6 +284,7 @@
   (dashboard-center-content t)
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
+  (dashboard-icon-type 'all-the-icons)
   (dashboard-items '((projects . 5)
                      (recents . 5)
                      (agenda . 5)))
