@@ -170,7 +170,7 @@
   (dired-listing-switches
    "-l --almost-all --human-readable --group-directories-first")
   (dirvish-attributes
-   '(subtree-state all-the-icons vc-state file-size))
+   '(subtree-state vc-state file-size))
   (dirvish-default-layout '(1 0.13 0.53))
   (dirvish-layout-recipes
    '((0 0 0.4)
@@ -249,6 +249,10 @@
   :config
   (set-face-attribute 'diredfl-dir-name nil :bold t))
 
+;; icons for dired
+(use-package nerd-icons-dired
+  :hook ((dired-mode dirvish-directory-view-mode) . nerd-icons-dired-mode))
+
 ;; best terminal emulator
 (use-package vterm
   :commands vterm
@@ -284,7 +288,7 @@
   (dashboard-center-content t)
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
-  (dashboard-icon-type 'all-the-icons)
+  (dashboard-icon-type 'nerd-icons)
   (dashboard-items '((projects . 5)
                      (recents . 5)
                      (agenda . 5)))
@@ -382,9 +386,13 @@
   (set-face-foreground 'doom-modeline-evil-insert-state (doom-color 'dark-green))
   (set-face-foreground 'doom-modeline-evil-visual-state (doom-color 'magenta))
 
-  (set-face-attribute 'doom-modeline-evil-operator-state nil
-    :foreground (doom-color 'blue)
-    :weight 'bold)
+  (set-face-bold 'doom-modeline-evil-normal-state t)
+  (set-face-bold 'doom-modeline-evil-insert-state t)
+  (set-face-bold 'doom-modeline-evil-visual-state t)
+  (set-face-bold 'doom-modeline-evil-emacs-state t)
+  (set-face-bold 'doom-modeline-evil-motion-state t)
+  (set-face-bold 'doom-modeline-evil-operator-state t)
+  (set-face-bold 'doom-modeline-evil-replace-state t)
   ;; highlight
   (set-face-attribute 'highlight nil
     :background (doom-color 'blue)
@@ -434,8 +442,7 @@
   (set-face-attribute 'show-paren-match nil :weight 'normal))
 
 ;; icons
-(use-package all-the-icons
-  :if (display-graphic-p)
+(use-package nerd-icons
   :init
-  (unless (find-font (font-spec :name "all-the-icons"))
-    (all-the-icons-install-fonts)))
+  (unless (find-font (font-spec :name "Symbols Nerd Font Mono"))
+    (nerd-icons-install-fonts t)))
