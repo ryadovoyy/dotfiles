@@ -85,6 +85,7 @@
 (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 (add-to-list 'org-structure-template-alist '("java" . "src java"))
+(add-to-list 'org-structure-template-alist '("js" . "src js"))
 
 ;; knowledge management system
 (use-package org-roam
