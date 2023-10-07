@@ -4,11 +4,10 @@ if not status_ok then
 end
 
 tokyonight.setup({
+    style = 'night',
     styles = {
-        comments = { italic = false },
         keywords = { italic = false }
     },
-    sidebars = {},
     lualine_bold = true,
     on_colors = function(c)
         local bg = '#13141c'
