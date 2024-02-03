@@ -6,6 +6,10 @@ dwm_spotify() {
         && echo " $(playerctl metadata -f '{{ artist }} - {{ title }}' -p spotify) · "
 }
 
+dwm_ram() {
+    echo " $(free -h | grep Mem | awk '{ print $3 }')"
+}
+
 dwm_lang() {
     case "$(xset -q | grep LED | awk '{ print $10 }')" in
         00000000) echo ' En';;
@@ -33,7 +37,7 @@ dwm_date() {
 }
 
 generate_content() {
-    echo "$(dwm_spotify)$(dwm_lang) · $(dwm_pulse) · $(dwm_date)"
+    echo "$(dwm_spotify)$(dwm_ram) · $(dwm_lang) · $(dwm_pulse) · $(dwm_date)"
 }
 
 while true; do
