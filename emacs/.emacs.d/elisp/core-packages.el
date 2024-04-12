@@ -284,6 +284,13 @@
 ;; dashboard
 (use-package dashboard
   :custom
+  (dashboard-startupify-list
+   '(dashboard-insert-banner
+     dashboard-insert-newline
+     dashboard-insert-banner-title
+     dashboard-insert-newline
+     dashboard-insert-init-info
+     dashboard-insert-items))
   (dashboard-startup-banner 'logo)
   (dashboard-center-content t)
   (dashboard-set-heading-icons t)
@@ -296,7 +303,6 @@
   (dashboard-agenda-prefix-format "%-6:c %s ")
   (dashboard-agenda-sort-strategy '(time-up))
   (dashboard-match-agenda-entry "TODO=\"TODO\"")
-  (dashboard-set-footer nil)
   :config
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
   (setq dashboard-footer-messages
