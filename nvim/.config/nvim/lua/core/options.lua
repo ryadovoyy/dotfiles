@@ -11,6 +11,7 @@ o.smartindent = true
 o.hidden = true
 o.clipboard = 'unnamedplus'
 o.updatetime = 100
+o.timeoutlen = 500
 o.regexpengine = 0
 o.wrap = true
 o.signcolumn = 'yes'
@@ -19,7 +20,7 @@ o.relativenumber = true
 
 -- visualise tabs
 o.list = true
-o.listchars = 'tab:│ '
+opt.listchars = { tab = '▎ ' }
 
 -- split separators
 o.fillchars = 'horiz:━,horizup:┻,horizdown:┳,vert:┃,vertleft:┫,vertright:┣,verthoriz:╋'
@@ -32,6 +33,9 @@ o.colorcolumn = '80'
 o.cursorline = true
 o.guicursor = ''
 o.scrolloff = 8
+o.ignorecase = true
+o.smartcase = true
+o.inccommand = 'split'
 o.incsearch = true
 o.hlsearch = true
 o.termguicolors = true
@@ -46,3 +50,4 @@ o.undofile = false
 o.backup = false
 
 g.mapleader = ' '
+g.have_nerd_font = true

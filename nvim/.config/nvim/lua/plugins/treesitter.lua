@@ -1,9 +1,6 @@
-local status_ok, treesitter = pcall(require, 'nvim-treesitter.configs')
-if not status_ok then
-    return
-end
+require('nvim-treesitter.install').prefer_git = true
 
-treesitter.setup({
+require('nvim-treesitter.configs').setup({
     highlight = { enable = true },
     indent = { enable = true },
     textobjects = {
@@ -14,32 +11,38 @@ treesitter.setup({
                 ['af'] = '@function.outer',
                 ['if'] = '@function.inner',
                 ['ac'] = '@class.outer',
-                ['ic'] = '@class.inner'
-            }
-        }
+                ['ic'] = '@class.inner',
+            },
+        },
     },
+    auto_install = true,
     ensure_installed = {
         'bash',
         'c',
         'cmake',
         'comment',
         'cpp',
+        'diff',
         'dockerfile',
         'go',
         'gomod',
         'graphql',
-        'help',
         'html',
         'http',
         'java',
+        'javascript',
         'json',
         'lua',
+        'luadoc',
         'make',
         'markdown',
+        'prisma',
         'python',
         'regex',
-        'rust',
         'toml',
-        'yaml'
-    }
+        'typescript',
+        'vim',
+        'vimdoc',
+        'yaml',
+    },
 })

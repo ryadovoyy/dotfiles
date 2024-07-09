@@ -1,14 +1,9 @@
-local status_ok, lualine = pcall(require, 'lualine')
-if not status_ok then
-    return
-end
-
-lualine.setup({
+require('lualine').setup({
     options = {
         section_separators = { left = '', right = '' },
         component_separators = { left = '', right = '' },
         globalstatus = true,
-        refresh = { statusline = 100 }
+        refresh = { statusline = 100 },
     },
     sections = {
         lualine_a = { 'mode' },
@@ -16,7 +11,11 @@ lualine.setup({
         lualine_c = { { 'filename', symbols = { unnamed = '﬘' } } },
         lualine_x = { 'encoding', 'fileformat', 'filetype' },
         lualine_y = { 'progress' },
-        lualine_z = { 'location' }
+        lualine_z = { 'location' },
     },
-    extensions = { 'nvim-tree' }
+    extensions = {
+        'quickfix',
+        'mason',
+        'nvim-tree',
+    },
 })

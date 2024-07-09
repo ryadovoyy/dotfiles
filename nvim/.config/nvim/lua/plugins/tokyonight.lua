@@ -1,12 +1,7 @@
-local status_ok, tokyonight = pcall(require, 'tokyonight')
-if not status_ok then
-    return
-end
-
-tokyonight.setup({
+require('tokyonight').setup({
     style = 'night',
     styles = {
-        keywords = { italic = false }
+        keywords = { italic = false },
     },
     lualine_bold = true,
     on_colors = function(c)
@@ -24,72 +19,75 @@ tokyonight.setup({
 
         -- native highlights
         hl.CursorLine = {
-            bg = 'none'
+            bg = 'none',
+        }
+        hl.CursorLineNr = {
+            fg = c.fg_sidebar,
         }
         hl.ColorColumn = {
-            bg = 'none'
-        }
-        hl.FloatBorder = {
-            bg = c.bg_dark,
-            fg = c.bg_dark
+            bg = 'none',
         }
 
         -- make telescope borderless
         hl.TelescopeNormal = {
             bg = c.bg_dark,
-            fg = c.fg_dark
+            fg = c.fg_dark,
         }
         hl.TelescopeBorder = {
             bg = c.bg_dark,
-            fg = c.bg_dark
+            fg = c.bg_dark,
         }
         hl.TelescopePromptNormal = {
-            bg = prompt
+            bg = prompt,
         }
         hl.TelescopePromptBorder = {
             bg = prompt,
-            fg = prompt
+            fg = prompt,
         }
         hl.TelescopePromptTitle = {
             bg = c.blue,
-            fg = c.black
+            fg = c.black,
         }
         hl.TelescopePreviewTitle = {
             bg = c.blue,
-            fg = c.black
+            fg = c.black,
         }
         hl.TelescopeResultsTitle = {
             bg = c.bg_dark,
-            fg = c.bg_dark
+            fg = c.bg_dark,
         }
 
         -- nvim-tree
         hl.NvimTreeSpecialFile = {
-            fg = c.purple
+            fg = c.purple,
         }
         hl.NvimTreeEndOfBuffer = {
-            fg = c.bg_dark
+            fg = c.bg_dark,
+        }
+        hl.NvimTreeWinSeparator = {
+            fg = c.bg_dark,
+            bg = c.bg_dark,
         }
         hl.NvimTreeGitNew = {
-            fg = c.gitSigns.add
+            fg = c.git.add,
         }
         hl.NvimTreeGitDirty = {
-            fg = c.gitSigns.change
+            fg = c.git.change,
         }
         hl.NvimTreeGitDeleted = {
-            fg = c.gitSigns.delete
+            fg = c.git.delete,
         }
 
         -- treesitter-context
         hl.TreesitterContext = {
-            bg = c.bg_dark
+            bg = c.bg_dark,
         }
 
         -- custom highlights
         hl.ExtraWhitespace = {
-            bg = c.error
+            bg = c.error,
         }
-    end
+    end,
 })
 
 vim.cmd.colorscheme('tokyonight-night')
