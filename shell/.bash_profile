@@ -1,7 +1,7 @@
 [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
 
 [ -d "$HOME/.local/bin" ] && PATH="$PATH:$HOME/.local/bin"
-[ -d "$HOME/go" ] && PATH="$PATH:$HOME/go/bin:/usr/local/go/bin"
+[ -d '/usr/local/go/bin' ] && PATH="$PATH:/usr/local/go/bin"
 
 export PATH="$PATH:$HOME/scripts"
 export PF_INFO='ascii title os kernel uptime pkgs shell wm editor memory'

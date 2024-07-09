@@ -52,3 +52,8 @@ if [ "$INSIDE_EMACS" = vterm ] \
     && [ -f "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh" ]; then
     source "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh"
 fi
+
+# add node version manager support
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
