@@ -27,7 +27,7 @@ lazy.setup({
             { 'williamboman/mason.nvim', config = true },
             'williamboman/mason-lspconfig.nvim',
             'WhoIsSethDaniel/mason-tool-installer.nvim',
-            { 'j-hui/fidget.nvim', opts = {} },
+            { 'j-hui/fidget.nvim', enabled = false, opts = {} },
             {
                 'folke/lazydev.nvim',
                 ft = 'lua',
