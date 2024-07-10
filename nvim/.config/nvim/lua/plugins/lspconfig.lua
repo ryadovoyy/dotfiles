@@ -66,6 +66,7 @@ local servers = {
     },
   },
   gopls = {},
+  ['prisma-language-server'] = {},
 }
 
 require('mason').setup()
