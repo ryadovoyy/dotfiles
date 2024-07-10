@@ -2,7 +2,7 @@ local persistence = require('persistence')
 local set_map = require('core.util').set_map
 
 persistence.setup({
-    branch = false,
+  branch = false,
 })
 
 local opts = { noremap = true }

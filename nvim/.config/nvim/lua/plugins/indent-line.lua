@@ -1,8 +1,8 @@
 require('ibl').setup({
-    indent = {
-        char = '▏',
-    },
-    scope = {
-        enabled = false,
-    },
+  indent = {
+    char = '▏',
+  },
+  scope = {
+    enabled = false,
+  },
 })

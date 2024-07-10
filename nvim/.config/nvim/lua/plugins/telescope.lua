@@ -4,48 +4,48 @@ local tsb = require('telescope.builtin')
 local set_map = require('core.util').set_map
 
 telescope.setup({
-    defaults = {
-        prompt_prefix = '   ',
-        selection_caret = '  ',
-        entry_prefix = '  ',
-        sorting_strategy = 'ascending',
-        layout_config = {
-            horizontal = {
-                prompt_position = 'top',
-                preview_width = 0.55,
-            },
-        },
-        file_ignore_patterns = { '^.git/' },
-        mappings = {
-            i = {
-                ['<C-j>'] = 'move_selection_next',
-                ['<C-k>'] = 'move_selection_previous',
-                ['<Tab>'] = 'select_default',
-                ['<CR>'] = 'toggle_selection',
-            },
-        },
+  defaults = {
+    prompt_prefix = '   ',
+    selection_caret = '  ',
+    entry_prefix = '  ',
+    sorting_strategy = 'ascending',
+    layout_config = {
+      horizontal = {
+        prompt_position = 'top',
+        preview_width = 0.55,
+      },
     },
-    pickers = {
-        find_files = {
-            hidden = true,
-            no_ignore = true,
-            follow = true,
-        },
-        live_grep = {
-            additional_args = function(opts)
-                return { '--hidden' }
-            end,
-        },
+    file_ignore_patterns = { '^.git/' },
+    mappings = {
+      i = {
+        ['<C-j>'] = 'move_selection_next',
+        ['<C-k>'] = 'move_selection_previous',
+        ['<Tab>'] = 'select_default',
+        ['<CR>'] = 'toggle_selection',
+      },
     },
-    extensions = {
-        project = {
-            hidden_files = true,
-            sync_with_nvim_tree = true,
-        },
-        ['ui-select'] = {
-            telescope_themes.get_dropdown(),
-        },
+  },
+  pickers = {
+    find_files = {
+      hidden = true,
+      no_ignore = true,
+      follow = true,
     },
+    live_grep = {
+      additional_args = function(opts)
+        return { '--hidden' }
+      end,
+    },
+  },
+  extensions = {
+    project = {
+      hidden_files = true,
+      sync_with_nvim_tree = true,
+    },
+    ['ui-select'] = {
+      telescope_themes.get_dropdown(),
+    },
+  },
 })
 
 pcall(telescope.load_extension, 'fzf')
@@ -63,7 +63,7 @@ map('n', '<leader>pg', tsb.git_files, 'search git files')
 map('n', '<leader>po', tsb.oldfiles, 'search old files')
 
 map('n', '<leader>pn', function()
-    tsb.find_files({ cwd = vim.fn.stdpath('config') })
+  tsb.find_files({ cwd = vim.fn.stdpath('config') })
 end, 'search neovim files')
 
 map('n', '<leader>pb', tsb.buffers, 'switch buffer')
