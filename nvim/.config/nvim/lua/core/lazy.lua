@@ -222,6 +222,14 @@ lazy.setup({
   },
 
   -- improved text editing
+  {
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    config = function()
+      require('plugins.flash')
+    end,
+  },
+
   { 'numToStr/Comment.nvim', opts = {} },
 
   'tpope/vim-repeat',
