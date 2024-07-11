@@ -58,8 +58,9 @@ require('tokyonight').setup({
     }
 
     -- nvim-tree
-    hl.NvimTreeSpecialFile = {
-      fg = c.purple,
+    hl.NvimTreeNormal = {
+      fg = c.fg_sidebar,
+      bg = c.bg_dark,
     }
     hl.NvimTreeEndOfBuffer = {
       fg = c.bg_dark,
@@ -67,6 +68,9 @@ require('tokyonight').setup({
     hl.NvimTreeWinSeparator = {
       fg = c.bg_dark,
       bg = c.bg_dark,
+    }
+    hl.NvimTreeSpecialFile = {
+      fg = c.purple,
     }
     hl.NvimTreeGitNew = {
       fg = c.git.add,
