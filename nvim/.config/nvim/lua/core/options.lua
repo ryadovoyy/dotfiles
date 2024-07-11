@@ -29,6 +29,7 @@ o.laststatus = 3
 o.splitright = true
 o.splitbelow = true
 o.showmode = false
+o.ruler = false
 o.colorcolumn = '80'
 o.cursorline = true
 o.guicursor = ''

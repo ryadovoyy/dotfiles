@@ -166,6 +166,22 @@ lazy.setup({
     end,
   },
 
+  -- dashboard
+  {
+    'nvimdev/dashboard-nvim',
+    event = 'VimEnter',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+      {
+        'MaximilianLloyd/ascii.nvim',
+        dependencies = { 'MunifTanjim/nui.nvim' },
+      },
+    },
+    config = function()
+      require('plugins.dashboard')
+    end,
+  },
+
   -- devicons
   { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
 
