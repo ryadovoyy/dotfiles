@@ -8,7 +8,7 @@
   "u"  '(universal-argument :which-key "universal argument")
   "h"  '(help-command :which-key "help")
   "s"  '(:ignore t :which-key "save")
-  "ss" '(save-buffer :which-key "save current buffer")
+  "sk" '(save-buffer :which-key "save current buffer")
   "sa" '(save-some-buffers :which-key "save several buffers")
   "sd" '(desktop-save-in-desktop-dir :which-key "save desktop")
   "sr" '(desktop-read :which-key "restore desktop"))

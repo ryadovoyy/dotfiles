@@ -8,7 +8,7 @@ local expr_map = set_map(expr_opts)
 map('n', '<Space>', '<Nop>')
 
 -- save and quit
-map('n', '<leader>ss', ':w<CR><C-l>', 'save current buffer')
+map('n', '<leader>sk', ':w<CR><C-l>', 'save current buffer')
 map('n', '<leader>sa', ':wa<CR><C-l>', 'save all buffers')
 map('n', '<leader>q', ':q<CR>', 'quit')
 map('i', 'jk', '<Esc>')
