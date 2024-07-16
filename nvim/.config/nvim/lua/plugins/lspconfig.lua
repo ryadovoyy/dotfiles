@@ -66,7 +66,10 @@ local servers = {
     },
   },
   gopls = {},
+  ['bash-language-server'] = {},
   ['prisma-language-server'] = {},
+  ['dockerfile-language-server'] = {},
+  ['docker-compose-language-service'] = {},
 }
 
 require('mason').setup()
@@ -75,8 +78,11 @@ local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
   'stylua',
   'goimports',
+  'shfmt',
+  'shellcheck',
   'prettierd',
   'eslint_d',
+  'hadolint',
 })
 
 require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
