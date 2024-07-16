@@ -152,7 +152,7 @@ lazy.setup({
   -- keymap panel
   {
     'folke/which-key.nvim',
-    event = 'VimEnter',
+    event = 'VeryLazy',
     config = function()
       require('plugins.which-key')
     end,

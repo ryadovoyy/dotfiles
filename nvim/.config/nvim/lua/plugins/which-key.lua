@@ -1,23 +1,20 @@
 local which_key = require('which-key')
 
 which_key.setup({
-  key_labels = {
-    ['<leader>'] = 'SPC',
-    ['<space>'] = 'SPC',
-  },
-  popup_mappings = {
+  keys = {
     scroll_down = '<C-j>',
     scroll_up = '<C-k>',
   },
   show_help = false,
-  triggers = { '<leader>' },
 })
 
 -- keymap groups
-which_key.register({
-  g = { name = 'git', h = { name = 'hunk' } },
-  h = { name = 'help' },
-  l = { name = 'lsp', e = { name = 'errors' } },
-  p = { name = 'telescope' },
-  s = { name = 'save' },
-}, { prefix = '<leader>' })
+which_key.add({
+  { '<leader>g', group = 'git' },
+  { '<leader>gh', group = 'hunk' },
+  { '<leader>h', group = 'help' },
+  { '<leader>l', group = 'lsp' },
+  { '<leader>le', group = 'errors' },
+  { '<leader>p', group = 'telescope' },
+  { '<leader>s', group = 'save' },
+})
