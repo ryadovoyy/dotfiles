@@ -24,6 +24,9 @@
 ;; cause packages to be installed automatically if not already present on the system
 (setq use-package-always-ensure t)
 
+;; don't check package signatures
+(setq package-check-signature nil)
+
 ;;; packages
 
 ;; automatically update packages
