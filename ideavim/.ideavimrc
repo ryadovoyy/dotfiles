@@ -16,7 +16,7 @@ sethandler <C-w> a:vim
 let mapleader = ' '
 
 " save and quit
-nnoremap <leader>ss :w<CR><C-l>
+nnoremap <leader>sk :w<CR><C-l>
 nnoremap <leader>sa :wa<CR><C-l>
 nnoremap <silent> <leader>q :q<CR>
 inoremap jk <Esc>
