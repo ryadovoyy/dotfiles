@@ -4,6 +4,7 @@ set number relativenumber
 set scrolloff=8
 set incsearch
 set lookupkeys=<Tab>,<Down>,<Up>,<Enter>,<Left>,<Right>,<C-Down>,<C-Up>,<PageUp>,<PageDown>,<C-Q>
+set sneak
 
 " handlers
 sethandler <C-u> a:vim
