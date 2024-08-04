@@ -3,6 +3,7 @@ set clipboard+=unnamedplus
 set number relativenumber
 set scrolloff=8
 set incsearch
+set lookupkeys=<Tab>,<Down>,<Up>,<Enter>,<Left>,<Right>,<C-Down>,<C-Up>,<PageUp>,<PageDown>,<C-Q>
 
 " handlers
 sethandler <C-u> a:vim
@@ -54,6 +55,8 @@ nnoremap <leader>pr :action FindInPath<CR>
 nnoremap <leader>ps :action Find<CR>
 
 " lsp
+inoremap <C-j> :action EditorDown<CR>
+inoremap <C-k> :action EditorUp<CR>
 nnoremap <leader>lh :action QuickJavaDoc<CR>
 nnoremap <leader>ld :action GotoDeclaration<CR>
 nnoremap <leader>lr :action FindUsages<CR>
