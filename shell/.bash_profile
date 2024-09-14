@@ -2,6 +2,7 @@
 
 [ -d "$HOME/.local/bin" ] && PATH="$PATH:$HOME/.local/bin"
 [ -d '/usr/local/go/bin' ] && PATH="$PATH:/usr/local/go/bin"
+[ -d '/usr/local/php/bin' ] && PATH="$PATH:/usr/local/php/bin"
 
 export PATH="$PATH:$HOME/scripts"
 export PF_INFO='ascii title os kernel uptime pkgs shell wm editor memory'

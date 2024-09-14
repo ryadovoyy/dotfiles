@@ -113,7 +113,7 @@ done
 
 if [[ "$stow_packages" =~ wal ]]; then
     printf '\n%s\n' 'Installing a theme...'
-    theme -i doom-tokyo-night
+    theme -i tokyo-night
 fi
 
 printf '\n%s\n' 'Installation completed'

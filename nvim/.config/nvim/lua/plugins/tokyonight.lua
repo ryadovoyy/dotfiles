@@ -5,14 +5,15 @@ require('tokyonight').setup({
   },
   lualine_bold = true,
   on_colors = function(c)
-    local bg = '#13141c'
+    local bg_dark = '#13141c'
+    local bg_statusline = '#171822'
 
-    c.bg_statusline = '#171822'
-    c.bg_dark = bg
-    c.bg_float = bg
-    c.bg_popup = bg
-    c.bg_sidebar = bg
-    c.border = bg
+    c.bg_statusline = bg_statusline
+    c.bg_dark = bg_dark
+    c.bg_float = bg_dark
+    c.bg_popup = bg_dark
+    c.bg_sidebar = bg_dark
+    c.border = bg_dark
   end,
   on_highlights = function(hl, c)
     local prompt = '#2d3149'

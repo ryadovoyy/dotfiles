@@ -81,7 +81,7 @@ install_theme() {
             && sed -i "s/{color$counter}/$line/g" "$dunst_config"
         [[ -e "$lock_config" ]] \
             && sed -i "s/{color$counter}/${line:1}/g" "$lock_config"
-        [[ "$counter" -eq 20 ]] && echo "$line" > "$cached_root_color"
+        [[ "$counter" -eq 0 ]] && echo "$line" > "$cached_root_color"
         (( ++counter ))
     done < "$theme"
 
