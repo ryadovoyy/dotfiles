@@ -93,12 +93,12 @@
   (org-roam-directory "~/Documents/org-roam/")
   (org-roam-capture-templates
    '(("d" "default" plain
-      "#+filetags: %^G:develop:\n\nPrevious:\nRelated to:\n\n* Questions\n\n- %?\n\n* Body\n\n* References"
+      "#+filetags: %^G:develop:\n\nPrevious:\n\n* Questions\n\n- %?\n\n* Body\n\n* References"
       :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)
      ("m" "map" plain
-      "#+filetags: :map%^G:develop:\n\nPrevious:\nRelated to:\n\n* Body\n\n- %?"
+      "#+filetags: :map%^G:develop:\n\nPrevious:\n\n* Body\n\n- %?"
       :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)))
