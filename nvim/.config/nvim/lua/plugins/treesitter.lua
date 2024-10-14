@@ -36,6 +36,8 @@ require('nvim-treesitter.configs').setup({
     'luadoc',
     'make',
     'markdown',
+    'php',
+    'phpdoc',
     'prisma',
     'python',
     'regex',
