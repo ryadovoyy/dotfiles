@@ -67,6 +67,7 @@ local servers = {
   },
   gopls = {},
   phpactor = {},
+  intelephense = {},
   ['bash-language-server'] = {},
   ['prisma-language-server'] = {},
   ['dockerfile-language-server'] = {},
@@ -79,7 +80,6 @@ local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
   'stylua',
   'goimports',
-  'pint',
   'shfmt',
   'shellcheck',
   'prettierd',

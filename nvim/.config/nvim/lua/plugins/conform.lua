@@ -9,7 +9,6 @@ require('conform').setup({
   formatters_by_ft = {
     lua = { 'stylua' },
     go = { 'goimports', 'gofmt' },
-    php = { 'pint' },
     typescript = { 'prettierd' },
   },
 })
