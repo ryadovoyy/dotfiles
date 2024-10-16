@@ -26,17 +26,7 @@
   (setq org-ellipsis " "
         org-hide-emphasis-markers t
         org-pretty-entities t
-        org-directory "~/Documents/org/"
-        org-agenda-files '("~/Documents/org/tags.org"
-                           "~/Documents/org/tasks.org"
-                           "~/Documents/org/birthdays.org")
-        org-refile-targets '(("archive.org" :maxlevel . 1)
-                             ("tasks.org" :maxlevel . 1))
-        org-capture-templates
-        '(("t" "Task" entry (file+headline "~/Documents/org/tasks.org" "Inbox")
-           "* TODO %?\n%U\n%a" :empty-lines 1 :kill-buffer t)
-          ("b" "Birthday" entry (file+headline "~/Documents/org/birthdays.org" "People")
-           "* %^{Name}\n%^{Birthday}t" :empty-lines-before 1 :kill-buffer t))
+        org-agenda-files '("~/Documents/org-roam/tags.org")
         ;; agenda logging
         org-agenda-start-with-log-mode t
         org-log-done 'time
@@ -80,6 +70,7 @@
     (python . t)))
 
 (add-to-list 'org-modules 'org-tempo)
+(add-to-list 'org-structure-template-alist '("src" . "src"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("sh" . "src sh"))
 (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
