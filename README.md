@@ -15,13 +15,13 @@ In order to install dotfiles you need GNU Stow and hsetroot. Warning: the script
 ```bash
 git clone https://github.com/ryadovoyy/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-chmod u+x install
+chmod u+x install-dotfiles
 ```
 
 Run the following to install all packages:
 
 ```bash
-./install
+./install-dotfiles
 ```
 
-You can also specify certain packages with the `-p` option (see `./install -h` for further information).
+You can also specify certain packages with the `-p` option (see `./install-dotfiles -h` for further information).

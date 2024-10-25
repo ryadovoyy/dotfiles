@@ -31,7 +31,7 @@ stow_shell_files=(
 )
 
 help() {
-cat <<EOF
+    cat <<EOF
 Usage: $0 [OPTIONS]
     -h  show this message
 
@@ -72,13 +72,12 @@ check_stow_packages() {
 
     for input_pkg in $input_pkgs; do
         for available_pkg in $available_pkgs; do
-            [[ "$input_pkg" == "$available_pkg" ]] \
-                && (( ++counter ))
+            [[ "$input_pkg" == "$available_pkg" ]] && ((++counter))
         done
     done
 
-    [[ "$input_pkg_number" != "$counter" ]] \
-        && exit_abnormal 'please enter packages from the available list'
+    [[ "$input_pkg_number" != "$counter" ]] &&
+        exit_abnormal 'please enter packages from the available list'
 
     stow_packages="$1"
     stow_packages_formatted="$input_pkgs"
@@ -86,9 +85,9 @@ check_stow_packages() {
 
 while getopts 'hp:' flag; do
     case "$flag" in
-        h) help && exit 0 ;;
-        p) check_stow_packages "$OPTARG" ;;
-        *) exit_abnormal ;;
+    h) help && exit 0 ;;
+    p) check_stow_packages "$OPTARG" ;;
+    *) exit_abnormal ;;
     esac
 done
 
