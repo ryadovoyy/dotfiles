@@ -1,0 +1,181 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+# decrease swap use
+mkdir -p /etc/sysctl.d
+echo "vm.swappiness=10" | tee /etc/sysctl.d/99-swappiness.conf >/dev/null
+
+# configure keyboard and mouse
+mkdir -p /etc/X11/xorg.conf.d
+
+tee /etc/X11/xorg.conf.d/10-keyboard.conf >/dev/null <<EOF
+Section "InputClass"
+    Identifier "My Keyboard"
+    MatchIsKeyboard "on"
+    Option "XkbLayout" "us,ru"
+    Option "XKbOptions" "grp:win_space_toggle,caps:ctrl_modifier"
+EndSection
+EOF
+
+tee /etc/X11/xorg.conf.d/20-mouse-acceleration.conf >/dev/null <<EOF
+Section "InputClass"
+    Identifier "My Mouse"
+    Driver "libinput"
+    MatchIsPointer "yes"
+    Option "AccelProfile" "flat"
+    Option "AccelSpeed" "0"
+EndSection
+EOF
+
+# set Cloudflare DNS servers with DNS over TLS
+mkdir -p /etc/systemd/resolved.conf.d
+mkdir -p /etc/NetworkManager/conf.d
+
+tee /etc/systemd/resolved.conf.d/dns.conf >/dev/null <<EOF
+[Resolve]
+DNS=1.1.1.1#one.one.one.one 1.0.0.1#one.one.one.one 2606:4700:4700::1111#one.one.one.one 2606:4700:4700::1001#one.one.one.one
+Domains=~.
+DNSOverTLS=yes
+EOF
+
+tee /etc/NetworkManager/conf.d/dns.conf >/dev/null <<EOF
+[main]
+dns=none
+systemd-resolved=false
+EOF
+
+systemctl daemon-reload
+systemctl restart systemd-resolved
+systemctl restart NetworkManager
+
+systemd-resolve --interface="$(ip -br l | awk '$1 !~ "lo|vir|wl" {print $1}' | grep enp)" --set-dns 1.1.1.1
+systemd-resolve --flush-caches
+
+# copy fonts
+mkdir -p ~/.local/share/fonts/JetBrainsMonoNL
+[[ -d ~/.dotfiles/fonts ]] && cp ~/.dotfiles/fonts/* ~/.local/share/fonts/JetBrainsMonoNL
+fc-cache -fv
+
+# update the system
+pacman -Syu --noconfirm
+
+# install packages
+pacman -Sy && pacman -S --needed --noconfirm \
+    xorg-server \
+    libxft \
+    libxinerama \
+    hdparm \
+    man-db \
+    ufw \
+    stow \
+    fzf \
+    ripgrep \
+    fd \
+    bat \
+    poppler \
+    ffmpegthumbnailer \
+    mediainfo \
+    imagemagick \
+    ueberzug \
+    unzip \
+    htop \
+    ncdu \
+    tmux \
+    neovim \
+    emacs \
+    ranger \
+    dunst \
+    udiskie \
+    picom \
+    ly \
+    wmname \
+    xdotool \
+    hsetroot \
+    keepassxc \
+    playerctl \
+    mpv \
+    flameshot \
+    yt-dlp \
+    transmission-cli \
+    gtk-engine-murrine \
+    papirus-icon-theme \
+    telegram-desktop
+
+# enable drive cache for all HDDs
+mkdir -p /etc/udev/rules.d
+
+echo "ACTION==\"add|change\", KERNEL==\"sd[a-z]\", ATTRS{queue/rotational}==\"1\", RUN+=\""$(which hdparm)" -W 1 /dev/%k\"" |
+    tee /etc/udev/rules.d/69-hdparm.rules >/dev/null
+
+# enable firewall
+systemctl enable --now ufw
+ufw enable
+
+# enable display manager
+systemctl enable ly
+
+# configure transmission
+mkdir -p /etc/systemd/system/transmission-daemon.service.d
+tee /etc/systemd/system/transmission-daemon.service.d/username.conf >/dev/null <<EOF
+[Service]
+User=ryadovoy
+EOF
+
+# install yay
+mkdir -p ~/source
+
+if [[ ! -d ~/source/yay ]]; then
+    git clone https://aur.archlinux.org/yay-bin.git ~/source/yay
+    cd ~/source/yay && makepkg -si --noconfirm
+fi
+
+# install AUR packages
+yay -Y --gendb
+yay -Y --devel --save
+
+yay -Sy && yay -S --needed --noconfirm \
+    brave-bin \
+    tmux-resurrect \
+    betterlockscreen \
+    spotify \
+    pfetch
+
+# install dwm, st and dmenu
+if [[ ! -d ~/source/dwm ]]; then
+    git clone https://github.com/ryadovoyy/dwm.git ~/source/dwm
+    cd ~/source/dwm && make install
+fi
+
+mkdir -p /usr/share/xsessions
+tee /usr/share/xsessions/dwm.desktop >/dev/null <<EOF
+[Desktop Entry]
+Encoding=UTF-8
+Name=Dwm
+Comment=The dynamic window manager
+Exec=dwm
+Icon=dwm
+Type=XSession
+EOF
+
+if [[ ! -d ~/source/st ]]; then
+    git clone https://github.com/ryadovoyy/st.git ~/source/st
+    cd ~/source/st && make install
+fi
+
+if [[ ! -d ~/source/dmenu ]]; then
+    git clone https://github.com/ryadovoyy/dmenu.git ~/source/dmenu
+    cd ~/source/dmenu && make install
+fi
+
+# install theme
+mkdir -p ~/.themes
+
+if [[ ! -d ~/source/tokyo-night-gtk-theme ]]; then
+    git clone https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme.git ~/source/tokyo-night-gtk-theme
+    cp -r ~/source/tokyo-night-gtk-theme/themes/Tokyonight-Dark-BL-LB ~/.themes
+fi
+
+# install dotfiles
+[[ -f ~/.dotfiles/install-dotfiles ]] && source ~/.dotfiles/install-dotfiles
