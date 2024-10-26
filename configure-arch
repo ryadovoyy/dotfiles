@@ -57,10 +57,14 @@ systemd-resolve --flush-caches
 sudo pacman -Syu --noconfirm
 
 # install packages
-sudo pacman -Sy && pacman -S --needed --noconfirm \
+sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     xorg-server \
+    xorg-xinit \
+    xorg-xsetroot \
     libxft \
     libxinerama \
+    go \
+    npm \
     fontconfig \
     hdparm \
     man-db \
@@ -75,6 +79,7 @@ sudo pacman -Sy && pacman -S --needed --noconfirm \
     mediainfo \
     imagemagick \
     ueberzug \
+    feh \
     unzip \
     htop \
     ncdu \
@@ -168,14 +173,6 @@ fi
 if [[ ! -d ~/source/dmenu ]]; then
     git clone https://github.com/ryadovoyy/dmenu.git ~/source/dmenu
     cd ~/source/dmenu && sudo make install
-fi
-
-# install theme
-mkdir -p ~/.themes
-
-if [[ ! -d ~/source/tokyo-night-gtk-theme ]]; then
-    git clone https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme.git ~/source/tokyo-night-gtk-theme
-    cp -r ~/source/tokyo-night-gtk-theme/themes/Tokyonight-Dark-BL-LB ~/.themes
 fi
 
 # install dotfiles
