@@ -2,8 +2,8 @@
 
 dwm_spotify() {
     spotify_pid="$(pidof spotify)"
-    [ -n "$spotify_pid" ] \
-        && echo " $(playerctl metadata -f '{{ artist }} - {{ title }}' -p spotify) · "
+    [ -n "$spotify_pid" ] &&
+        echo "󰎇 $(playerctl metadata -f '{{ artist }} - {{ title }}' -p spotify) · "
 }
 
 dwm_ram() {
@@ -12,28 +12,28 @@ dwm_ram() {
 
 dwm_lang() {
     case "$(xset -q | grep LED | awk '{ print $10 }')" in
-        00000000) echo ' En';;
-        00001000) echo ' Ru';;
-               *) echo ' Err';;
+    00000000) echo '󰌌 En' ;;
+    00001000) echo '󰌌 Ru' ;;
+    *) echo '󰌌 Err' ;;
     esac
 }
 
 dwm_pulse() {
-    vol="$(pactl list sinks | grep '^[[:space:]]Volume:' | \
-        head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')"
+    vol="$(pactl list sinks | grep '^[[:space:]]Volume:' |
+        head -n $(($SINK + 1)) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')"
     if [ "$vol" -eq 0 ]; then
-        echo '婢'
+        echo '󰖁'
     elif [ "$vol" -gt 0 ] && [ "$vol" -le 33 ]; then
-        echo "奄 $vol"
+        echo "󰕿 $vol"
     elif [ "$vol" -gt 33 ] && [ "$vol" -le 66 ]; then
-        echo "奔 $vol"
+        echo "󰖀 $vol"
     else
-        echo "墳 $vol"
+        echo "󰕾 $vol"
     fi
 }
 
 dwm_date() {
-    echo " $(date "+%a, %d %b %H:%M")"
+    echo "󰃰 $(date "+%a, %d %b %H:%M")"
 }
 
 generate_content() {
