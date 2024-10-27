@@ -1,14 +1,11 @@
 [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
-
 [ -d "$HOME/.local/bin" ] && PATH="$PATH:$HOME/.local/bin"
-[ -d '/usr/local/go/bin' ] && PATH="$PATH:/usr/local/go/bin"
-[ -d '/usr/local/php/bin' ] && PATH="$PATH:/usr/local/php/bin"
 
 export PATH="$PATH:$HOME/scripts"
 export PF_INFO='ascii title os kernel uptime pkgs shell wm editor memory'
 export EDITOR=nvim
-export FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git . $HOME"
-export FZF_CTRL_T_COMMAND="fd --hidden --exclude .git . $HOME"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git .'
+export FZF_CTRL_T_COMMAND='fd --hidden --exclude .git .'
 export FZF_DEFAULT_OPTS='
     --color=fg:7,hl:2
     --color=fg+:7,bg+:8,hl+:2

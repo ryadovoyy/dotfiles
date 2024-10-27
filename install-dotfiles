@@ -10,7 +10,6 @@ stow_packages_formatted="${stow_packages//,/$'\n'}"
 declare -A stow_files
 stow_files=(
     [dunst]="$HOME/.config/dunst"
-    [gtk]="$HOME/.config/gtk-3.0"
     [lock]="$HOME/.config/betterlockscreenrc.tmpl"
     [mpv]="$HOME/.config/mpv"
     [nvim]="$HOME/.config/nvim"
@@ -28,6 +27,12 @@ stow_shell_files=(
     "$HOME/.bash_aliases"
     "$HOME/.bash_profile"
     "$HOME/.bashrc"
+)
+
+stow_gtk_files=(
+    "$HOME/.config/gtk-3.0"
+    "$HOME/.icons/default"
+    "$HOME/.gtkrc-2.0"
 )
 
 help() {
@@ -103,6 +108,10 @@ for pkg in $stow_packages_formatted; do
     if [[ "$pkg" == shell ]]; then
         for shell_file in "${stow_shell_files[@]}"; do
             [[ -e "$shell_file" ]] && rm -fv "$shell_file"
+        done
+    elif [[ "$pkg" == gtk ]]; then
+        for gtk_file in "${stow_gtk_files[@]}"; do
+            [[ -e "$gtk_file" ]] && rm -rfv "$gtk_file"
         done
     else
         [[ -e "${stow_files[$pkg]}" ]] && rm -rfv "${stow_files[$pkg]}"

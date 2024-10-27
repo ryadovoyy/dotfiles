@@ -100,10 +100,6 @@
 (setq desktop-path `(,core/session-dir))
 (setq desktop-dirname core/session-dir)
 
-;; set the native comp cache directory
-(add-to-list 'native-comp-eln-load-path
-             (expand-file-name "eln-cache/" user-emacs-directory))
-
 ;; disable creating backup, auto-save and lock files
 (setq make-backup-files nil
       auto-save-default nil

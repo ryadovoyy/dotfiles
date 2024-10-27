@@ -31,6 +31,5 @@ set -g status-left ' #S · '
 set -g status-right ''
 
 # resurrect
-run-shell '$HOME/.tmux/plugins/tmux-resurrect/resurrect.tmux'
+run-shell /usr/share/tmux-resurrect/resurrect.tmux
 set -g @resurrect-strategy-nvim 'session'
-set -g @resurrect-hook-post-save-all 'sed -i "s/\/tmp.*nvim/nvim/" $HOME/.tmux/resurrect/last'
