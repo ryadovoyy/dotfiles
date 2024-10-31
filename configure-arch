@@ -58,6 +58,7 @@ sudo pacman -Syu --noconfirm
 
 # install packages
 sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
+    pacman-contrib \
     xorg-server \
     xorg-xinit \
     xorg-xsetroot \
