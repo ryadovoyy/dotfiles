@@ -1,0 +1,5 @@
+#!/bin/sh
+
+tar -cf notes.tar.gz ~/Documents/org-roam
+gpg --symmetric --no-symkey-cache --cipher-algo AES256 notes.tar.gz
+rm notes.tar.gz

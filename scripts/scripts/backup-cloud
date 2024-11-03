@@ -1,0 +1,5 @@
+#!/bin/sh
+
+tar -cf cloud.tar.gz ~/cloud
+gpg --symmetric --no-symkey-cache --cipher-algo AES256 cloud.tar.gz
+rm cloud.tar.gz
