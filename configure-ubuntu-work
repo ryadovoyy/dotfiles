@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+error() {
+    # log to stderr and exit with failure
+    printf '%s\n' "$0: $1" >&2
+    exit 1
+}
+
+[[ -d ~/.dotfiles ]] || error "dotfiles directory doesn't exist"
+
+# install packages
+sudo apt update && sudo apt install -y \
+    stow \
+    php \
+    npm \
+    golang-go \
+    neovim \
+    tmux \
+    fzf \
+    ripgrep \
+    fd-find \
+    ranger
+
+mkdir -p ~/.local/bin
+ln -s /usr/bin/fdfind ~/.local/bin/fd
+
+# copy fonts
+mkdir -p ~/.local/share/fonts
+cp -r ~/.dotfiles/fonts/* ~/.local/share/fonts
+fc-cache -fv
+
+# install dotfiles
+chmod u+x ~/.dotfiles/install-dotfiles
+~/.dotfiles/install-dotfiles -p nvim,ranger,wal,shell,tmux
