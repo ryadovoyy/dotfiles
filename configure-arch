@@ -64,6 +64,7 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     xorg-xsetroot \
     libxft \
     libxinerama \
+    timeshift \
     go \
     npm \
     fontconfig \
