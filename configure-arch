@@ -58,11 +58,13 @@ sudo pacman -Syu --noconfirm
 
 # install packages
 sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
+    pacman-contrib \
     xorg-server \
     xorg-xinit \
     xorg-xsetroot \
     libxft \
     libxinerama \
+    timeshift \
     go \
     npm \
     fontconfig \
@@ -93,6 +95,7 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     ly \
     wmname \
     xdotool \
+    xclip \
     hsetroot \
     keepassxc \
     playerctl \
@@ -101,12 +104,13 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     yt-dlp \
     transmission-cli \
     gtk-engine-murrine \
+    xcursor-vanilla-dmz \
     papirus-icon-theme \
     telegram-desktop
 
 # copy fonts
-mkdir -p ~/.local/share/fonts/JetBrainsMonoNL
-[[ -d ~/.dotfiles/fonts ]] && cp ~/.dotfiles/fonts/* ~/.local/share/fonts/JetBrainsMonoNL
+mkdir -p ~/.local/share/fonts
+[[ -d ~/.dotfiles/fonts ]] && cp -r ~/.dotfiles/fonts/* ~/.local/share/fonts
 fc-cache -fv
 
 # enable drive cache for all HDDs

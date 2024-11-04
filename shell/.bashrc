@@ -25,7 +25,7 @@ set -o vi
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
 # set prompt
@@ -44,16 +44,11 @@ fi
 [ -f "$HOME/.bash_aliases" ] && source "$HOME/.bash_aliases"
 
 # add fzf support
-[ -f "$HOME/.fzf.bash" ] && source "$HOME/.fzf.bash"
+eval "$(fzf --bash)"
 
 # add vterm support
-if [ "$INSIDE_EMACS" = vterm ] \
-    && [ -n "$EMACS_VTERM_PATH" ] \
-    && [ -f "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh" ]; then
+if [ "$INSIDE_EMACS" = vterm ] &&
+    [ -n "$EMACS_VTERM_PATH" ] &&
+    [ -f "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh" ]; then
     source "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh"
 fi
-
-# add node version manager support
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"

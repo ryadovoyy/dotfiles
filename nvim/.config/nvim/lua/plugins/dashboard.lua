@@ -8,5 +8,6 @@ require('dashboard').setup({
     header = ascii.art.text.neovim.dos_rebel,
     project = { limit = 3, icon = ' ', action = 'Telescope git_files cwd=' },
     mru = { limit = 5 },
+    footer = { '', '  Sharp tools make good work.' },
   },
 })

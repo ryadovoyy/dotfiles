@@ -262,7 +262,7 @@ lazy.setup({
 local update_date_path = fn.stdpath('data') .. '/.last-plugin-update-date'
 
 local function write_current_date()
-  local command = 'echo ' .. os.time() .. '>' .. update_date_path
+  local command = 'echo ' .. os.time() .. ' > ' .. update_date_path
   os.execute(command)
 end
 

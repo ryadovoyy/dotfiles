@@ -26,7 +26,7 @@ template_lock="$lock_dir/betterlockscreenrc.tmpl"
 lock_config="$lock_dir/betterlockscreenrc"
 
 help() {
-cat <<EOF
+    cat <<EOF
 Usage: $0 [OPTIONS]
     -h  show this message
 
@@ -55,7 +55,7 @@ exit_abnormal() {
 }
 
 apply_colors() {
-    read -r root_color < "$cached_root_color"
+    read -r root_color <"$cached_root_color"
     hsetroot -solid "$root_color"
     xrdb "$cached_colors"
 }
@@ -75,30 +75,32 @@ install_theme() {
     counter=0
     while read -r line; do
         sed -i "s/{color$counter}/$line/g" "$cached_colors"
-        [[ -e "$tmux_config" ]] \
-            && sed -i "s/{color$counter}/$line/g" "$tmux_config"
-        [[ -e "$dunst_config" ]] \
-            && sed -i "s/{color$counter}/$line/g" "$dunst_config"
-        [[ -e "$lock_config" ]] \
-            && sed -i "s/{color$counter}/${line:1}/g" "$lock_config"
-        [[ "$counter" -eq 0 ]] && echo "$line" > "$cached_root_color"
-        (( ++counter ))
-    done < "$theme"
+
+        [[ -e "$tmux_config" ]] &&
+            sed -i "s/{color$counter}/$line/g" "$tmux_config"
+        [[ -e "$dunst_config" ]] &&
+            sed -i "s/{color$counter}/$line/g" "$dunst_config"
+        [[ -e "$lock_config" ]] &&
+            sed -i "s/{color$counter}/${line:1}/g" "$lock_config"
+
+        [[ "$counter" -eq 0 ]] && echo "$line" >"$cached_root_color"
+        ((++counter))
+    done <"$theme"
 
     apply_colors
 }
 
 restore_theme() {
-    [[ ! -e "$cached_colors" ]] || [[ ! -e "$cached_root_color" ]] \
-        && error "can't find generated colors"
+    [[ ! -e "$cached_colors" ]] || [[ ! -e "$cached_root_color" ]] &&
+        error "can't find generated colors"
     apply_colors
 }
 
 while getopts 'hri:' flag; do
     case "$flag" in
-        h) help && exit 0 ;;
-        r) restore_theme ;;
-        i) install_theme "$OPTARG" ;;
-        *) exit_abnormal ;;
+    h) help && exit 0 ;;
+    r) restore_theme ;;
+    i) install_theme "$OPTARG" ;;
+    *) exit_abnormal ;;
     esac
 done
