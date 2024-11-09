@@ -64,10 +64,15 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     xorg-xsetroot \
     libxft \
     libxinerama \
+    openssh \
     timeshift \
     go \
     npm \
     fontconfig \
+    noto-fonts \
+    noto-fonts-extra \
+    noto-fonts-cjk \
+    noto-fonts-emoji \
     hdparm \
     man-db \
     ufw \
@@ -126,12 +131,14 @@ sudo ufw enable
 # enable display manager
 sudo systemctl enable ly
 
-# configure transmission
+# configure and enable transmission
 sudo mkdir -p /etc/systemd/system/transmission-daemon.service.d
 sudo tee /etc/systemd/system/transmission-daemon.service.d/username.conf >/dev/null <<EOF
 [Service]
 User=ryadovoy
 EOF
+
+sudo systemctl enable transmission.service
 
 # install yay
 mkdir -p ~/source
@@ -147,6 +154,7 @@ yay -Y --devel --save
 
 yay -Sy && yay -S --needed --noconfirm \
     brave-bin \
+    nekoray-bin \
     tmux-resurrect \
     betterlockscreen \
     spotify \

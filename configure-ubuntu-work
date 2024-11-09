@@ -34,4 +34,4 @@ fc-cache -fv
 
 # install dotfiles
 chmod u+x ~/.dotfiles/install-dotfiles
-~/.dotfiles/install-dotfiles -p nvim,ranger,wal,shell,tmux
+~/.dotfiles/install-dotfiles -p nvim,ranger,wal,shell,ideavim,tmux
