@@ -4,12 +4,13 @@ set -euo pipefail
 IFS=$'\n\t'
 
 DOTFILES="$HOME/.dotfiles"
-stow_packages=dunst,gtk,lock,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,ideavim,tmux,x
+stow_packages=dunst,gtk,fontconfig,lock,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,ideavim,tmux,x
 stow_packages_formatted="${stow_packages//,/$'\n'}"
 
 declare -A stow_files
 stow_files=(
     [dunst]="$HOME/.config/dunst"
+    [fontconfig]="$HOME/.config/fontconfig"
     [lock]="$HOME/.config/betterlockscreenrc.tmpl"
     [mpv]="$HOME/.config/mpv"
     [nvim]="$HOME/.config/nvim"

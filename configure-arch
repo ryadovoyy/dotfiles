@@ -113,9 +113,10 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     papirus-icon-theme \
     telegram-desktop
 
-# copy fonts
+# configure fonts
 mkdir -p ~/.local/share/fonts
 [[ -d ~/.dotfiles/fonts ]] && cp -r ~/.dotfiles/fonts/* ~/.local/share/fonts
+[[ -f /etc/profile.d/freetype2.sh ]] && sudo sed -i '$s/^#//' /etc/profile.d/freetype2.sh
 fc-cache -fv
 
 # enable drive cache for all HDDs
