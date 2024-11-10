@@ -7,7 +7,7 @@ IFS=$'\n\t'
 mkdir -p /etc/sysctl.d
 echo "vm.swappiness=10" | sudo tee /etc/sysctl.d/99-swappiness.conf >/dev/null
 
-# configure keyboard and mouse
+# configure keyboard, mouse and video driver
 sudo mkdir -p /etc/X11/xorg.conf.d
 
 sudo tee /etc/X11/xorg.conf.d/10-keyboard.conf >/dev/null <<EOF
@@ -26,6 +26,14 @@ Section "InputClass"
     MatchIsPointer "yes"
     Option "AccelProfile" "flat"
     Option "AccelSpeed" "0"
+EndSection
+EOF
+
+sudo tee /etc/X11/xorg.conf.d/30-nouveau.conf >/dev/null <<EOF
+Section "Device"
+    Identifier "My Video Driver"
+    Driver "nouveau"
+    Option "TearFree" "true"
 EndSection
 EOF
 
@@ -62,6 +70,7 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     xorg-server \
     xorg-xinit \
     xorg-xsetroot \
+    xf86-video-nouveau \
     libxft \
     libxinerama \
     openssh \
@@ -96,7 +105,6 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     ranger \
     dunst \
     udiskie \
-    picom \
     ly \
     wmname \
     xdotool \
