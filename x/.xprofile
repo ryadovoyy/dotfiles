@@ -15,5 +15,8 @@ dunst &
 killbar
 bar &
 
+# start the compositor
+picom &
+
 # restore the last theme that was in use
 theme -r

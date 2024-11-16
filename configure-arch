@@ -105,6 +105,7 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     ranger \
     dunst \
     udiskie \
+    picom \
     ly \
     wmname \
     xdotool \
