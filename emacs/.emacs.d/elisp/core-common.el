@@ -124,3 +124,6 @@
 
 ;; silence compiler warnings
 (setq native-comp-async-report-warnings-errors nil)
+
+;; disable bells
+(setq ring-bell-function 'ignore)
