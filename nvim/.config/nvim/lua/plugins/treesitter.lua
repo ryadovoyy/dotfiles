@@ -1,50 +1,40 @@
-require('nvim-treesitter.install').prefer_git = true
+local augroup = require('core.util').augroup
+local autocmd = require('core.util').autocmd
 
-require('nvim-treesitter.configs').setup({
-  highlight = { enable = true },
-  indent = { enable = true },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-      },
-    },
-  },
-  auto_install = true,
-  ensure_installed = {
-    'bash',
-    'c',
-    'cmake',
-    'comment',
-    'cpp',
-    'diff',
-    'dockerfile',
-    'go',
-    'gomod',
-    'graphql',
-    'html',
-    'http',
-    'java',
-    'javascript',
-    'json',
-    'lua',
-    'luadoc',
-    'make',
-    'markdown',
-    'php',
-    'phpdoc',
-    'prisma',
-    'python',
-    'regex',
-    'toml',
-    'typescript',
-    'vim',
-    'vimdoc',
-    'yaml',
-  },
+local parsers = {
+  'bash',
+  'c',
+  'cmake',
+  'comment',
+  'diff',
+  'dockerfile',
+  'go',
+  'gomod',
+  'gosum',
+  'gowork',
+  'html',
+  'http',
+  'json',
+  'lua',
+  'luadoc',
+  'make',
+  'markdown',
+  'regex',
+  'toml',
+  'vim',
+  'vimdoc',
+  'yaml',
+}
+
+require('nvim-treesitter').install(parsers)
+
+local treesitter_augroup = augroup('Treesitter', { clear = true })
+
+autocmd('FileType', {
+  group = treesitter_augroup,
+  pattern = parsers,
+  callback = function()
+    vim.treesitter.start()
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
 })

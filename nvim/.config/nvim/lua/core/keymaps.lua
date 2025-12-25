@@ -1,6 +1,8 @@
 local set_map = require('core.util').set_map
+
 local opts = { noremap = true, silent = true }
 local map = set_map(opts)
+
 local expr_opts = { noremap = true, silent = true, expr = true }
 local expr_map = set_map(expr_opts)
 
@@ -20,6 +22,9 @@ map('i', '<C-h>', '<BS>')
 map('n', '<leader>w', '<C-w>', 'windows')
 map('n', '<leader><leader>', '<C-^>', 'toggle between buffers')
 
+-- terminal
+map('t', '<Esc><Esc>', '<C-\\><C-n>', 'exit terminal')
+
 -- make Y behave like the rest of the capital letters
 map('n', 'Y', 'y$')
 
@@ -31,10 +36,6 @@ map('n', '#', '#zz')
 
 -- rename all occurrences of a word in the current buffer
 map('n', '<leader>n', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>', 'rename word')
-
--- move lines of text
-map('n', '<leader>j', ':m .+1<CR>==', 'move one line down')
-map('n', '<leader>k', ':m .-2<CR>==', 'move one line up')
 
 -- quickfix list
 map('n', '<C-j>', ':cnext<CR>zz')

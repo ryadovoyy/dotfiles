@@ -1,10 +1,10 @@
 -- install lazy
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/lazy/lazy.nvim'
+local install_path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
-if not vim.loop.fs_stat(install_path) then
+if not (vim.uv or vim.loop).fs_stat(install_path) then
   local repo = 'https://github.com/folke/lazy.nvim.git'
-  fn.system({
+
+  local out = vim.fn.system({
     'git',
     'clone',
     '--filter=blob:none',
@@ -12,6 +12,17 @@ if not vim.loop.fs_stat(install_path) then
     repo,
     install_path,
   })
+
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+      { out, 'WarningMsg' },
+      { '\nPress any key to exit...' },
+    }, true, {})
+
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 
 vim.opt.rtp:prepend(install_path)
@@ -20,15 +31,34 @@ local lazy = require('lazy')
 
 -- install plugins
 lazy.setup({
+  -- snacks
+  {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    config = function()
+      require('plugins.snacks')
+    end,
+  },
+
+  -- mini
+  {
+    'nvim-mini/mini.nvim',
+    version = false,
+    config = function()
+      require('plugins.mini')
+    end,
+  },
+
   -- lsp
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
+      { 'folke/lazydev.nvim', ft = 'lua', config = true },
+      { 'mason-org/mason.nvim', config = true },
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      { 'j-hui/fidget.nvim', enabled = false, opts = {} },
-      { 'folke/lazydev.nvim', ft = 'lua', opts = {} },
+      'saghen/blink.cmp',
     },
     config = function()
       require('plugins.lspconfig')
@@ -36,11 +66,13 @@ lazy.setup({
   },
 
   {
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
+    'saghen/blink.cmp',
+    event = 'VimEnter',
+    version = '1.*',
     dependencies = {
       {
         'L3MON4D3/LuaSnip',
+        version = '2.*',
         build = (function()
           if vim.fn.has('win32') == 1 or vim.fn.executable('make') == 0 then
             return
@@ -55,20 +87,18 @@ lazy.setup({
             end,
           },
         },
+        config = true,
       },
-      'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
     },
     config = function()
-      require('plugins.cmp')
+      require('plugins.blink')
     end,
   },
 
   -- formatter
   {
     'stevearc/conform.nvim',
-    lazy = false,
+    event = { 'BufWritePre' },
     config = function()
       require('plugins.conform')
     end,
@@ -83,29 +113,10 @@ lazy.setup({
     end,
   },
 
-  -- telescope
-  {
-    'nvim-telescope/telescope.nvim',
-    event = 'VimEnter',
-    branch = '0.1.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
-        cond = vim.fn.executable('make') == 1,
-      },
-      'nvim-telescope/telescope-project.nvim',
-      'nvim-telescope/telescope-ui-select.nvim',
-    },
-    config = function()
-      require('plugins.telescope')
-    end,
-  },
-
   -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
     build = ':TSUpdate',
     config = function()
       require('plugins.treesitter')
@@ -114,33 +125,20 @@ lazy.setup({
 
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    dependencies = { 'nvim-treesitter' },
+    branch = 'main',
+    config = function()
+      require('plugins.treesitter-textobjects')
+    end,
   },
 
   {
     'nvim-treesitter/nvim-treesitter-context',
-    dependencies = { 'nvim-treesitter' },
     config = function()
       require('plugins.treesitter-context')
     end,
   },
 
-  -- file explorer
-  {
-    'nvim-tree/nvim-tree.lua',
-    config = function()
-      require('plugins.nvim-tree')
-    end,
-  },
-
   -- git integration
-  {
-    'TimUntersberger/neogit',
-    config = function()
-      require('plugins.neogit')
-    end,
-  },
-
   {
     'lewis6991/gitsigns.nvim',
     event = 'BufRead',
@@ -161,38 +159,14 @@ lazy.setup({
   -- statusline
   {
     'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('plugins.lualine')
     end,
   },
 
-  -- dashboard
-  {
-    'nvimdev/dashboard-nvim',
-    event = 'VimEnter',
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-      {
-        'MaximilianLloyd/ascii.nvim',
-        dependencies = { 'MunifTanjim/nui.nvim' },
-      },
-    },
-    config = function()
-      require('plugins.dashboard')
-    end,
-  },
-
   -- devicons
   { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
-
-  -- indentation guides
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    config = function()
-      require('plugins.indent-line')
-    end,
-  },
 
   -- colorcolumn
   {
@@ -206,6 +180,7 @@ lazy.setup({
   {
     'folke/tokyonight.nvim',
     priority = 1000,
+    lazy = false,
     config = function()
       require('plugins.tokyonight')
     end,
@@ -214,32 +189,13 @@ lazy.setup({
   -- sessions
   {
     'folke/persistence.nvim',
+    event = 'BufReadPre',
     config = function()
       require('plugins.persistence')
     end,
   },
 
-  -- autopairs
-  {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    dependencies = { 'hrsh7th/nvim-cmp' },
-    config = function()
-      require('plugins.autopairs')
-    end,
-  },
-
-  -- typescript integration
-  {
-    'pmizio/typescript-tools.nvim',
-    ft = 'typescript',
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    config = function()
-      require('plugins.typescript')
-    end,
-  },
-
-  -- improved text editing
+  -- blazingly fast navigation
   {
     'folke/flash.nvim',
     event = 'VeryLazy',
@@ -248,25 +204,22 @@ lazy.setup({
     end,
   },
 
-  { 'numToStr/Comment.nvim', opts = {} },
-
+  -- repeat supported plugin keymaps
   'tpope/vim-repeat',
-  'tpope/vim-surround',
-  'vim-scripts/ReplaceWithRegister',
 
   -- detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 })
 
 -- update plugins every 7 days
-local update_date_path = fn.stdpath('data') .. '/.last-plugin-update-date'
+local update_date_path = vim.fn.stdpath('data') .. '/.last-plugin-update-date'
 
 local function write_current_date()
   local command = 'echo ' .. os.time() .. ' > ' .. update_date_path
   os.execute(command)
 end
 
-if fn.filereadable(update_date_path) == 0 then
+if vim.fn.filereadable(update_date_path) == 0 then
   write_current_date()
 end
 

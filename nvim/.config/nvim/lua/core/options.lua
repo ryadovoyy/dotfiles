@@ -14,16 +14,13 @@ o.updatetime = 100
 o.timeoutlen = 500
 o.regexpengine = 0
 o.wrap = true
+o.breakindent = true
 o.signcolumn = 'yes'
 o.number = true
 o.relativenumber = true
 
--- visualise tabs
-o.list = true
-opt.listchars = { tab = '▎ ' }
-
 -- split separators
-o.fillchars = 'horiz:━,horizup:┻,horizdown:┳,vert:┃,vertleft:┫,vertright:┣,verthoriz:╋'
+o.fillchars = 'horiz:━,horizup:┻,horizdown:┳,vert:┃,vertleft:┫,vertright:┣,verthoriz:╋,eob: '
 
 o.laststatus = 3
 o.splitright = true
@@ -42,6 +39,7 @@ o.hlsearch = true
 o.termguicolors = true
 o.background = 'dark'
 o.errorbells = false
+o.confirm = true
 
 -- don't give |ins-completion-menu| messages
 opt.shortmess:append({ c = true })
@@ -51,4 +49,5 @@ o.undofile = false
 o.backup = false
 
 g.mapleader = ' '
+g.maplocalleader = ' '
 g.have_nerd_font = true
