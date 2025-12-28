@@ -21,12 +21,6 @@ require('snacks').setup({
       gui = {
         scrollHeight = 15,
       },
-      keybindings = {
-        universal = {
-          scrollUpMain = '<c-u>',
-          scrollDownMain = '<c-d>',
-        },
-      },
     },
   },
   picker = {
