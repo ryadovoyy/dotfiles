@@ -25,3 +25,9 @@ alias kp="keepassxc-cli clip -k $HOME/Documents/database.key $HOME/Documents/dat
 
 # transmission
 alias trem='transmission-remote'
+
+# zellij
+alias \
+    zj='zellij' \
+    zjn='zellij options --default-layout compact --theme ansi' \
+    zja='zjn --attach-to-session true --session-name'

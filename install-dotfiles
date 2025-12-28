@@ -4,7 +4,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 DOTFILES="$HOME/.dotfiles"
-stow_packages=dunst,gtk,fontconfig,lock,mpv,nvim,picom,ranger,wal,emacs,scripts,shell,ideavim,tmux,x
+stow_packages=dunst,gtk,fontconfig,lock,mpv,nvim,helix,lazygit,picom,yazi,wal,emacs,scripts,shell,ideavim,tmux,x
 stow_packages_formatted="${stow_packages//,/$'\n'}"
 
 declare -A stow_files
@@ -14,8 +14,10 @@ stow_files=(
     [lock]="$HOME/.config/betterlockscreenrc.tmpl"
     [mpv]="$HOME/.config/mpv"
     [nvim]="$HOME/.config/nvim"
+    [helix]="$HOME/.config/helix"
+    [lazygit]="$HOME/.config/lazygit"
     [picom]="$HOME/.config/picom"
-    [ranger]="$HOME/.config/ranger"
+    [yazi]="$HOME/.config/yazi"
     [wal]="$HOME/.config/wal"
     [emacs]="$HOME/.emacs.d"
     [scripts]="$HOME/scripts"

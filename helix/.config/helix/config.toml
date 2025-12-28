@@ -1,0 +1,18 @@
+theme = "base16_terminal"
+
+[editor]
+line-number = "relative"
+trim-trailing-whitespace = true
+true-color = true
+
+[editor.soft-wrap]
+enable = true
+
+[editor.file-picker]
+hidden = false
+
+[keys.normal]
+"A-h" = ":reset-diff-change"
+
+[keys.insert]
+j = { k = "normal_mode" }
