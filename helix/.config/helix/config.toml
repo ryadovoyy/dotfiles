@@ -1,18 +1,39 @@
-theme = "base16_terminal"
+theme = "ansi"
 
 [editor]
+mouse = false
 line-number = "relative"
 trim-trailing-whitespace = true
 true-color = true
 
 [editor.soft-wrap]
 enable = true
+wrap-indicator = ""
 
 [editor.file-picker]
 hidden = false
 
 [keys.normal]
 "A-g" = ":reset-diff-change"
+
+[keys.normal.space]
+q = ":quit"
+z = ":toggle gutters.line-numbers.min-width 50 3"
+
+l = [
+  ":write-all",
+  ":insert-output lazygit >/dev/tty",
+  ":redraw",
+  ":reload-all"
+]
+
+e = [
+  ":sh rm -f /tmp/0ff5465c-d7cd-4c18-a4c2-43054b55788c",
+  ":insert-output yazi '%{buffer_name}' --chooser-file=/tmp/0ff5465c-d7cd-4c18-a4c2-43054b55788c",
+  ":insert-output echo \"x1b[?1049h\" > /dev/tty",
+  ":open %sh{cat /tmp/0ff5465c-d7cd-4c18-a4c2-43054b55788c}",
+  ":redraw",
+]
 
 [keys.insert]
 j = { k = "normal_mode" }
