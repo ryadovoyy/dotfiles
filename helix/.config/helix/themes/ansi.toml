@@ -1,36 +1,36 @@
 # syntax highlighting
 "attribute" = "yellow"
-"type" = "light-yellow"
-"constructor" = "light-blue"
+"type" = "yellow"
+"constructor" = "blue"
 "constant" = "yellow"
-"constant.character.escape" = "light-cyan"
-"string"  = "light-green"
+"constant.character.escape" = "cyan"
+"string"  = "green"
 "comment" = { fg = "gray", modifiers = ["italic"] }
 "variable" = "white"
-"variable.builtin" = "light-red"
-"variable.parameter" = "light-red"
-"variable.other.member" = "light-cyan"
-"label" = "light-magenta"
-"keyword" = "light-magenta"
-"function" = "light-blue"
-"namespace" = "light-magenta"
-"special" = "light-blue"
-"markup.heading" = "light-magenta"
-"markup.bold" = { fg = "light-yellow", modifiers = ["bold"] }
+"variable.builtin" = "red"
+"variable.parameter" = "red"
+"variable.other.member" = "cyan"
+"label" = "magenta"
+"keyword" = "magenta"
+"function" = "blue"
+"namespace" = "magenta"
+"special" = "blue"
+"markup.heading" = "magenta"
+"markup.bold" = { fg = "yellow", modifiers = ["bold"] }
 "markup.italic" = { modifiers = ["italic"] }
 "markup.strikethrough" = { modifiers = ["crossed_out"] }
-"markup.link.url" = { fg = "light-blue", modifiers = ["underlined"] }
-"markup.link.label" = { fg = "light-blue" }
-"markup.quote" = "light-cyan"
-"markup.raw" = "light-green"
-"diff.plus" = "light-green"
-"diff.minus" = "light-red"
+"markup.link.url" = { fg = "blue", modifiers = ["underlined"] }
+"markup.link.label" = { fg = "blue" }
+"markup.quote" = "cyan"
+"markup.raw" = "green"
+"diff.plus" = "green"
+"diff.minus" = "red"
 "diff.delta" = "yellow"
 
 # interface
-"ui.cursor" = { fg = "light-gray", modifiers = ["reversed"] }
-"ui.cursor.match" = { fg = "light-yellow", modifiers = ["bold"] }
-"ui.cursor.primary" = { fg = "light-gray", modifiers = ["reversed"] }
+"ui.cursor" = { fg = "white", modifiers = ["reversed"] }
+"ui.cursor.match" = { fg = "yellow", modifiers = ["bold"] }
+"ui.cursor.primary" = { fg = "white", modifiers = ["reversed"] }
 "ui.debug" = "gray"
 "ui.linenr" = { fg = "gray" }
 "ui.linenr.selected" = { fg = "white", modifiers = ["bold"] }
@@ -40,13 +40,13 @@
 "ui.window" = { bg = "black" }
 "ui.help" = { fg = "white", bg = "black" }
 "ui.virtual.ruler" = { bg = "black" }
-"ui.virtual.whitespace" = "light-gray"
+"ui.virtual.whitespace" = "white"
 "ui.virtual.jump-label" = { fg = "blue", modifiers = ["bold", "underlined"] }
-"ui.menu" = { fg = "light-gray", bg = "black" }
+"ui.menu" = { fg = "white", bg = "black" }
 "ui.menu.selected" = { modifiers = ["reversed"] }
 "ui.selection" = { fg = "gray", modifiers = ["reversed"] }
 "diagnostic" = { modifiers = ["underlined"] }
 "hint" = "gray"
-"info" = "light-blue"
+"info" = "blue"
 "warning" = "yellow"
-"error" = "light-red"
+"error" = "red"
