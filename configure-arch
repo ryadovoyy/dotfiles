@@ -7,36 +7,6 @@ IFS=$'\n\t'
 mkdir -p /etc/sysctl.d
 echo "vm.swappiness=10" | sudo tee /etc/sysctl.d/99-swappiness.conf >/dev/null
 
-# configure keyboard, mouse and video driver
-sudo mkdir -p /etc/X11/xorg.conf.d
-
-sudo tee /etc/X11/xorg.conf.d/10-keyboard.conf >/dev/null <<EOF
-Section "InputClass"
-    Identifier "My Keyboard"
-    MatchIsKeyboard "on"
-    Option "XkbLayout" "us,ru"
-    Option "XKbOptions" "grp:win_space_toggle,caps:ctrl_modifier"
-EndSection
-EOF
-
-sudo tee /etc/X11/xorg.conf.d/20-mouse-acceleration.conf >/dev/null <<EOF
-Section "InputClass"
-    Identifier "My Mouse"
-    Driver "libinput"
-    MatchIsPointer "yes"
-    Option "AccelProfile" "flat"
-    Option "AccelSpeed" "0"
-EndSection
-EOF
-
-sudo tee /etc/X11/xorg.conf.d/30-nouveau.conf >/dev/null <<EOF
-Section "Device"
-    Identifier "My Video Driver"
-    Driver "nouveau"
-    Option "TearFree" "true"
-EndSection
-EOF
-
 # set Cloudflare DNS servers with DNS over TLS
 sudo mkdir -p /etc/systemd/resolved.conf.d
 sudo mkdir -p /etc/NetworkManager/conf.d
@@ -66,60 +36,51 @@ sudo pacman -Syu --noconfirm
 
 # install packages
 sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
-    pacman-contrib \
-    xorg-server \
-    xorg-xinit \
-    xorg-xsetroot \
-    xf86-video-nouveau \
-    libxft \
-    libxinerama \
-    openssh \
-    timeshift \
-    go \
-    npm \
+    # desktop environment
+    sway \
+    swaylock \
+    swayidle \
+    i3status \
+    wmenu \
+    ghostty \
+    mako \
+    flameshot \
+    udiskie \
+    wl-clipboard \
+    xdg-desktop-portal-wlr \
+    ly \
+    # fonts
     fontconfig \
     noto-fonts \
     noto-fonts-extra \
     noto-fonts-cjk \
     noto-fonts-emoji \
-    hdparm \
-    man-db \
-    ufw \
-    stow \
+    # main dev tools
+    zellij \
+    helix \
+    lazygit \
+    yazi \
     fzf \
+    # utils
     ripgrep \
     fd \
-    bat \
-    poppler \
-    ffmpegthumbnailer \
-    mediainfo \
     imagemagick \
-    ueberzug \
-    feh \
-    unzip \
-    htop \
-    ncdu \
-    tmux \
-    neovim \
-    emacs \
-    ranger \
-    dunst \
-    udiskie \
-    picom \
-    ly \
-    wmname \
-    xdotool \
-    xclip \
-    hsetroot \
-    keepassxc \
+    ffmpeg \
+    poppler \
     playerctl \
+    unzip \
+    stow \
+    pacman-contrib \
+    # other programs
     mpv \
-    flameshot \
-    yt-dlp \
+    imv \
+    openssh \
+    timeshift \
+    man-db \
+    ufw \
+    htop \
+    keepassxc \
     transmission-cli \
-    gtk-engine-murrine \
-    xcursor-vanilla-dmz \
-    papirus-icon-theme \
     telegram-desktop
 
 # configure fonts
@@ -127,12 +88,6 @@ mkdir -p ~/.local/share/fonts
 [[ -d ~/.dotfiles/fonts ]] && cp -r ~/.dotfiles/fonts/* ~/.local/share/fonts
 [[ -f /etc/profile.d/freetype2.sh ]] && sudo sed -i '$s/^#//' /etc/profile.d/freetype2.sh
 fc-cache -fv
-
-# enable drive cache for all HDDs
-sudo mkdir -p /etc/udev/rules.d
-
-echo "ACTION==\"add|change\", KERNEL==\"sd[a-z]\", ATTRS{queue/rotational}==\"1\", RUN+=\""$(which hdparm)" -W 1 /dev/%k\"" |
-    sudo tee /etc/udev/rules.d/69-hdparm.rules >/dev/null
 
 # enable firewall
 sudo systemctl enable --now ufw
@@ -164,38 +119,7 @@ yay -Y --devel --save
 
 yay -Sy && yay -S --needed --noconfirm \
     brave-bin \
-    nekoray-bin \
-    tmux-resurrect \
-    betterlockscreen \
-    spotify \
-    pfetch
-
-# install dwm, st and dmenu
-if [[ ! -d ~/source/dwm ]]; then
-    git clone https://github.com/ryadovoyy/dwm.git ~/source/dwm
-    cd ~/source/dwm && sudo make install
-fi
-
-sudo mkdir -p /usr/share/xsessions
-sudo tee /usr/share/xsessions/dwm.desktop >/dev/null <<EOF
-[Desktop Entry]
-Encoding=UTF-8
-Name=Dwm
-Comment=The dynamic window manager
-Exec=dwm
-Icon=dwm
-Type=XSession
-EOF
-
-if [[ ! -d ~/source/st ]]; then
-    git clone https://github.com/ryadovoyy/st.git ~/source/st
-    cd ~/source/st && sudo make install
-fi
-
-if [[ ! -d ~/source/dmenu ]]; then
-    git clone https://github.com/ryadovoyy/dmenu.git ~/source/dmenu
-    cd ~/source/dmenu && sudo make install
-fi
+    spotify
 
 # install dotfiles
 [[ -f ~/.dotfiles/install-dotfiles ]] && source ~/.dotfiles/install-dotfiles
