@@ -1,18 +1,7 @@
 ;;; user interface
 
-;; clean up UI
-(setq inhibit-startup-message t)
-(scroll-bar-mode -1)
+;; remove menu bar
 (menu-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-
-;; prevent using UI dialogs for prompts
-(setq use-dialog-box nil)
-
-;; set font
-(set-face-attribute 'default nil :font "JetBrainsMonoNL Nerd Font" :height 120)
-(add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL Nerd Font-12"))
 
 ;; enable line numbers for the text mode
 (add-hook 'text-mode-hook (lambda () (display-line-numbers-mode)))
@@ -60,9 +49,6 @@
 
 ;; silence compiler warnings
 (setq native-comp-async-report-warnings-errors nil)
-
-;; disable bells
-(setq ring-bell-function 'ignore)
 
 ;;; package management
 
@@ -241,6 +227,7 @@
 
   ;; highlight
   (set-face-background 'highlight "brightblack")
+  (set-face-background 'magit-section-highlight "brightblack")
 
   (dolist (face '(isearch
                   region
