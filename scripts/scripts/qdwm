@@ -1,4 +1,0 @@
-#!/bin/sh
-
-killbar
-xdotool key alt+shift+q

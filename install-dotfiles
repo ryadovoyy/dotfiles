@@ -4,38 +4,25 @@ set -euo pipefail
 IFS=$'\n\t'
 
 DOTFILES="$HOME/.dotfiles"
-stow_packages=dunst,gtk,fontconfig,lock,mpv,nvim,helix,lazygit,picom,yazi,wal,emacs,scripts,shell,ideavim,tmux,x
+stow_packages=helix,emacs,tmux,lazygit,yazi,mpv,fontconfig,scripts,shell
 stow_packages_formatted="${stow_packages//,/$'\n'}"
 
 declare -A stow_files
 stow_files=(
-    [dunst]="$HOME/.config/dunst"
-    [fontconfig]="$HOME/.config/fontconfig"
-    [lock]="$HOME/.config/betterlockscreenrc.tmpl"
-    [mpv]="$HOME/.config/mpv"
-    [nvim]="$HOME/.config/nvim"
     [helix]="$HOME/.config/helix"
-    [lazygit]="$HOME/.config/lazygit"
-    [picom]="$HOME/.config/picom"
-    [yazi]="$HOME/.config/yazi"
-    [wal]="$HOME/.config/wal"
     [emacs]="$HOME/.emacs.d"
+    [tmux]="$HOME/.config/tmux"
+    [lazygit]="$HOME/.config/lazygit"
+    [yazi]="$HOME/.config/yazi"
+    [mpv]="$HOME/.config/mpv"
+    [fontconfig]="$HOME/.config/fontconfig"
     [scripts]="$HOME/scripts"
-    [ideavim]="$HOME/.ideavimrc"
-    [tmux]="$HOME/.tmux.conf.tmpl"
-    [x]="$HOME/.xprofile"
 )
 
 stow_shell_files=(
     "$HOME/.bash_aliases"
     "$HOME/.bash_profile"
     "$HOME/.bashrc"
-)
-
-stow_gtk_files=(
-    "$HOME/.config/gtk-3.0"
-    "$HOME/.icons/default"
-    "$HOME/.gtkrc-2.0"
 )
 
 help() {
@@ -46,7 +33,7 @@ Usage: $0 [OPTIONS]
     -p [PACKAGES]
         set Stow packages for installation
 
-    The PACKAGES argument is a comma-separated string, for example: nvim,emacs
+    The PACKAGES argument is a comma-separated string, for example: helix,lazygit
     Default value (all available packages):
         $stow_packages
 EOF
@@ -112,19 +99,10 @@ for pkg in $stow_packages_formatted; do
         for shell_file in "${stow_shell_files[@]}"; do
             [[ -e "$shell_file" ]] && rm -fv "$shell_file"
         done
-    elif [[ "$pkg" == gtk ]]; then
-        for gtk_file in "${stow_gtk_files[@]}"; do
-            [[ -e "$gtk_file" ]] && rm -rfv "$gtk_file"
-        done
     else
         [[ -e "${stow_files[$pkg]}" ]] && rm -rfv "${stow_files[$pkg]}"
     fi
     stow -v "$pkg"
 done
-
-if [[ "$stow_packages" =~ wal ]]; then
-    printf '\n%s\n' 'Installing a theme...'
-    "$DOTFILES/scripts/scripts/theme" -i tokyo-night
-fi
 
 printf '\n%s\n' 'Installation completed'

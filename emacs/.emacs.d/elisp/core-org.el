@@ -1,87 +1,31 @@
-(defun core/org-setup ()
-  (org-indent-mode)
-  (visual-line-mode))
-
-(defun core/org-font-setup ()
-  ;; replace list hyphen with dot
-  (font-lock-add-keywords 'org-mode
-    '(("^ *\\([-]\\) " (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) ""))))))
-
-  ;; set faces for heading levels
-  (dolist (face '((org-level-1 . 1.3)
-                  (org-level-2 . 1.2)
-                  (org-level-3 . 1.1)
-                  (org-level-4 . 1.05)
-                  (org-level-5 . 1.0)
-                  (org-level-6 . 1.0)))
-    (set-face-attribute (car face) nil
-      :font "JetBrainsMonoNL Nerd Font"
-      :weight 'bold
-      :height (cdr face))))
-
-;; <built-in>
+;; org mode
 (use-package org
-  :hook (org-mode . core/org-setup)
+  :hook
+  (org-mode . org-indent-mode)
+  (org-mode . visual-line-mode)
   :config
-  (setq org-ellipsis " "
-        org-hide-emphasis-markers t
-        org-pretty-entities t
-        org-agenda-files '("~/Documents/org-roam/tags.org")
-        ;; agenda logging
-        org-agenda-start-with-log-mode t
-        org-log-done 'time
-        org-log-into-drawer t)
+  (setq org-hide-leading-stars t
+        org-agenda-files '("~/Documents/org-roam/tags.org"))
 
-  ;; save org buffers after refiling
-  (advice-add 'org-refile :after #'org-save-all-org-buffers)
-  (core/org-font-setup))
+  ;; code block creation
+  (add-to-list 'org-modules 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("src" . "src"))
+  (add-to-list 'org-structure-template-alist '("sh" . "src sh")))
 
-(use-package org-bullets
-  :hook (org-mode . org-bullets-mode)
-  :custom
-  (org-bullets-bullet-list '("" "" "" "" "" "")))
-
-;; reader mode
+;; org reader mode
 (use-package visual-fill-column
-  :hook (org-mode . visual-fill-column-mode)
+  :hook
+  (org-mode . visual-fill-column-mode)
   :custom
   (visual-fill-column-width 100)
   (visual-fill-column-center-text t)
   (visual-fill-column-enable-sensible-window-split t))
 
-;; agenda notifications
-(use-package org-alert
-  :custom
-  (alert-default-style 'notifications)
-  :config
-  (setq org-alert-notification-title "Org alert reminder"
-        org-alert-interval 300
-        org-alert-notify-cutoff 5
-        org-alert-notify-after-event-cutoff 0)
-  (org-alert-enable))
-
-;; code block creation and execution
-(setq org-confirm-babel-evaluate nil)
-
-(org-babel-do-load-languages
-  'org-babel-load-languages
-  '((emacs-lisp . t)
-    (shell . t)
-    (python . t)))
-
-(add-to-list 'org-modules 'org-tempo)
-(add-to-list 'org-structure-template-alist '("src" . "src"))
-(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
-(add-to-list 'org-structure-template-alist '("bash" . "src bash"))
-(add-to-list 'org-structure-template-alist '("py" . "src python"))
-(add-to-list 'org-structure-template-alist '("java" . "src java"))
-(add-to-list 'org-structure-template-alist '("js" . "src js"))
-
 ;; knowledge management system
 (use-package org-roam
   :custom
   (org-roam-directory "~/Documents/org-roam/")
+  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:50}" 'face 'org-tag)))
   (org-roam-capture-templates
    '(("d" "default" plain
       "#+filetags: %^G:develop:\n\nPrevious:\n\n* Questions\n\n- %?\n\n* Body\n\n* References"
@@ -93,28 +37,31 @@
       :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)))
-  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:50}" 'face 'org-tag)))
   :config
-  ;; use hyphens instead of underscores in the file creation
+  ;; use hyphens instead of underscores in filenames
   (cl-defmethod org-roam-node-slug ((node org-roam-node))
     "Return the slug of NODE."
-    (let ((title (org-roam-node-title node))
-          (slug-trim-chars '(768 769 770 771 772 774 775 776 777 778 779 780 795 803 804 805 807 813 814 816 817)))
-      (cl-flet* ((nonspacing-mark-p (char) (memq char slug-trim-chars))
-                 (strip-nonspacing-marks (s) (string-glyph-compose
-                                              (apply #'string
-                                                     (seq-remove #'nonspacing-mark-p
-                                                                 (string-glyph-decompose s)))))
-                 (cl-replace (title pair) (replace-regexp-in-string (car pair) (cdr pair) title)))
-        (let* ((pairs `(("[^[:alnum:][:digit:]]" . "-")
-                        ("--*" . "-")
-                        ("^-" . "")
-                        ("-$" . "")))
-               (slug (-reduce-from #'cl-replace (strip-nonspacing-marks title) pairs)))
-          (downcase slug)))))
+    (require 'ucs-normalize)
+    (let ((slug-trim-chars
+           '(#x300 #x301 #x302 #x303 #x304 #x306 #x307
+             #x308 #x309 #x30A #x30B #x30C #x31B #x323
+             #x324 #x325 #x327 #x32D #x32E #x330 #x331)))
+      (thread-last (org-roam-node-title node)
+                   (ucs-normalize-NFD-string)
+                   (seq-remove (lambda (char) (memq char slug-trim-chars)))
+                   (apply #'string)
+                   (ucs-normalize-NFC-string)
+                   (replace-regexp-in-string "[^[:alnum:]]" "-")
+                   (replace-regexp-in-string "--*" "-")
+                   (replace-regexp-in-string "^-" "")
+                   (replace-regexp-in-string "-$" "")
+                   (downcase))))
 
+  ;; create org roam directory
   (unless (file-directory-p "~/Documents/org-roam/")
     (make-directory (expand-file-name "~/Documents/org-roam/")))
+
+  ;; start session
   (org-roam-db-autosync-mode))
 
 (use-package org-roam-ui

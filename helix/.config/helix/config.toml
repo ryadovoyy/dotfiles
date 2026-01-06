@@ -19,6 +19,8 @@ hidden = false
 [keys.normal.space]
 q = ":quit"
 z = ":toggle gutters.line-numbers.min-width 50 3"
+s = { k = ":write" }
+"space" = "goto_last_accessed_file"
 
 l = [
   ":write-all",

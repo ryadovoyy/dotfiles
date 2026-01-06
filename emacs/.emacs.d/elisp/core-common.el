@@ -1,23 +1,3 @@
-;;; garbage collection
-
-;; prevent GC at startup to cut down startup time
-(defun core/enable-gc ()
-  (setq gc-cons-threshold (* 16 1024 1024)))
-
-(defun core/disable-gc ()
-  (setq gc-cons-threshold most-positive-fixnum))
-
-(core/disable-gc)
-(add-hook 'emacs-startup-hook #'core/enable-gc)
-
-;; prevent GC while minibuffer is open to improve performance
-(defun core/minibuffer-exit ()
-  ;; defer it so that commands launched immediately after will enjoy the benefits
-  (run-at-time 1 nil #'core/enable-gc))
-
-(add-hook 'minibuffer-setup-hook #'core/disable-gc)
-(add-hook 'minibuffer-exit-hook #'core/minibuffer-exit)
-
 ;;; user interface
 
 ;; clean up UI
@@ -30,41 +10,15 @@
 ;; prevent using UI dialogs for prompts
 (setq use-dialog-box nil)
 
-;; kill the *scratch* buffer at startup
-(add-hook 'emacs-startup-hook (lambda () (kill-buffer "*scratch*")))
-
-;; add sign columns
-(set-fringe-mode 15)
-
-;; remove sign columns from dired
-(add-hook 'dired-mode-hook (lambda () (setq left-fringe-width 0 right-fringe-width 0)))
-
-;; enable the fill-column indicator
-(setq-default fill-column 80)
-(set-face-attribute 'fill-column-indicator nil :inherit 'whitespace-tab)
-(add-hook 'prog-mode-hook (lambda () (display-fill-column-indicator-mode)))
-
-;; enable window dividers
-(setq window-divider-default-places 'right-only)
-(setq window-divider-default-right-width 2)
-(setq window-divider-default-bottom-width 2)
-(window-divider-mode)
-
-;; font
+;; set font
 (set-face-attribute 'default nil :font "JetBrainsMonoNL Nerd Font" :height 120)
 (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL Nerd Font-12"))
 
-;; enable column number in the mode line
-(column-number-mode)
+;; enable line numbers for the text mode
+(add-hook 'text-mode-hook (lambda () (display-line-numbers-mode)))
 
 ;; enable hybrid line numbers
 (setq display-line-numbers-type 'relative)
-
-;; enable line numbers for some modes
-(dolist (mode '(text-mode-hook
-                prog-mode-hook
-                conf-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode))))
 
 ;; disable cursor blinking
 (setq blink-cursor-mode nil)
@@ -72,33 +26,20 @@
 ;; turn off cursors in non-selected windows
 (setq-default cursor-in-non-selected-windows nil)
 
-;; vim-like scrolling
+;; enable vim-like scrolling
 (setq scroll-step 1)
-(setq scroll-margin 8)
+(setq scroll-margin 5)
 
-;;; editor
+;;; keep .emacs.d and other directories clean
 
-;; use spaces instead of tabs when indenting
-(setq-default indent-tabs-mode nil)
-
-;; display 4 spaces for every TAB character
-(setq-default tab-width 4)
-(defvaralias 'c-basic-offset 'tab-width)
-
-;;; keep .emacs.d and other folders clean
-
-;; set the custom emacs directory
+;; set custom emacs directory
 (setq user-emacs-directory (expand-file-name "~/.local/share/emacs/"))
 
 ;; store customizations in a separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-;; create and set the session directory
-(defvar core/session-dir (expand-file-name "sessions/" user-emacs-directory))
-
-(make-directory core/session-dir t)
-(setq desktop-path `(,core/session-dir))
-(setq desktop-dirname core/session-dir)
+;; set cache directory
+(startup-redirect-eln-cache (expand-file-name "eln-cache/" user-emacs-directory))
 
 ;; disable creating backup, auto-save and lock files
 (setq make-backup-files nil
@@ -108,19 +49,14 @@
 
 ;;; other settings
 
-;; remember minibuffer prompt history
-(setq history-length 25)
-(savehist-mode)
+;; increase garbage collection threshold
+(setq gc-cons-threshold (* 16 1024 1024))
 
-;; automatically refresh buffers for changed files
-(setq global-auto-revert-non-file-buffers t)
-(global-auto-revert-mode)
+;; enable interactive completion
+(fido-vertical-mode)
 
-;; follow symbolic links and visit real files
-(setq vc-follow-symlinks t)
-
-;; increase the amount of data which emacs reads from the process to 1mb (for lsp)
-(setq read-process-output-max (* 1024 1024))
+;; trim trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; silence compiler warnings
 (setq native-comp-async-report-warnings-errors nil)

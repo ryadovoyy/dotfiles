@@ -21,9 +21,6 @@ shopt -s checkwinsize
 # enable vi keyboard bindings
 set -o vi
 
-# make less more friendly for non-text input files
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 git_branch() {
     git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
@@ -45,10 +42,3 @@ fi
 
 # add fzf support
 eval "$(fzf --bash)"
-
-# add vterm support
-if [ "$INSIDE_EMACS" = vterm ] &&
-    [ -n "$EMACS_VTERM_PATH" ] &&
-    [ -f "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh" ]; then
-    source "$EMACS_VTERM_PATH/etc/emacs-vterm-bash.sh"
-fi

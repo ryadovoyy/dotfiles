@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# look for the running bar and kill it
-pid="$(pstree -lp | grep -- -bar)"
-pid="${pid##*bar\(}"
-pid="${pid%%\)*}"
-kill "$pid"

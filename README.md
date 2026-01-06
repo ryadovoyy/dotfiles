@@ -1,16 +1,10 @@
 # dotfiles
 
-My personal configuration files for a system without a desktop environment. Wayland is not supported.
-
-## Showcase
-
-![scr-1](./screenshots/scr-1.png)
-![scr-2](./screenshots/scr-2.png)
-![scr-3](./screenshots/scr-3.png)
+My personal configuration files.
 
 ## Installation
 
-In order to install dotfiles you need GNU Stow and hsetroot. Warning: the script will replace your existing configuration files in the `HOME` directory.
+In order to install dotfiles you need GNU Stow. Warning: the script will replace your existing configuration files in the `HOME` directory.
 
 ```bash
 git clone https://github.com/ryadovoyy/dotfiles.git ~/.dotfiles
