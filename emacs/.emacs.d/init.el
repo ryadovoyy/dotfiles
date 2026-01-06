@@ -245,6 +245,7 @@
       (set-face-background 'org-block "black")
       (set-face-background 'org-block-begin-line "black")
       (set-face-foreground 'org-hide "black")
+      (set-face-foreground 'org-drawer "brightblack")
       (set-face-underline  'org-link t))))
 
 ;;; keybindings
