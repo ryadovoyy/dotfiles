@@ -5,6 +5,7 @@ mouse = false
 line-number = "relative"
 trim-trailing-whitespace = true
 trim-final-newlines = true
+completion-timeout = 1000
 true-color = true
 
 [editor.soft-wrap]
