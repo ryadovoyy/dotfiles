@@ -93,11 +93,14 @@
 ;; convenient interface for key definitions
 (use-package general
   :config
+  (general-auto-unbind-keys)
   (general-evil-setup)
+
+  ;; define prefix keys
   (general-create-definer core/leader-key-def
     :keymaps '(normal insert visual emacs)
     :prefix "SPC"
-    :global-prefix "C-SPC"))
+    :global-prefix "C-@"))
 
 ;; keybinding panel
 (use-package which-key
