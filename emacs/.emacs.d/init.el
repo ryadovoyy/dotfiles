@@ -216,37 +216,38 @@
   :config
   (load-theme 'base16-default-dark t)
 
-  ;; interface
-  (set-face-background 'default "unspecified")
-  (set-face-background 'line-number "unspecified")
-  (set-face-background 'line-number-current-line "unspecified")
-  (set-face-background 'help-key-binding "unspecified")
-  (set-face-background 'mode-line "black")
-  (set-face-background 'mode-line-inactive "black")
-  (set-face-foreground 'vertical-border "white")
+  (unless (display-graphic-p)
+    ;; interface
+    (set-face-background 'default "unspecified")
+    (set-face-background 'line-number "unspecified")
+    (set-face-background 'line-number-current-line "unspecified")
+    (set-face-background 'help-key-binding "unspecified")
+    (set-face-background 'mode-line "black")
+    (set-face-background 'mode-line-inactive "black")
+    (set-face-foreground 'vertical-border "white")
 
-  ;; highlight
-  (set-face-background 'highlight "brightblack")
-  (set-face-background 'magit-section-highlight "brightblack")
+    ;; highlight
+    (set-face-background 'highlight "brightblack")
+    (set-face-background 'magit-section-highlight "brightblack")
 
-  (dolist (face '(isearch
-                  region
-                  lazy-highlight
-                  pulse-highlight-face
-                  pulse-highlight-start-face))
-    (set-face-attribute face nil
-                        :background "brightblack"
-                        :foreground "black"
-                        :inverse-video nil))
+    (dolist (face '(isearch
+                    region
+                    lazy-highlight
+                    pulse-highlight-face
+                    pulse-highlight-start-face))
+      (set-face-attribute face nil
+                          :background "brightblack"
+                          :foreground "black"
+                          :inverse-video nil))
 
-  ;; org
-  (add-hook 'org-mode-hook
-    (lambda ()
-      (set-face-background 'org-block "black")
-      (set-face-background 'org-block-begin-line "black")
-      (set-face-foreground 'org-hide "black")
-      (set-face-foreground 'org-drawer "brightblack")
-      (set-face-underline  'org-link t))))
+    ;; org
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (set-face-background 'org-block "black")
+                (set-face-background 'org-block-begin-line "black")
+                (set-face-foreground 'org-hide "black")
+                (set-face-foreground 'org-drawer "brightblack")
+                (set-face-underline  'org-link t)))))
 
 ;;; keybindings
 
