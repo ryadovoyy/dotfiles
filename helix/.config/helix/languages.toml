@@ -1,4 +1,8 @@
 [[language]]
+name = "go"
+formatter = { command = "goimports" }
+
+[[language]]
 name = "org"
 soft-wrap.wrap-at-text-width = true
 
@@ -8,3 +12,6 @@ soft-wrap.wrap-at-text-width = true
 
 [language-server.rust-analyzer.config.check]
 command = "clippy"
+
+[language-server.golangci-lint-lsp.config]
+command = ["golangci-lint", "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1", "--enable=gosec"]

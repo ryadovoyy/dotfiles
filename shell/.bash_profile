@@ -1,5 +1,7 @@
 [ -d "$HOME/.local/bin" ] && PATH="$PATH:$HOME/.local/bin"
 [ -d "$HOME/.cargo/bin" ] && PATH="$PATH:$HOME/.cargo/bin"
+[ -d "$HOME/go/bin" ] && PATH="$PATH:$HOME/go/bin"
+[ -d '/usr/local/go/bin' ] && PATH="$PATH:/usr/local/go/bin"
 
 export PATH="$PATH:$HOME/scripts"
 export EDITOR=hx
