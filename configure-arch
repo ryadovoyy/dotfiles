@@ -36,11 +36,10 @@ sudo pacman -Syu --noconfirm
 
 # install packages
 sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
-    # desktop environment
+    `# desktop environment` \
     sway \
     swaylock \
     swayidle \
-    i3status \
     wmenu \
     ghostty \
     mako \
@@ -49,20 +48,20 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     wl-clipboard \
     xdg-desktop-portal-wlr \
     ly \
-    # fonts
+    `# fonts` \
     fontconfig \
     noto-fonts \
     noto-fonts-extra \
     noto-fonts-cjk \
     noto-fonts-emoji \
-    # main dev tools
+    `# main dev tools` \
     helix \
-    emacs-wayland \
+    emacs-nox \
     tmux \
     lazygit \
     yazi \
     fzf \
-    # utils
+    `# utils` \
     ripgrep \
     fd \
     imagemagick \
@@ -71,8 +70,9 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
     playerctl \
     unzip \
     stow \
+    base-devel \
     pacman-contrib \
-    # other programs
+    `# other programs` \
     mpv \
     imv \
     openssh \
@@ -95,7 +95,8 @@ sudo systemctl enable --now ufw
 sudo ufw enable
 
 # enable display manager
-sudo systemctl enable ly
+sudo systemctl enable ly@tty1.service
+sudo systemctl disable getty@tty1.service
 
 # configure and enable transmission
 sudo mkdir -p /etc/systemd/system/transmission-daemon.service.d

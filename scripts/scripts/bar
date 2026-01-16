@@ -1,0 +1,25 @@
+#!/bin/sh
+
+get_lang() {
+    lang="$(swaymsg -t get_inputs 2>/dev/null |
+        grep 'xkb_active_layout_name' | awk -F'"' '{ print $4; exit }')"
+
+    case "$lang" in
+        Russian*) printf 'Ru' ;;
+        English*) printf 'En' ;;
+        *) printf 'Err' ;;
+    esac
+}
+
+get_vol() {
+    wpctl get-volume @DEFAULT_SINK@ 2>/dev/null | awk '{ printf "%d\n", $2 * 100 }'
+}
+
+get_date() {
+    date "+%a, %d %b %H:%M"
+}
+
+while true; do
+    printf "%s | %s | %s\n" "$(get_lang)" "V: $(get_vol)" "$(get_date)"
+    sleep 1s
+done

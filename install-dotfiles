@@ -4,11 +4,13 @@ set -euo pipefail
 IFS=$'\n\t'
 
 DOTFILES="$HOME/.dotfiles"
-stow_packages=helix,emacs,tmux,lazygit,yazi,mpv,fontconfig,scripts,shell
+stow_packages=sway,mako,helix,emacs,tmux,lazygit,yazi,mpv,fontconfig,scripts,shell
 stow_packages_formatted="${stow_packages//,/$'\n'}"
 
 declare -A stow_files
 stow_files=(
+    [sway]="$HOME/.config/sway"
+    [mako]="$HOME/.config/mako"
     [helix]="$HOME/.config/helix"
     [emacs]="$HOME/.emacs.d"
     [tmux]="$HOME/.config/tmux"
@@ -80,9 +82,9 @@ check_stow_packages() {
 
 while getopts 'hp:' flag; do
     case "$flag" in
-    h) help && exit 0 ;;
-    p) check_stow_packages "$OPTARG" ;;
-    *) exit_abnormal ;;
+        h) help && exit 0 ;;
+        p) check_stow_packages "$OPTARG" ;;
+        *) exit_abnormal ;;
     esac
 done
 
