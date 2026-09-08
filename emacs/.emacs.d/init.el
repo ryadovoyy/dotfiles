@@ -152,7 +152,8 @@
   (org-mode . visual-line-mode)
   :config
   (setq org-hide-leading-stars t
-        org-agenda-files '("~/Documents/org-roam/tags.org"))
+        org-agenda-files '("~/Documents/org-roam/tasks.org"
+                           "~/Documents/org-roam/tags.org"))
 
   ;; code block creation
   (add-to-list 'org-modules 'org-tempo)
@@ -248,6 +249,7 @@
               (lambda ()
                 (set-face-background 'org-block "black")
                 (set-face-background 'org-block-begin-line "black")
+                (set-face-background 'org-todo "black")
                 (set-face-foreground 'org-hide "black")
                 (set-face-foreground 'org-drawer "brightblack")
                 (set-face-underline  'org-link t)))))
@@ -287,6 +289,7 @@
   "o"   '(:ignore t :which-key "org")
   "ol"  '(org-insert-link :which-key "insert/edit link")
   "oo"  '(org-open-at-point :which-key "open link")
+  "oa"  '(org-cycle-agenda-files :which-key "cycle through agenda files")
   "or"  '(:ignore t :which-key "roam")
   "orn" '(org-roam-node-find :which-key "open node")
   "orl" '(org-roam-node-insert :which-key "insert link to another node")
