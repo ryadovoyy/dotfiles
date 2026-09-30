@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; user interface
 
 ;; remove menu bar
@@ -18,6 +19,10 @@
 ;; enable vim-like scrolling
 (setq scroll-step 1)
 (setq scroll-margin 5)
+
+;; remove bracket highlighting delay
+(setq show-paren-delay 0)
+(show-paren-mode)
 
 ;;; keep .emacs.d and other directories clean
 
@@ -43,6 +48,9 @@
 
 ;; enable interactive completion
 (fido-vertical-mode)
+
+;; use spaces instead of tabs when indenting
+(setq-default indent-tabs-mode nil)
 
 ;; trim trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -120,6 +128,7 @@
         evil-split-window-below t
         evil-vsplit-window-right t
         evil-undo-system 'undo-redo
+        evil-shift-width 2
         evil-insert-state-cursor 'box
         evil-insert-state-message nil
         evil-visual-state-message nil)
@@ -132,6 +141,11 @@
     (apply orig-fn beg end args))
 
   (advice-add 'evil-yank :around #'core/evil-yank-advice))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
 
 (use-package evil-surround
   :after evil
@@ -152,8 +166,8 @@
   (org-mode . visual-line-mode)
   :config
   (setq org-hide-leading-stars t
-        org-agenda-files '("~/Documents/org-roam/tasks.org"
-                           "~/Documents/org-roam/tags.org"))
+        org-hide-emphasis-markers t
+        org-agenda-files '("~/Documents/org-roam/tasks.org"))
 
   ;; code block creation
   (add-to-list 'org-modules 'org-tempo)
@@ -173,17 +187,18 @@
 (use-package org-roam
   :custom
   (org-roam-directory "~/Documents/org-roam/")
-  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:50}" 'face 'org-tag)))
   (org-roam-capture-templates
    '(("d" "default" plain
-      "#+filetags: %^G:develop:\n\nPrevious:\n\n* Questions\n\n- %?\n\n* Body\n\n* References"
+      "Previous: %?\n\n* Questions\n\n-\n\n* Body\n\n* References"
       :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :empty-lines-before 1
       :unnarrowed t)
      ("m" "map" plain
-      "#+filetags: :map%^G:develop:\n\nPrevious:\n\n* Body\n\n- %?"
+      "Previous: %?\n\n* Body\n\n-"
       :target
       (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :empty-lines-before 1
       :unnarrowed t)))
   :config
   ;; use hyphens instead of underscores in filenames
@@ -236,6 +251,7 @@
 
     (dolist (face '(isearch
                     region
+                    show-paren-match
                     lazy-highlight
                     pulse-highlight-face
                     pulse-highlight-start-face))
