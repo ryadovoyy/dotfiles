@@ -24,3 +24,6 @@ alias trem='transmission-remote'
 
 # emacs
 alias emacs='emacs -nw'
+
+# helix
+alias hx='helix'

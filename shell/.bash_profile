@@ -4,7 +4,7 @@
 [ -d '/usr/local/go/bin' ] && PATH="$PATH:/usr/local/go/bin"
 
 export PATH="$PATH:$HOME/scripts"
-export EDITOR=hx
+export EDITOR=helix
 export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git .'
 export FZF_CTRL_T_COMMAND='fd --hidden --exclude .git .'
 export FZF_DEFAULT_OPTS='

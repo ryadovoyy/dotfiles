@@ -142,11 +142,6 @@
 
   (advice-add 'evil-yank :around #'core/evil-yank-advice))
 
-(use-package evil-collection
-  :after evil
-  :config
-  (evil-collection-init))
-
 (use-package evil-surround
   :after evil
   :config
@@ -276,12 +271,6 @@
 (general-define-key
   "<escape>" 'keyboard-escape-quit)
 
-;; minibuffer movement
-(general-define-key
-  :keymaps 'icomplete-fido-mode-map
-  "TAB"       'icomplete-forward-completions
-  "<backtab>" 'icomplete-backward-completions)
-
 ;; file and buffer operations
 (core/leader-key-def
   "f"  '(find-file :which-key "open file")
@@ -301,6 +290,11 @@
   "SPC" '(evil-switch-to-windows-last-buffer :which-key "toggle between buffers"))
 
 ;; org
+(general-define-key
+  :states '(normal)
+  :keymaps 'org-mode-map
+  "TAB" 'org-cycle)
+
 (core/leader-key-def
   "o"   '(:ignore t :which-key "org")
   "ol"  '(org-insert-link :which-key "insert/edit link")
