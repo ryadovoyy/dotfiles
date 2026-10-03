@@ -60,16 +60,17 @@
 
 ;;; package management
 
-;; initialize package sources
+;; expand package sources
 (require 'package)
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("org"   . "https://orgmode.org/elpa/")
-                         ("elpa"  . "https://elpa.gnu.org/packages/")))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
-;; set installation folder for packages
+;; set installation directory for packages
 (setq package-user-dir (expand-file-name "elpa/" user-emacs-directory))
 (setq package-gnupghome-dir (expand-file-name "elpa/gnupg/" user-emacs-directory))
+
+;; enable upgrading built-in packages
+(setq package-install-upgrade-built-in t)
 
 ;; initialize use-package
 (package-initialize)
@@ -84,9 +85,6 @@
 
 ;; cause packages to be installed automatically if not already present on the system
 (setq use-package-always-ensure t)
-
-;; don't check package signatures
-(setq package-check-signature nil)
 
 ;;; packages
 
