@@ -3,8 +3,21 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# sudo credential keepalive
+sudo -v
+
+(
+    while kill -0 "$$" 2>/dev/null; do
+        sudo -n true 2>/dev/null || exit
+        sleep 45
+    done
+) &
+keepalive_pid=$!
+
+trap 'kill "$keepalive_pid" 2>/dev/null || true' EXIT
+
 # decrease swap use
-mkdir -p /etc/sysctl.d
+sudo mkdir -p /etc/sysctl.d
 echo "vm.swappiness=10" | sudo tee /etc/sysctl.d/99-swappiness.conf >/dev/null
 
 # set Cloudflare DNS servers with DNS over TLS
