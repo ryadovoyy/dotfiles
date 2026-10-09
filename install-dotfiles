@@ -9,83 +9,81 @@ stow_packages_formatted="${stow_packages//,/$'\n'}"
 
 declare -A stow_files
 stow_files=(
-    [sway]="$HOME/.config/sway"
-    [mako]="$HOME/.config/mako"
-    [helix]="$HOME/.config/helix"
-    [emacs]="$HOME/.emacs.d"
-    [tmux]="$HOME/.config/tmux"
-    [lazygit]="$HOME/.config/lazygit"
-    [yazi]="$HOME/.config/yazi"
-    [mpv]="$HOME/.config/mpv"
-    [fontconfig]="$HOME/.config/fontconfig"
-    [scripts]="$HOME/scripts"
+  [sway]="$HOME/.config/sway"
+  [mako]="$HOME/.config/mako"
+  [helix]="$HOME/.config/helix"
+  [emacs]="$HOME/.emacs.d"
+  [tmux]="$HOME/.config/tmux"
+  [lazygit]="$HOME/.config/lazygit"
+  [yazi]="$HOME/.config/yazi"
+  [mpv]="$HOME/.config/mpv"
+  [fontconfig]="$HOME/.config/fontconfig"
+  [scripts]="$HOME/scripts"
 )
 
 stow_shell_files=(
-    "$HOME/.bash_aliases"
-    "$HOME/.bash_profile"
-    "$HOME/.bashrc"
+  "$HOME/.bash_aliases"
+  "$HOME/.bash_profile"
+  "$HOME/.bashrc"
 )
 
 help() {
     cat <<EOF
 Usage: $0 [OPTIONS]
-    -h  show this message
+  -h             show this message
+  -p [PACKAGES]  set Stow packages for installation
 
-    -p [PACKAGES]
-        set Stow packages for installation
-
-    The PACKAGES argument is a comma-separated string, for example: helix,lazygit
-    Default value (all available packages):
-        $stow_packages
+The PACKAGES argument is a comma-separated string, for example: helix,lazygit
+Default value (all available packages):
+  $stow_packages
 EOF
 }
 
 error() {
-    # log to stderr and exit with failure
-    printf '%s\n' "$0: $1" >&2
-    exit 1
+  # log to stderr and exit with failure
+  printf '%s\n' "$0: $1" >&2
+  exit 1
 }
 
 exit_abnormal() {
-    # same as 'error' but with help
-    local msg
-    msg="${1:-}"
-    [[ -n "$msg" ]] && printf '%s\n' "$0: $msg" >&2
-    help
-    exit 1
+  # same as 'error' but with help
+  local msg
+  msg="${1:-}"
+  [[ -n "$msg" ]] && printf '%s\n' "$0: $msg" >&2
+  help
+  exit 1
 }
 
 check_stow_packages() {
-    local input_pkgs
-    local available_pkgs
-    local input_pkg_number
-    local counter
+  local input_pkgs
+  local available_pkgs
+  local input_pkg_number
+  local counter
 
-    input_pkgs="${1//,/$'\n'}"
-    available_pkgs="$stow_packages_formatted"
-    input_pkg_number="$(echo "$input_pkgs" | wc -w)"
-    counter=0
+  input_pkgs="${1//,/$'\n'}"
+  available_pkgs="$stow_packages_formatted"
+  input_pkg_number="$(echo "$input_pkgs" | wc -w)"
+  counter=0
 
-    for input_pkg in $input_pkgs; do
-        for available_pkg in $available_pkgs; do
-            [[ "$input_pkg" == "$available_pkg" ]] && ((++counter))
-        done
+  for input_pkg in $input_pkgs; do
+    for available_pkg in $available_pkgs; do
+      [[ "$input_pkg" == "$available_pkg" ]] && ((++counter))
     done
+  done
 
-    [[ "$input_pkg_number" != "$counter" ]] &&
-        exit_abnormal 'please enter packages from the available list'
+  [[ "$input_pkg_number" != "$counter" ]] &&
+    exit_abnormal 'please enter packages from the available list'
 
-    stow_packages="$1"
-    stow_packages_formatted="$input_pkgs"
+  stow_packages="$1"
+  stow_packages_formatted="$input_pkgs"
 }
 
 while getopts 'hp:' flag; do
-    case "$flag" in
-        h) help && exit 0 ;;
-        p) check_stow_packages "$OPTARG" ;;
-        *) exit_abnormal ;;
-    esac
+  case "$flag" in
+    h) help && exit 0 ;;
+    p) check_stow_packages "$OPTARG" ;;
+    *) exit_abnormal ;;
+  esac
 done
 
 cd "$DOTFILES" || error "can't cd into the dotfiles folder"
@@ -97,14 +95,14 @@ echo "Stow packages to be installed: $stow_packages"
 printf '%s\n\n' 'Installing Stow packages...'
 
 for pkg in $stow_packages_formatted; do
-    if [[ "$pkg" == shell ]]; then
-        for shell_file in "${stow_shell_files[@]}"; do
-            [[ -e "$shell_file" ]] && rm -fv "$shell_file"
-        done
-    else
-        [[ -e "${stow_files[$pkg]}" ]] && rm -rfv "${stow_files[$pkg]}"
-    fi
-    stow -v "$pkg"
+  if [[ "$pkg" == shell ]]; then
+    for shell_file in "${stow_shell_files[@]}"; do
+      [[ -e "$shell_file" ]] && rm -fv "$shell_file"
+    done
+  else
+    [[ -e "${stow_files[$pkg]}" ]] && rm -rfv "${stow_files[$pkg]}"
+  fi
+  stow -v "$pkg"
 done
 
 printf '\n%s\n' 'Installation completed'

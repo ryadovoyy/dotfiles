@@ -7,10 +7,10 @@ IFS=$'\n\t'
 sudo -v
 
 (
-    while kill -0 "$$" 2>/dev/null; do
-        sudo -n true 2>/dev/null || exit
-        sleep 45
-    done
+  while kill -0 "$$" 2>/dev/null; do
+    sudo -n true 2>/dev/null || exit
+    sleep 45
+  done
 ) &
 keepalive_pid=$!
 
@@ -49,53 +49,53 @@ sudo pacman -Syu --noconfirm
 
 # install packages
 sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
-    `# desktop environment` \
-    sway \
-    swaylock \
-    swayidle \
-    wmenu \
-    ghostty \
-    mako \
-    flameshot \
-    udiskie \
-    wl-clipboard \
-    xdg-desktop-portal-wlr \
-    ly \
-    `# fonts` \
-    fontconfig \
-    noto-fonts \
-    noto-fonts-extra \
-    noto-fonts-cjk \
-    noto-fonts-emoji \
-    `# main dev tools` \
-    helix \
-    emacs-nox \
-    tmux \
-    lazygit \
-    yazi \
-    fzf \
-    `# utils` \
-    ripgrep \
-    fd \
-    imagemagick \
-    ffmpeg \
-    poppler \
-    playerctl \
-    unzip \
-    stow \
-    base-devel \
-    pacman-contrib \
-    `# other programs` \
-    mpv \
-    imv \
-    openssh \
-    timeshift \
-    man-db \
-    ufw \
-    htop \
-    keepassxc \
-    transmission-cli \
-    telegram-desktop
+  `# desktop environment` \
+  sway \
+  swaylock \
+  swayidle \
+  wmenu \
+  ghostty \
+  mako \
+  flameshot \
+  udiskie \
+  wl-clipboard \
+  xdg-desktop-portal-wlr \
+  ly \
+  `# fonts` \
+  fontconfig \
+  noto-fonts \
+  noto-fonts-extra \
+  noto-fonts-cjk \
+  noto-fonts-emoji \
+  `# main dev tools` \
+  helix \
+  emacs-nox \
+  tmux \
+  lazygit \
+  yazi \
+  fzf \
+  `# utils` \
+  ripgrep \
+  fd \
+  imagemagick \
+  ffmpeg \
+  poppler \
+  playerctl \
+  unzip \
+  stow \
+  base-devel \
+  pacman-contrib \
+  `# other programs` \
+  mpv \
+  imv \
+  openssh \
+  timeshift \
+  man-db \
+  ufw \
+  htop \
+  keepassxc \
+  transmission-cli \
+  telegram-desktop
 
 # configure fonts
 mkdir -p ~/.local/share/fonts
@@ -124,8 +124,8 @@ sudo systemctl enable transmission.service
 mkdir -p ~/source
 
 if [[ ! -d ~/source/yay ]]; then
-    git clone https://aur.archlinux.org/yay-bin.git ~/source/yay
-    cd ~/source/yay && makepkg -si --noconfirm
+  git clone https://aur.archlinux.org/yay-bin.git ~/source/yay
+  cd ~/source/yay && makepkg -si --noconfirm
 fi
 
 # install AUR packages
@@ -133,8 +133,8 @@ yay -Y --gendb
 yay -Y --devel --save
 
 yay -Sy && yay -S --needed --noconfirm \
-    brave-bin \
-    spotify
+  brave-bin \
+  spotify
 
 # install dotfiles
 [[ -f ~/.dotfiles/install-dotfiles ]] && source ~/.dotfiles/install-dotfiles

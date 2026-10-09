@@ -2,18 +2,18 @@
 
 # improve verbosity
 alias \
-    cp='cp -v' \
-    mv='mv -v' \
-    rm='rm -Iv' \
-    mkdir='mkdir -v' \
-    bc='bc -q'
+  cp='cp -v' \
+  mv='mv -v' \
+  rm='rm -Iv' \
+  mkdir='mkdir -v' \
+  bc='bc -q'
 
 # improve output
 alias \
-    ls='ls -lAh --group-directories-first --color=auto' \
-    grep='grep --color=auto' \
-    diff='diff --color=auto' \
-    ip='ip -color=auto'
+  ls='ls -lAh --group-directories-first --color=auto' \
+  grep='grep --color=auto' \
+  diff='diff --color=auto' \
+  ip='ip -color=auto'
 
 # copy an entry's password to the clipboard
 # format: kp [entry] [timeout in seconds]
