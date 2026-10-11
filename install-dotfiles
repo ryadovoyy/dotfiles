@@ -4,12 +4,13 @@ set -euo pipefail
 IFS=$'\n\t'
 
 DOTFILES="$HOME/.dotfiles"
-stow_packages=sway,mako,helix,emacs,tmux,lazygit,yazi,mpv,fontconfig,scripts,shell
+stow_packages=sway,foot,mako,helix,emacs,tmux,lazygit,yazi,mpv,fontconfig,scripts,shell
 stow_packages_formatted="${stow_packages//,/$'\n'}"
 
 declare -A stow_files
 stow_files=(
   [sway]="$HOME/.config/sway"
+  [foot]="$HOME/.config/foot"
   [mako]="$HOME/.config/mako"
   [helix]="$HOME/.config/helix"
   [emacs]="$HOME/.emacs.d"
