@@ -54,7 +54,7 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
   swaylock \
   swayidle \
   wmenu \
-  ghostty \
+  foot \
   mako \
   flameshot \
   udiskie \
@@ -67,7 +67,7 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
   noto-fonts-extra \
   noto-fonts-cjk \
   noto-fonts-emoji \
-  `# main dev tools` \
+  `# main tools` \
   helix \
   emacs-nox \
   tmux \
