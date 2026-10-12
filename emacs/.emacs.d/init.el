@@ -11,7 +11,7 @@
 (setq display-line-numbers-type 'relative)
 
 ;; disable cursor blinking
-(setq blink-cursor-mode nil)
+(setq visible-cursor nil)
 
 ;; turn off cursors in non-selected windows
 (setq-default cursor-in-non-selected-windows nil)
@@ -88,9 +88,6 @@
 
 ;;; packages
 
-;; temporary highlighting
-(use-package pulse)
-
 ;; tty clipboard
 (use-package clipetty
   :hook
@@ -139,18 +136,6 @@
     (apply orig-fn beg end args))
 
   (advice-add 'evil-yank :around #'core/evil-yank-advice))
-
-(use-package evil-surround
-  :after evil
-  :config
-  (global-evil-surround-mode))
-
-(use-package evil-replace-with-register
-  :after evil
-  :custom
-  (evil-replace-with-register-key "gr")
-  :config
-  (evil-replace-with-register-install))
 
 ;; org mode
 (use-package org
@@ -220,48 +205,166 @@
   ;; start session
   (org-roam-db-autosync-mode))
 
-(use-package org-roam-ui
-  :after org-roam)
+;;; theme
 
-;; theme
-(use-package base16-theme
-  :config
-  (load-theme 'base16-default-dark t)
+;; force terminal emacs to approximate colors using 16 ANSI colors
+(defun core/force-16-colors (&optional frame)
+  "Force FRAME, or the selected frame, to use only 16 terminal colors."
+  (setq frame (or frame (selected-frame)))
+  (when (and (frame-live-p frame)
+             (not (display-graphic-p frame)))
+    (set-frame-parameter frame 'display-color-cells 16)
+    (set-frame-parameter frame 'background-mode 'dark)
+    (when (boundp 'tty-color-cells)
+      (setq tty-color-cells 16))))
 
-  (unless (display-graphic-p)
-    ;; interface
-    (set-face-background 'default "unspecified")
-    (set-face-background 'line-number "unspecified")
-    (set-face-background 'line-number-current-line "unspecified")
-    (set-face-background 'help-key-binding "unspecified")
-    (set-face-background 'mode-line "black")
-    (set-face-background 'mode-line-inactive "black")
-    (set-face-foreground 'vertical-border "white")
+(core/force-16-colors)
+(add-hook 'after-make-frame-functions #'core/force-16-colors)
 
-    ;; highlight
-    (set-face-background 'highlight "brightblack")
-    (set-face-background 'magit-section-highlight "brightblack")
+(when (fboundp 'clear-face-cache)
+  (clear-face-cache t))
 
-    (dolist (face '(isearch
-                    region
-                    show-paren-match
-                    lazy-highlight
-                    pulse-highlight-face
-                    pulse-highlight-start-face))
-      (set-face-attribute face nil
-                          :background "brightblack"
-                          :foreground "black"
-                          :inverse-video nil))
+(unless (and (fboundp 'display-graphic-p)
+             (display-graphic-p))
+  (require 'custom nil t)
 
-    ;; org
-    (add-hook 'org-mode-hook
-              (lambda ()
-                (set-face-background 'org-block "black")
-                (set-face-background 'org-block-begin-line "black")
-                (set-face-background 'org-todo "black")
-                (set-face-foreground 'org-hide "black")
-                (set-face-foreground 'org-drawer "brightblack")
-                (set-face-underline  'org-link t)))))
+  ;; disable other enabled themes
+  (when (boundp 'custom-enabled-themes)
+    (dolist (theme (copy-sequence custom-enabled-themes))
+      (unless (eq theme 'ansi)
+        (ignore-errors (disable-theme theme)))))
+
+  (unless (and (fboundp 'custom-theme-p)
+               (custom-theme-p 'ansi))
+    (deftheme ansi))
+
+  (let* ((tty '((type tty) (class color) (min-colors 16)))
+
+         ;; single style used for every highlight/match face
+         (hl '(:background "brightblack" :foreground "black" :extend t))
+
+         ;; org source block style
+         (block '(:background "black" :foreground "white" :extend t))
+         (block-line '(:background "black" :foreground "brightblack"
+                                   :extend t :underline nil))
+
+         (highlight-faces
+          '(region
+            secondary-selection
+            highlight
+            hl-line
+            trailing-whitespace
+
+            isearch
+            isearch-fail
+            lazy-highlight
+            query-replace
+            match
+            next-error
+            xref-match
+            grep-match-face
+            occur-match
+
+            show-paren-match
+            show-paren-match-expression
+            show-paren-mismatch
+
+            pulse-highlight-face
+            pulse-highlight-start-face
+
+            completions-highlight-face
+            icomplete-highlight-face
+
+            evil-ex-search
+            evil-ex-lazy-highlight
+            evil-ex-substitute-matches
+            evil-ex-substitute-replacement
+
+            magit-section-highlight))
+
+         (highlight-specs
+          (mapcar
+           (lambda (face)
+             `(,face ((,tty ,hl))))
+           highlight-faces))
+
+         (base-specs
+          `((default
+             ((,tty (:foreground nil :background nil :inverse-video nil))))
+
+            ;; mode line
+            (mode-line
+             ((,tty (:background "black" :foreground "white"
+                                 :box nil :inverse-video nil))))
+            (mode-line-inactive
+             ((,tty (:background "black" :foreground "brightblack"
+                                 :box nil :inverse-video nil))))
+            (mode-line-buffer-id
+             ((,tty (:background "black" :foreground "brightwhite"
+                                 :weight bold :box nil :inverse-video nil))))
+
+            ;; line numbers
+            (line-number
+             ((,tty (:foreground "brightblack" :background nil))))
+            (line-number-current-line
+             ((,tty (:foreground "brightwhite" :background nil))))
+
+            ;; links
+            (link
+             ((,tty (:foreground "blue" :underline t))))
+
+            ;; org source blocks
+            (org-block
+             ((,tty ,block)))
+            (org-block-begin-line
+             ((,tty ,block-line)))
+            (org-block-end-line
+             ((,tty ,block-line)))
+
+            ;; org-roam links
+            (org-roam-link
+             ((,tty (:inherit link))))
+            (org-roam-link-auto
+             ((,tty (:inherit link))))
+
+            ;; completion UI used by fido/icomplete/*Completions*
+            (completions-common-part
+             ((,tty (:foreground "white"))))
+            (completions-first-difference
+             ((,tty (:foreground "brightwhite" :weight bold))))
+            (completions-annotations
+             ((,tty (:foreground "brightblack"))))
+
+            ;; which-key
+            (which-key-key-face
+             ((,tty (:foreground "blue"))))
+            (which-key-separator-face
+             ((,tty (:foreground "brightblack"))))
+            (which-key-note-face
+             ((,tty (:foreground "yellow"))))
+            (which-key-command-description-face
+             ((,tty (:foreground "white"))))
+            (which-key-local-map-description-face
+             ((,tty (:foreground "white"))))
+            (which-key-group-description-face
+             ((,tty (:foreground "brightblue"))))
+            (which-key-highlighted-command-face
+             ((,tty (:foreground "brightblue" :weight bold))))
+            (which-key-docstring-face
+             ((,tty (:foreground "brightblack")))))))
+
+    (apply #'custom-theme-set-faces
+           'ansi
+           (append highlight-specs base-specs)))
+
+  (provide-theme 'ansi)
+  (enable-theme 'ansi)
+
+  ;; make sure the default face inherits the terminal's default fg/bg
+  (set-face-attribute 'default nil
+                      :foreground nil
+                      :background nil
+                      :inverse-video nil))
 
 ;;; keybindings
 
@@ -301,5 +404,4 @@
   "or"  '(:ignore t :which-key "roam")
   "orn" '(org-roam-node-find :which-key "open node")
   "orl" '(org-roam-node-insert :which-key "insert link to another node")
-  "orb" '(org-roam-buffer-toggle :which-key "toggle backlinks buffer")
-  "org" '(org-roam-ui-mode :which-key "view graph in browser"))
+  "orb" '(org-roam-buffer-toggle :which-key "toggle backlinks buffer"))

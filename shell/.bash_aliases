@@ -23,7 +23,7 @@ alias kp="keepassxc-cli clip -k $HOME/Documents/database.key $HOME/Documents/dat
 alias trem='transmission-remote'
 
 # emacs
-alias emacs='emacs -nw'
+alias emacs='env -u COLORTERM emacs -nw'
 
 # helix
 alias hx='helix'
