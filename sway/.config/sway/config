@@ -46,7 +46,7 @@ bindsym $mod+Shift+3 move container to workspace number 3
 bindsym $mod+Shift+4 move container to workspace number 4
 bindsym $mod+Shift+5 move container to workspace number 5
 
-bindsym $mod+Return exec foot
+bindsym $mod+Shift+Return exec foot
 bindsym $mod+p exec wmenu-run -i -f $font -S 285577 -l 3
 bindsym $mod+m exec swaylock -f -c 000000
 bindsym $mod+n exec makoctl dismiss
