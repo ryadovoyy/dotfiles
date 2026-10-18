@@ -85,6 +85,8 @@
 (package-initialize)
 
 ;; automatically install packages
+(require 'use-package)
+
 (setq use-package-always-ensure t)
 
 ;;; packages
