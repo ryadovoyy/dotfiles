@@ -4,8 +4,8 @@
 ;; remove menu bar
 (menu-bar-mode -1)
 
-;; enable line numbers for the text mode
-(add-hook 'text-mode-hook (lambda () (display-line-numbers-mode)))
+;; enable line numbers for files
+(add-hook 'find-file-hook #'display-line-numbers-mode)
 
 ;; enable hybrid line numbers
 (setq display-line-numbers-type 'relative)
@@ -23,6 +23,9 @@
 ;; remove bracket highlighting delay
 (setq show-paren-delay 0)
 (show-paren-mode)
+
+;; ensure theme consistency
+(setq frame-background-mode 'dark)
 
 ;;; keep .emacs.d and other directories clean
 
@@ -49,11 +52,17 @@
 ;; enable interactive completion
 (fido-vertical-mode)
 
+;; automatically refresh buffers for changed files
+(global-auto-revert-mode)
+
+;; follow symbolic links and visit real files
+(setq vc-follow-symlinks t)
+
 ;; use spaces instead of tabs when indenting
 (setq-default indent-tabs-mode nil)
 
 ;; trim trailing whitespace on save
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook #'delete-trailing-whitespace)
 
 ;; silence compiler warnings
 (setq native-comp-async-report-warnings-errors nil)
@@ -72,18 +81,10 @@
 ;; enable upgrading built-in packages
 (setq package-install-upgrade-built-in t)
 
-;; initialize use-package
+;; reinitialize package system to apply config changes
 (package-initialize)
 
-(unless package-archive-contents
-  (package-refresh-contents))
-
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
-(require 'use-package)
-
-;; cause packages to be installed automatically if not already present on the system
+;; automatically install packages
 (setq use-package-always-ensure t)
 
 ;;; packages
@@ -112,6 +113,14 @@
   :config
   (setq which-key-idle-delay 1))
 
+;; git integration
+(use-package diff-hl
+  :init
+  (global-diff-hl-mode)
+  :config
+  (diff-hl-margin-mode)
+  (diff-hl-flydiff-mode))
+
 ;; vi layer
 (use-package evil
   :init
@@ -139,6 +148,8 @@
 
 ;; org mode
 (use-package org
+  :mode
+  ("\\.org\\'" . org-mode)
   :hook
   (org-mode . org-indent-mode)
   (org-mode . visual-line-mode)
@@ -163,6 +174,7 @@
 
 ;; knowledge management system
 (use-package org-roam
+  :after org
   :custom
   (org-roam-directory "~/Documents/org-roam/")
   (org-roam-capture-templates
@@ -227,6 +239,7 @@
          (inverse-highlight-faces
           '(isearch
             lazy-highlight
+            match
             show-paren-match
             region
             pulse-highlight-face
@@ -284,11 +297,25 @@
   "<escape>" 'keyboard-escape-quit)
 
 ;; file and buffer operations
+(general-define-key
+  :states '(normal)
+  :keymaps 'xref--xref-buffer-mode-map
+  "RET" 'xref-goto-xref)
+
 (core/leader-key-def
-  "f"  '(find-file :which-key "open file")
+  "f"  '(project-find-file :which-key "open file")
+  "/"  '(project-find-regexp :which-key "grep")
   "b"  '(switch-to-buffer :which-key "open buffer")
   "s"  '(:ignore t :which-key "save")
   "sk" '(save-buffer :which-key "save current buffer"))
+
+;; git
+(core/leader-key-def
+  "h"  '(:ignore t :which-key "hunk")
+  "hv" '(diff-hl-show-hunk :which-key "view hunk")
+  "hn" '(diff-hl-next-hunk :which-key "next hunk")
+  "hp" '(diff-hl-previous-hunk :which-key "previous hunk")
+  "hr" '(diff-hl-revert-hunk :which-key "revert hunk"))
 
 ;; evil
 (general-imap "j"

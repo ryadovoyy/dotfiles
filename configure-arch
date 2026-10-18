@@ -68,7 +68,6 @@ sudo pacman -Sy && sudo pacman -S --needed --noconfirm \
   noto-fonts-cjk \
   noto-fonts-emoji \
   `# main tools` \
-  helix \
   emacs-nox \
   tmux \
   lazygit \

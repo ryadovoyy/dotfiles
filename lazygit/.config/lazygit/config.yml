@@ -1,2 +1,4 @@
 gui:
   scrollHeight: 15
+os:
+  editPreset: 'emacs'
