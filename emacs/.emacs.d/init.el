@@ -194,8 +194,7 @@
       :unnarrowed t)))
   :config
   ;; use hyphens instead of underscores in filenames
-  (cl-defmethod org-roam-node-slug ((node org-roam-node))
-    "Return the slug of NODE."
+  (defun core/org-roam-node-slug (node)
     (require 'ucs-normalize)
     (let ((slug-trim-chars
            '(#x300 #x301 #x302 #x303 #x304 #x306 #x307
@@ -211,6 +210,8 @@
                    (replace-regexp-in-string "^-" "")
                    (replace-regexp-in-string "-$" "")
                    (downcase))))
+
+  (advice-add 'org-roam-node-slug :override #'core/org-roam-node-slug)
 
   ;; create org roam directory
   (unless (file-directory-p "~/Documents/org-roam/")
@@ -299,6 +300,10 @@
   "<escape>" 'keyboard-escape-quit)
 
 ;; file and buffer operations
+(general-define-key
+  :keymaps 'minibuffer-local-completion-map
+  "SPC" 'self-insert-command)
+
 (general-define-key
   :states '(normal)
   :keymaps 'xref--xref-buffer-mode-map
